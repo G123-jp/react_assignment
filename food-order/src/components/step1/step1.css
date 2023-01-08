@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-.elementor-hint-title {
+.page1-hint-title {
   font-size: 20px;
   font-weight: 600;
   font-family: "Poppins, Sans-serif";
@@ -16,18 +16,18 @@
   margin-top: 40px;
 }
 
-.elementor-row-flex-center {
+.page1-row-flex-center {
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.elementor-row-flex-between {
+.page1-row-flex-between {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.elementor-heading-title {
+.page1-heading-title {
     box-sizing: border-box;
     padding: 0;
     margin-top: 60px;
@@ -40,14 +40,14 @@
     color: #333;
     line-height: 1;
     text-size-adjust: 100%;
-  }
+}
 
-.elementor-element {
+.page1-element {
   background-color: transparent;
   background-image: linear-gradient(180deg, #F2F2F4 0%, #F7F6F2 100%);
 }
 
-.elementor-element-populated {
+.page1-element-populated {
   border-style: solid;
   border-width: 2px 2px 2px 2px;
   /* border-color: #ddccdd26; */
@@ -57,12 +57,12 @@
   padding: 0px 0px 17px 0px;
 }
 
-.elementor-element-container {
+.page1-element-container {
   width: 77%;
   height: 280px;
 }
 
-option {
+.page1-option {
   font-weight: normal;
   display: block;
   white-space: nowrap;
@@ -71,7 +71,7 @@ option {
   color: #878787;
 }
 
-.select {
+.page1-select {
   width: 250px;
   background-color: #f1f1f5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23212529%22 viewBox=%220 0 1e3 1e3%22%3E%3Cpath d=%22M5e2 10 227.8 391.1h544.4L5e2 10zm0 980 272.2-381.1H227.8L5e2 990z%22/%3E%3C/svg%3E");
@@ -86,11 +86,11 @@ option {
   -moz-appearance: none;
   -webkit-appearance: none;
 }
-.elementor-flex {
+.page1-flex {
   display: flex;
 }
 
-.elementor-button-normal {
+.page1-button-normal {
     background-color: #437f57;
     font-family: "Poppins, Sans-serif";
     font-size: 16px;
@@ -110,17 +110,17 @@ option {
     transition: 0.3s;
 }
 
-.elementor-button-normal:hover {
+.page1-button-normal:hover {
   background-color: #FABB3D;
   width: 135px;
   height: 45px;
 }
 
-.elementor-right-button {
+.page1-right-button {
   margin-top: 100px;
 }
 
-.elementor-box-wrapper {
+.page1-box-wrapper {
   width: 20%;
   height: 100%;
   align-items: center;
@@ -129,7 +129,7 @@ option {
   margin-right: 20px;
 }
 
-.elementor-box-item {
+.page1-box-item {
   text-align: center;
   border-radius: 20px;
   transition: 0.3s;
@@ -138,7 +138,7 @@ option {
   border-color: transparent;
 }
 
-.elementor-box-item-selected {
+.page1-box-item-selected {
   text-align: center;
   border-width: 2px;
   border-style: solid;
@@ -147,13 +147,13 @@ option {
 }
 
 
-.elementor-box-item img {
+.page1-box-item img {
   width: 159px;
   height: 159px;
   transform: scale(1);
   transition: all .4s ease;
 }
-.elementor-box-item p {
+.page1-box-item p {
   margin-top: 20px;
   font-size: 25px;
   font-weight: 300;
@@ -162,11 +162,11 @@ option {
   transition: all .4s ease;
 }
 
-.elementor-box-item-selected img {
+.page1-box-item-selected img {
   transform: scale(1.2);
 }
 
-.elementor-box-item-selected p {
+.page1-box-item-selected p {
   transform: translateY(-20px);
   color: #F1FFF4;
 }

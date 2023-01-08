@@ -1,16 +1,18 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { SyntheticEvent, ChangeEventHandler } from 'react';
+import { OrderContext } from '../../store';
 import './step1.css';
-import breakFirst from '../../assets/dumpling.png';
+import breakfast from '../../assets/dumpling.png';
 import lunch from '../../assets/curry.png';
 import dinner from '../../assets/salad.png';
 
 export const OrderStep1 = () => {
     const [currentSelectedMeal, setCurrentSelectedMeal] = useState('breakfast');
+    const orderContext = useContext(OrderContext);
     const numOfPeopleRef = useRef('1');
     const mealClassNames = useMemo(() => {
-        const className = 'elementor-flex elementor-box-wrapper elementor-box-item';
-        const selectClassName = ' elementor-box-item-selected';
+        const className = 'page1-flex page1-box-wrapper page1-box-item';
+        const selectClassName = ' page1-box-item-selected';
         const firstClassName = className + (currentSelectedMeal === 'breakfast' ? selectClassName : '');
         const secondClassName = className + (currentSelectedMeal === 'lunch' ? selectClassName : '');
         const thirdClassName = className + (currentSelectedMeal === 'dinner' ? selectClassName : '');
@@ -26,17 +28,17 @@ export const OrderStep1 = () => {
     }, []);
 
     const onClickNext = useCallback(() => {
-        console.log('click');
+        orderContext && orderContext.onClickNext();
     }, []);
 
     return (
-        <div className="page elementor-element">
-            <h1 className="elementor-heading-title">ORDER FOOD</h1>
-            <h3 className="elementor-hint-title">Please select a meal</h3>
-            <div className="elementor-flex elementor-row-flex-center elementor-element-container">
+        <div className="page page1-element">
+            <h1 className="page1-heading-title">ORDER FOOD</h1>
+            <h3 className="page1-hint-title">Please select a meal</h3>
+            <div className="page1-flex page1-row-flex-center page1-element-container">
                 <div className={mealClassNames[0]} onClick={(e) => onClickMeal(e, 'breakfast')}>
-                    <img src={breakFirst}></img>
-                    <p>Breakfirst</p>
+                    <img src={breakfast}></img>
+                    <p>Breakfast</p>
                 </div>
                 <div className={mealClassNames[1]} onClick={(e) => onClickMeal(e, 'lunch')}>
                     <img src={lunch}></img>
@@ -47,7 +49,7 @@ export const OrderStep1 = () => {
                     <p>Dinner</p>
                 </div>
             </div>
-            <h3 className="elementor-hint-title">Please enter number of people</h3>
+            <h3 className="page1-hint-title">Please enter number of people</h3>
             <select
                 className="select"
                 required={true}
@@ -66,7 +68,7 @@ export const OrderStep1 = () => {
                 <option value="9">9</option>
                 <option value="10">10</option>
             </select>
-            <div className="elementor-button-normal elementor-flex elementor-right-button" onClick={onClickNext}>
+            <div className="page1-button-normal page1-flex page1-right-button" onClick={onClickNext}>
                 Next
             </div>
         </div>
