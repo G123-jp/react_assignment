@@ -1,5 +1,20 @@
+.Background {
+  background-image: url(./assets/background.png);
+  background-position: center center;
+  background-repeat: repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  /* display: flex; */
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
 .App {
   text-align: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 .App-logo {

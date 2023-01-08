@@ -1,0 +1,186 @@
+.page {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.elementor-hint-title {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Poppins, Sans-serif";
+  color: #333;
+  margin-top: 40px;
+}
+
+.elementor-row-flex-center {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.elementor-row-flex-between {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.elementor-heading-title {
+    box-sizing: border-box;
+    padding: 0;
+    margin-top: 60px;
+    font-family: 'Cinzel', Sans-serif;
+    font-size: 75px;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 1.5px;
+    text-shadow: -1px 9px 11px rgb(0 0 0 / 11%);
+    color: #333;
+    line-height: 1;
+    text-size-adjust: 100%;
+  }
+
+.elementor-element {
+  background-color: transparent;
+  background-image: linear-gradient(180deg, #F2F2F4 0%, #F7F6F2 100%);
+}
+
+.elementor-element-populated {
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  /* border-color: #ddccdd26; */
+  box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 9%);
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  margin: 10px 10px 10px 10px;
+  padding: 0px 0px 17px 0px;
+}
+
+.elementor-element-container {
+  width: 77%;
+  height: 280px;
+}
+
+option {
+  font-weight: normal;
+  display: block;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+  color: #878787;
+}
+
+.select {
+  width: 250px;
+  background-color: #f1f1f5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23212529%22 viewBox=%220 0 1e3 1e3%22%3E%3Cpath d=%22M5e2 10 227.8 391.1h544.4L5e2 10zm0 980 272.2-381.1H227.8L5e2 990z%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 100% 15px;
+  background-size: 45px 14px;
+  padding-right: 60px;
+  color: #878787;
+  padding: 0 15px;
+  height: 45px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.elementor-flex {
+  display: flex;
+}
+
+.elementor-button-normal {
+    background-color: #437f57;
+    font-family: "Poppins, Sans-serif";
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height: 24px;
+    letter-spacing: 0.7px;
+    word-spacing: 0;
+    border-radius: 20px;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    fill: #f2f2f4; 
+    color: #f2f2f4;
+    transition: 0.3s;
+}
+
+.elementor-button-normal:hover {
+  background-color: #FABB3D;
+  width: 135px;
+  height: 45px;
+}
+
+.elementor-right-button {
+  margin-top: 100px;
+}
+
+.elementor-box-wrapper {
+  width: 20%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.elementor-box-item {
+  text-align: center;
+  border-radius: 20px;
+  transition: 0.3s;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.elementor-box-item-selected {
+  text-align: center;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #437f57;
+  background-color: #437f57;
+}
+
+
+.elementor-box-item img {
+  width: 159px;
+  height: 159px;
+  transform: scale(1);
+  transition: all .4s ease;
+}
+.elementor-box-item p {
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: 300;
+  font-family: "Poppins, Sans-serif";
+  color: #444;
+  transition: all .4s ease;
+}
+
+.elementor-box-item-selected img {
+  transform: scale(1.2);
+}
+
+.elementor-box-item-selected p {
+  transform: translateY(-20px);
+  color: #F1FFF4;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.fadeInUp {
+    animation-name: fadeInUp;
+}
