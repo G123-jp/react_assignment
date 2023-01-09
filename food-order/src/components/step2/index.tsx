@@ -12,21 +12,23 @@ interface IOrderStepProps {
 export const OrderStep2 = (props: IOrderStepProps) => {
     const { restaurants } = props;
     const orderContext = useContext(OrderContext);
-    const selectRestaurantRef = useRef(restaurants[0]);
+    const selectRestaurant = restaurants[0];
+    const selectRestaurantRef = useRef(selectRestaurant);
     const onClickPrevious = useCallback(() => {
         orderContext && orderContext.onClickPrevious();
     }, []);
 
-    const onNuOfPeopleChange = useCallback<ChangeEventHandler<HTMLSelectElement>>((value) => {
+    const onChangeRestaurant = useCallback<ChangeEventHandler<HTMLSelectElement>>((value) => {
         selectRestaurantRef.current = value.target.value;
     }, []);
 
     const onClickNext = useCallback(() => {
+        orderContext?.updateContextRestaurant(selectRestaurantRef.current);
         orderContext && orderContext.onClickNext();
     }, []);
 
     return (
-        <div className="page page2-flex page2-row-flex-center">
+        <div className="page2 page2-flex page2-row-flex-center page2-showUp">
             <div className="page2-flex page2-col-flex-center page2-col-30">
                 <h1 className="page2-heading-title">Online Reservation</h1>
                 <img src={leftsalad} width={620} height={543} alt="" />
@@ -37,11 +39,11 @@ export const OrderStep2 = (props: IOrderStepProps) => {
                         Please select a meal<small className="page2-right-form-required">*</small>
                     </label>
                     <select
-                        className="select"
+                        className="page2-select"
                         required={true}
                         aria-required="true"
-                        defaultValue={selectRestaurantRef.current}
-                        onChange={onNuOfPeopleChange}
+                        defaultValue={selectRestaurant}
+                        onChange={onChangeRestaurant}
                     >
                         {restaurants.map((value: string, index: number) => (
                             <option key={index} value={value}>

@@ -1,4 +1,15 @@
-.page {
+.page1-backgroud {
+  background-image: url(../../assets/background.png);
+  background-position: center center;
+  background-repeat: repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.page1 {
     text-align: center;
     flex-direction: column;
     align-items: center;
@@ -27,6 +38,12 @@
     align-items: center;
 }
 
+.page1-row-flex-start {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .page1-heading-title {
     box-sizing: border-box;
     padding: 0;
@@ -42,15 +59,10 @@
     text-size-adjust: 100%;
 }
 
-.page1-element {
-  background-color: transparent;
-  background-image: linear-gradient(180deg, #F2F2F4 0%, #F7F6F2 100%);
-}
-
 .page1-element-populated {
   border-style: solid;
   border-width: 2px 2px 2px 2px;
-  /* border-color: #ddccdd26; */
+  border-color: #F1FFF4;
   box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 9%);
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
   margin: 10px 10px 10px 10px;
@@ -60,6 +72,7 @@
 .page1-element-container {
   width: 77%;
   height: 280px;
+  margin-top: 20px;
 }
 
 .page1-option {
@@ -182,5 +195,8 @@
     }
 }
 .fadeInUp {
-    animation-name: fadeInUp;
+  animation-name: fadeInUp;
+  animation-timing-function: ease-out;
+  animation-duration: 0.25s;
+  animation-iteration-count: 1;
 }

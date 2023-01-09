@@ -1,4 +1,4 @@
-.page {
+.page2 {
   background-image: url(../../assets/background.png);
   background-position: center center;
   background-repeat: repeat;
@@ -85,8 +85,6 @@
   fill: #f2f2f4; 
   color: #f2f2f4;
   transition: 0.3s;
-  position:fixed;
-
 }
 
 .page2-button-normal:hover {
@@ -112,8 +110,8 @@
 }
 
 .page2-right-form-button-box {
-  width: 100%;
-  justify-content: flex-start;
+  width: 250px;
+  justify-content: space-between;
   align-items: center;
   height: 50px;
 }
@@ -124,10 +122,9 @@
     font-weight: 600;
     color: #e3106e;
     border-bottom: 2px solid #5d78ff;
-    margin-left: 200px;
 }
 
-.select {
+.page2-select {
   width: 450px;
   background-color: #f1f1f5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23212529%22 viewBox=%220 0 1e3 1e3%22%3E%3Cpath d=%22M5e2 10 227.8 391.1h544.4L5e2 10zm0 980 272.2-381.1H227.8L5e2 990z%22/%3E%3C/svg%3E");
@@ -143,4 +140,22 @@
   border-style: none;
   -moz-appearance: none;
   -webkit-appearance: none;
+}
+
+@keyframes page2-showUp {
+  to {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+  }
+  from {
+      opacity: 1;
+      transform: none;
+  }
+}
+.page2-showUp {
+  animation-name: page2-showUp;
+  animation-timing-function: ease-in;
+  animation-delay: 0.25s;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
 }
