@@ -1,39 +1,62 @@
-.App {
-    text-align: center;
-  }
-  
-  .App-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+.page4-backgroud {
+  background-image: url(../../assets/step4.png);
+  background-position: center center;
+  background-repeat: repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 201;
+}
+.page4 {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #F2F2F4;
+}
+
+.page4-heading-title {
+  box-sizing: border-box;
+  padding: 0;
+  margin-top: 20px;
+  font-family: 'Cinzel', Sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 1.5px;
+  text-shadow: -1px 9px 11px rgb(0 0 0 / 11%);
+  color: #F2F2F4;
+  line-height: 1;
+  text-size-adjust: 100%;
+}
+
+.page4-button-normal {
+  background-color: #FABB3D;
+  font-family: "Poppins, Sans-serif";
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  line-height: 24px;
+  letter-spacing: 0.7px;
+  word-spacing: 0;
+  border-radius: 20px;
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  fill: #f2f2f4; 
+  color: #222;
+
+  transition: 0.3s;
+}
+
+.page4-button-normal:hover {
+  background-color: #437f57;
+  width: 108px;
+  height: 36px;
+  color: #f2f2f4;
+}

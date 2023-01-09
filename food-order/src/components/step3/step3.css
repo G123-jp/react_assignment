@@ -417,6 +417,25 @@
   font-weight: 800;
 }
 
+.page3-modal-content {
+  position: absolute;
+  top: 10%;
+  left: 35%;
+  right: 35%;
+  bottom: 10%;
+  background-color: white;
+}
+
+.page3-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 501;
+}
+
 @keyframes fadeInOutAndShake {
     0% {
         opacity: 0;

@@ -2,9 +2,13 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import type { SyntheticEvent } from 'react';
 import { OrderContext } from '../../store';
 import { DishItem } from '../../store/model';
+import Modal from 'react-modal';
+import { OrderStep4 } from '../step4';
 
 import './step3.css';
 import dishJson from '../../assets/dishes.json';
+
+Modal.setAppElement('#root');
 
 interface IOrderStep3Props {
     dishes: DishItem[];
@@ -19,7 +23,7 @@ interface IOrderDishesNum {
 export const OrderStep3 = (props: IOrderStep3Props) => {
     const { dishes } = props;
     const dataSource = dishJson.dishes;
-
+    const [modalOpenState, setModalOpenState] = useState(false);
     const orderContext = useContext(OrderContext);
     const contextNumOfPeople = orderContext?.contextNumOfPeople || 0;
     const [showValidMessageState, setShowValidMessageState] = useState(false);
@@ -63,15 +67,19 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
             return;
         }
         setShowValidMessageState(false);
-        orderContext && orderContext.onClickNext();
+        setModalOpenState(true);
     }, [contextNumOfPeople, orderDishesState, showingAlertState]);
     const invalidMessage = useMemo(() => {
-        return `Please order at least ${contextNumOfPeople} meals!`;
+        return ` Please order at least ${contextNumOfPeople} meals!`;
     }, [contextNumOfPeople]);
 
     const alertClassName = useMemo(() => {
         return `page3-next-invalid${showValidMessageState ? ' fadeInOut' : ''}`;
     }, [showValidMessageState]);
+
+    const onRequestCloseCallback = useCallback(() => {
+        setModalOpenState(false);
+    }, []);
 
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -82,55 +90,53 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
             clearTimeout(timerId);
         };
     }, [showingAlertState]);
-    const renderList = dishes && dishes.length > 0;
-
+    console.log('root setModalOpenState : ', modalOpenState);
     return (
         <div className="page3-backgroud">
             <div className="page3 page3-flex page3-col-flex-center">
                 <h1 className="page3-heading-title">Please select a dish</h1>
                 <label className="page3-hint-title">食べ物を無駄にしない</label>
                 <div className="page3-flex page3-row-flex-center page3-element-container">
-                    {renderList &&
-                        dishes.map((value, index: number) => {
-                            const imageNameIndex = (index % 8) + 1;
-                            const key = value.id;
-                            const orderNum = orderDishesState[key].orderNum;
-                            return (
-                                <div key={key} className="page3-col-25">
-                                    <img
-                                        src={require('../../assets/' + imageNameIndex + '.png')}
-                                        className="page3-col-25-inner-img"
-                                    />
-                                    <div className="page3-flex page3-col-flex-end page3-col-25-inner">
-                                        <p className="page3-dish-item-title">{value.name}</p>
-                                        <p className="page3-dish-item-subtitle">Mus Natoque Quisque Tincidunt</p>
-                                        <div className="page3-flex page3-row-flex-between page3-dish-item-num-box">
-                                            <label className="page3-dish-item-num">{`${orderNum}`}</label>
-                                            <div className="page3-flex page3-row-flex-between page3-icon-button-box">
-                                                <div
-                                                    className="page3-flex page3-icon-minus-button"
-                                                    onClick={(e) => {
-                                                        onClickUpdateNum(e, value.id, false);
-                                                    }}
-                                                >
-                                                    {' '}
-                                                    <i className="fa fa-minus"></i>
-                                                </div>
-                                                <div
-                                                    className="page3-flex page3-icon-button-normal"
-                                                    onClick={(e) => {
-                                                        onClickUpdateNum(e, value.id, true);
-                                                    }}
-                                                >
-                                                    {' '}
-                                                    <i className="fa fa-plus"></i>
-                                                </div>
+                    {dishes.map((value, index: number) => {
+                        const imageNameIndex = (index % 8) + 1;
+                        const key = value.id;
+                        const orderNum = orderDishesState[key].orderNum;
+                        return (
+                            <div key={key} className="page3-col-25">
+                                <img
+                                    src={require('../../assets/' + imageNameIndex + '.png')}
+                                    className="page3-col-25-inner-img"
+                                />
+                                <div className="page3-flex page3-col-flex-end page3-col-25-inner">
+                                    <p className="page3-dish-item-title">{value.name}</p>
+                                    <p className="page3-dish-item-subtitle">Mus Natoque Quisque Tincidunt</p>
+                                    <div className="page3-flex page3-row-flex-between page3-dish-item-num-box">
+                                        <label className="page3-dish-item-num">{`${orderNum}`}</label>
+                                        <div className="page3-flex page3-row-flex-between page3-icon-button-box">
+                                            <div
+                                                className="page3-flex page3-icon-minus-button"
+                                                onClick={(e) => {
+                                                    onClickUpdateNum(e, value.id, false);
+                                                }}
+                                            >
+                                                {' '}
+                                                <i className="fa fa-minus"></i>
+                                            </div>
+                                            <div
+                                                className="page3-flex page3-icon-button-normal"
+                                                onClick={(e) => {
+                                                    onClickUpdateNum(e, value.id, true);
+                                                }}
+                                            >
+                                                {' '}
+                                                <i className="fa fa-plus"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            );
-                        })}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
             <div className="page3-button-next" onClick={onClickNext}>
@@ -139,7 +145,18 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
             <div className="page3-button-cancel" onClick={onClickPrevious}>
                 Previous
             </div>
-            <div className={alertClassName}>{invalidMessage}</div>
+            <div className={alertClassName}>
+                <i className="fa-solid fa-circle-exclamation"></i>
+                {invalidMessage}
+            </div>
+            <Modal
+                isOpen={modalOpenState}
+                onRequestClose={onRequestCloseCallback}
+                className="page3-modal-content"
+                overlayClassName="page3-modal-overlay"
+            >
+                <OrderStep4></OrderStep4>
+            </Modal>
         </div>
     );
 };
