@@ -7,6 +7,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
+  z-index: 301;
 }
 
 .page2-heading-title {
@@ -142,20 +143,40 @@
   -webkit-appearance: none;
 }
 
-@keyframes page2-showUp {
-  to {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-  }
+@keyframes page2-fadeOut {
   from {
       opacity: 1;
-      transform: none;
+      z-index: 301;
+  }
+  to {
+      opacity: 0;
+      z-index: 200;
   }
 }
-.page2-showUp {
-  animation-name: page2-showUp;
-  animation-timing-function: ease-in;
-  animation-delay: 0.25s;
-  animation-duration: 0.3s;
-  animation-iteration-count: 1;
+
+.page2-fadeOut {
+animation-name: page2-fadeOut;
+animation-timing-function: ease-in-out;
+animation-duration: 0.5s;
+animation-iteration-count: 1;
+animation-fill-mode: forwards;
+}
+
+@keyframes page2-fadeIn {
+to {
+    opacity: 1;
+    z-index: 301;
+}
+from {
+    opacity: 0;
+    z-index: 200;
+}
+}
+
+.page2-fadeIn {
+animation-name: page2-fadeIn;
+animation-timing-function: ease-in-out;
+animation-duration: 0.5s;
+animation-iteration-count: 1;
+animation-fill-mode: forwards;
 }

@@ -7,6 +7,7 @@
   height: 100%;
   width: 100%;
   position: absolute;
+  z-index: 400;
 }
 
 .page1 {
@@ -184,19 +185,40 @@
   color: #F1FFF4;
 }
 
-@keyframes fadeInUp {
+@keyframes page1-fadeOut {
     from {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
+        opacity: 1;
+        z-index: 401;
     }
     to {
-        opacity: 1;
-        transform: none;
+        opacity: 0;
+        z-index: 200;
     }
 }
-.fadeInUp {
-  animation-name: fadeInUp;
-  animation-timing-function: ease-out;
-  animation-duration: 0.25s;
+
+.page1-fadeOut {
+  animation-name: page1-fadeOut;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s;
   animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes page1-fadeIn {
+  to {
+      opacity: 1;
+      z-index: 401;
+  }
+  from {
+      opacity: 0;
+      z-index: 200;
+  }
+}
+
+.page1-fadeIn {
+  animation-name: page1-fadeIn;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }

@@ -7,10 +7,13 @@ import leftsalad from '../../assets/leftsalad.png';
 
 interface IOrderStepProps {
     restaurants: string[];
+    animateName: string;
 }
 
 export const OrderStep2 = (props: IOrderStepProps) => {
-    const { restaurants } = props;
+    const { restaurants, animateName } = props;
+    const page2ClassName = 'page2 page2-flex page2-row-flex-center' + animateName;
+    console.log('page2ClassName ', page2ClassName);
     const orderContext = useContext(OrderContext);
     const selectRestaurant = restaurants[0];
     const selectRestaurantRef = useRef(selectRestaurant);
@@ -28,7 +31,7 @@ export const OrderStep2 = (props: IOrderStepProps) => {
     }, []);
 
     return (
-        <div className="page2 page2-flex page2-row-flex-center page2-showUp">
+        <div className={page2ClassName}>
             <div className="page2-flex page2-col-flex-center page2-col-30">
                 <h1 className="page2-heading-title">Online Reservation</h1>
                 <img src={leftsalad} width={620} height={543} alt="" />

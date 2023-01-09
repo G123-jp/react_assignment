@@ -8,8 +8,12 @@ import { OrderContext, OrderFood, OrderFoodType } from './store';
 
 function App() {
     const dataSource = dishJson.dishes;
-    console.log('App render');
-    const [pageNum, setPageNum] = useState(0);
+    const pageNumRef = useRef(0);
+    console.log('App render pageNum = ', pageNumRef.current);
+
+    const [page1AnimateNameState, setPage1AnimateNameState] = useState('');
+    const [page2AnimateNameState, setPage2AnimateNameState] = useState('');
+
     const [mealTypeState, setMealTypeState] = useState<OrderFoodType>('breakfast');
     const [numberOfPeopleState, setNumberOfPeopleState] = useState(1);
     const updateNumOfPeopleCallback = useCallback((value: number) => {
@@ -25,51 +29,72 @@ function App() {
             });
         return [...new Set(mutiRestaurants)];
     }, [mealTypeState]);
-    console.log('restaurants =', restaurants);
     const [restaurantState, setRestaurantState] = useState('');
-    console.log('current mealtype state : ', mealTypeState + ' restu : ', restaurantState);
     const dishes = useMemo(() => {
         return dataSource.filter((element) => {
             return element.availableMeals.includes(mealTypeState) && element.restaurant === restaurantState;
         });
     }, [mealTypeState, restaurantState]);
-    console.log('dishes : ', dishes);
 
     const orderDishesRef = useRef<number[]>([]);
 
+    const onNextCallback = useCallback(() => {
+        const currentPage = pageNumRef.current;
+        if (currentPage < 2) {
+            pageNumRef.current = currentPage + 1;
+        }
+
+        if (currentPage === 0) {
+            setPage1AnimateNameState(' page1-fadeOut');
+            return;
+        }
+        if (currentPage === 1) {
+            setPage2AnimateNameState(' page2-fadeOut');
+            return;
+        }
+    }, []);
+
+    const mealTypeCallback = useCallback((type: OrderFoodType) => {
+        setMealTypeState(type);
+    }, []);
+    const onPreviousCallback = useCallback(() => {
+        console.log('onPreviousCallback pageNum : ', pageNumRef.current);
+        const currentPage = pageNumRef.current;
+        if (currentPage > 0) {
+            pageNumRef.current = currentPage - 1;
+        }
+        if (currentPage === 1) {
+            console.log('onPreviousCallback setPage1AnimateNameState : ');
+            setPage1AnimateNameState(' page1-fadeIn');
+            return;
+        }
+        if (currentPage === 2) {
+            setPage2AnimateNameState(' page2-fadeIn');
+            return;
+        }
+    }, []);
+    const restaurantCallback = useCallback((restaurant: string) => {
+        setRestaurantState(restaurant);
+    }, []);
+
     const contextInitValue: OrderFood = {
-        updateContextMealType: (type: OrderFoodType) => {
-            setMealTypeState(type);
-        },
+        updateContextMealType: mealTypeCallback,
         updateContextNumOfPeople: updateNumOfPeopleCallback,
-        updateContextRestaurant: (restaurant) => {
-            setRestaurantState(restaurant);
-        },
-        onClickNext: () => {
-            setPageNum((pre) => pre + 1);
-            console.log('');
-        },
-        onClickPrevious: () => {
-            setPageNum((pre) => pre - 1);
-            console.log('');
-        },
+        updateContextRestaurant: restaurantCallback,
+        onClickNext: onNextCallback,
+        onClickPrevious: onPreviousCallback,
         contextMealType: mealTypeState,
         contextNumOfPeople: numberOfPeopleState,
         contextRestaurant: restaurantState,
         contextDishIDs: orderDishesRef.current,
     };
-    const renderStep1 = pageNum === 0;
-    const renderStep2 = pageNum === 1;
-    const renderStep3 = pageNum === 2;
-    // const renderStep4 = pageNum === 3;
 
     return (
         <OrderContext.Provider value={contextInitValue}>
             <div className="App">
-                {renderStep1 && <OrderStep1></OrderStep1>}
-                {renderStep2 && <OrderStep2 restaurants={restaurants}></OrderStep2>}
-                {renderStep3 && <OrderStep3 dishes={dishes}></OrderStep3>}
-                {/* {renderStep4 && <OrderStep1></OrderStep1>} */}
+                <OrderStep1 animateName={page1AnimateNameState}></OrderStep1>
+                <OrderStep2 restaurants={restaurants} animateName={page2AnimateNameState}></OrderStep2>
+                <OrderStep3 dishes={dishes}></OrderStep3>
             </div>
         </OrderContext.Provider>
     );

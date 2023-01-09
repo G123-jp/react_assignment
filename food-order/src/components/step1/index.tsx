@@ -1,13 +1,21 @@
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import type { SyntheticEvent, ChangeEventHandler } from 'react';
 import { OrderContext, OrderFoodType } from '../../store';
+import { usePageAnimationClass } from '../../hooks';
 import './step1.css';
 import breakfast from '../../assets/dumpling.png';
 import lunch from '../../assets/curry.png';
 import dinner from '../../assets/salad.png';
 
-export const OrderStep1 = () => {
-    const [page1ClassName, setPage1ClassName] = useState('page1');
+interface IOrderStep1Props {
+    animateName: string;
+}
+
+export const OrderStep1 = (props: IOrderStep1Props) => {
+    const { animateName } = props;
+    const page1ClassName = 'page1-backgroud' + animateName;
+    console.log('page1ClassName = ', page1ClassName + ' currentPageProp :', animateName);
+
     const orderContext = useContext(OrderContext);
     const initialMeal = orderContext?.contextMealType || 'breakfast';
     const numOfPeopleRef = useRef('1');
@@ -29,15 +37,14 @@ export const OrderStep1 = () => {
     }, []);
 
     const onClickNext = useCallback(() => {
-        setPage1ClassName((pre) => pre + 'fadeInUp');
         orderContext?.updateContextMealType(mealTypeState);
         orderContext?.updateContextNumOfPeople(+numOfPeopleRef.current);
         orderContext && orderContext.onClickNext();
     }, [mealTypeState]);
 
     return (
-        <div className="page1-backgroud">
-            <div className={page1ClassName}>
+        <div className={page1ClassName}>
+            <div className="page1">
                 <h1 className="page1-heading-title">ORDER FOOD</h1>
                 <label className="page1-hint-title">Please select a meal</label>
                 <div className="page1-flex page1-row-flex-center page1-element-container">
