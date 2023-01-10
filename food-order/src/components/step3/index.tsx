@@ -8,7 +8,7 @@ import { OrderStep4 } from '../step4';
 import './step3.css';
 import dishJson from '../../assets/dishes.json';
 
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface IOrderStep3Props {
     dishes: DishItem[];
