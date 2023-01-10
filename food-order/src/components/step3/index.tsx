@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { SyntheticEvent } from 'react';
 import { OrderContext } from '../../store';
-import { DishItem } from '../../store/model';
+import { DishItem, OrderedDishItem } from '../../store/model';
 import Modal from 'react-modal';
 import { OrderStep4 } from '../step4';
 
@@ -14,16 +14,21 @@ interface IOrderStep3Props {
     dishes: DishItem[];
 }
 
-type OrderItemType = Pick<DishItem, 'id' | 'name'> & { orderNum: number };
-
 interface IOrderDishesNum {
-    [index: string]: OrderItemType;
+    [index: string]: OrderedDishItem;
 }
+
+const caluImageIndex = (indexNumber: number) => {
+    const imageNameIndex = (indexNumber % 8) + 1;
+    return imageNameIndex;
+};
 
 export const OrderStep3 = (props: IOrderStep3Props) => {
     const { dishes } = props;
     const dataSource = dishJson.dishes;
     const [modalOpenState, setModalOpenState] = useState(false);
+    const [orderNumState, setOrderNumState] = useState(0);
+
     const orderContext = useContext(OrderContext);
     const contextNumOfPeople = orderContext?.contextNumOfPeople || 0;
     const [showValidMessageState, setShowValidMessageState] = useState(false);
@@ -33,10 +38,15 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
         const initialOrderDishes: IOrderDishesNum = {};
         dataSource.forEach((value) => {
             const key = value.id;
-            initialOrderDishes[key] = { orderNum: 0, id: value.id, name: value.name };
+            const imageNameIndex = caluImageIndex(key);
+            initialOrderDishes[key] = { orderNum: 0, id: value.id, name: value.name, imageIndex: imageNameIndex };
         });
         return initialOrderDishes;
     });
+
+    const orderedDishes = useMemo(() => {
+        return Object.values<OrderedDishItem>(orderDishesState);
+    }, [orderDishesState]);
 
     const onClickUpdateNum = useCallback(
         (e: SyntheticEvent, index: number, isPlus: boolean) => {
@@ -44,6 +54,9 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
             const orderingDish = orderDishCopy[index];
             const newNum = orderingDish.orderNum + (isPlus ? 1 : -1);
             orderDishCopy[index] = { ...orderingDish, ...{ orderNum: Math.max(newNum, 0) } };
+            setOrderNumState((pre) => {
+                return pre + (isPlus ? 1 : -1);
+            });
             setOrderDishesState(orderDishCopy);
         },
         [orderDishesState]
@@ -54,12 +67,8 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
     }, []);
 
     const onClickNext = useCallback(() => {
-        let currentDishNum = 0;
-        Object.values<OrderItemType>(orderDishesState).forEach((element) => {
-            currentDishNum += element.orderNum;
-        });
-        console.log('currentDishNum :', currentDishNum + ' contextNumOfPeople :', contextNumOfPeople);
-        if (currentDishNum < contextNumOfPeople) {
+        console.log('currentDishNum :', orderNumState + ' contextNumOfPeople :', contextNumOfPeople);
+        if (orderNumState < contextNumOfPeople) {
             if (!showingAlertState) {
                 setShowingAlertState(true);
             }
@@ -68,7 +77,7 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
         }
         setShowValidMessageState(false);
         setModalOpenState(true);
-    }, [contextNumOfPeople, orderDishesState, showingAlertState]);
+    }, [contextNumOfPeople, orderNumState, showingAlertState]);
     const invalidMessage = useMemo(() => {
         return ` Please order at least ${contextNumOfPeople} meals!`;
     }, [contextNumOfPeople]);
@@ -97,9 +106,9 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
                 <h1 className="page3-heading-title">Please select a dish</h1>
                 <label className="page3-hint-title">食べ物を無駄にしない</label>
                 <div className="page3-flex page3-row-flex-center page3-element-container">
-                    {dishes.map((value, index: number) => {
-                        const imageNameIndex = (index % 8) + 1;
+                    {dishes.map((value) => {
                         const key = value.id;
+                        const imageNameIndex = caluImageIndex(key);
                         const orderNum = orderDishesState[key].orderNum;
                         return (
                             <div key={key} className="page3-col-25">
@@ -155,7 +164,7 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
                 className="page3-modal-content"
                 overlayClassName="page3-modal-overlay"
             >
-                <OrderStep4></OrderStep4>
+                <OrderStep4 orderDishes={orderedDishes} onCloseCallback={onRequestCloseCallback}></OrderStep4>
             </Modal>
         </div>
     );

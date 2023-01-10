@@ -420,8 +420,8 @@
 .page3-modal-content {
   position: absolute;
   top: 10%;
-  left: 35%;
-  right: 35%;
+  left: 15%;
+  right: 15%;
   bottom: 10%;
   background-color: white;
 }
@@ -432,7 +432,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, .8);
   z-index: 501;
 }
 
