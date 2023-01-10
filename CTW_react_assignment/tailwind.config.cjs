@@ -1,26 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      chocolateBrown: "#A44D08",
-      darkBrown: "#342006",
-      nude: "#F3DED9",
-      mustard: "#DEA02C",
-      caramel: "#DBB688"
+      whiteish: "#F9FAF4",
+      charcoal: "#4A6163",
+      lightorange: "#F9A66C",
+      mustard: "#FFC94B",
+      pomelo: "#F17A7E",
     },
     fontFamily: {
-      title: ['"Poppins-Black"', 'serif'],
-      heading: ['Poppins-Bold', 'serif'],
-      body1: ['Poppins-Regular', 'serif'],
-      body2: ['Poppins-Thin', 'serif'],
-      italic: ['Poppins-LightItalic', 'serif'],
-      bolditalic: ['Poppins-BoldItalic', 'serif'],
+      title: ['"Poppins-Black"', "serif"],
+      heading: ["Poppins-Bold", "serif"],
+      body1: ["Poppins-Regular", "serif"],
+      body2: ["Poppins-Thin", "serif"],
+      italic: ["Poppins-LightItalic", "serif"],
+      bolditalic: ["Poppins-BoldItalic", "serif"],
     },
-    extend: {},
+    extend: {
+      // backgroundImage: {
+      //   "foodPicture": "url('.src/assets/foodPhoto.jpg')",
+      // },
+    },
   },
   plugins: [],
-}
+};
