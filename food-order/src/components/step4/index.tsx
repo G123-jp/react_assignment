@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useRef } from 'react';
-import type { ChangeEventHandler } from 'react';
 import { OrderContext } from '../../store';
 import { OrderedDishItem } from '../../store/model';
 

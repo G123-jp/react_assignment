@@ -58,13 +58,11 @@ function App() {
         setMealTypeState(type);
     }, []);
     const onPreviousCallback = useCallback(() => {
-        console.log('onPreviousCallback pageNum : ', pageNumRef.current);
         const currentPage = pageNumRef.current;
         if (currentPage > 0) {
             pageNumRef.current = currentPage - 1;
         }
         if (currentPage === 1) {
-            console.log('onPreviousCallback setPage1AnimateNameState : ');
             setPage1AnimateNameState(' page1-fadeIn');
             return;
         }

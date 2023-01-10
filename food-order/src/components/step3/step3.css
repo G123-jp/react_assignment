@@ -7,6 +7,7 @@
   width: 100%;
   position: absolute;
   z-index: 201;
+  height: 100%;
 }
 
 .page3 {
@@ -85,7 +86,6 @@
   width: 80%;
   margin-top: 20px;
   margin-bottom: 50px;
-  overflow: scroll;
 }
 
 .page3-option {
