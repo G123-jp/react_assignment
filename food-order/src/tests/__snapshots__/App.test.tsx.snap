@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders first page 1`] = `
+<div
+  className="page1-backgroud"
+>
+  <div
+    className="page1"
+  >
+    <h1
+      className="page1-heading-title"
+    >
+      Order Food
+    </h1>
+    <label
+      className="page1-hint-title"
+    >
+      Please select a meal
+    </label>
+    <div
+      className="page1-flex page1-row-flex-center page1-element-container"
+    >
+      <div
+        className="page1-flex page1-box-wrapper page1-box-item page1-box-item-selected"
+        onClick={[Function]}
+      >
+        <img
+          src="dumpling.png"
+        />
+        <p>
+          Breakfast
+        </p>
+      </div>
+      <div
+        className="page1-flex page1-box-wrapper page1-box-item"
+        onClick={[Function]}
+      >
+        <img
+          src="curry.png"
+        />
+        <p>
+          Lunch
+        </p>
+      </div>
+      <div
+        className="page1-flex page1-box-wrapper page1-box-item"
+        onClick={[Function]}
+      >
+        <img
+          src="salad.png"
+        />
+        <p>
+          Dinner
+        </p>
+      </div>
+    </div>
+    <h3
+      className="page1-hint-title"
+    >
+      Please enter number of people
+    </h3>
+    <select
+      aria-required="true"
+      className="page1-select"
+      defaultValue="1"
+      onChange={[Function]}
+      required={true}
+    >
+      <option
+        value="1"
+      >
+        1
+      </option>
+      <option
+        value="2"
+      >
+        2
+      </option>
+      <option
+        value="3"
+      >
+        3
+      </option>
+      <option
+        value="4"
+      >
+        4
+      </option>
+      <option
+        value="5"
+      >
+        5
+      </option>
+      <option
+        value="6"
+      >
+        6
+      </option>
+      <option
+        value="7"
+      >
+        7
+      </option>
+      <option
+        value="8"
+      >
+        8
+      </option>
+      <option
+        value="9"
+      >
+        9
+      </option>
+      <option
+        value="10"
+      >
+        10
+      </option>
+    </select>
+    <div
+      className="page1-button-normal page1-flex page1-right-button"
+      onClick={[Function]}
+    >
+      Next
+    </div>
+  </div>
+</div>
+`;
