@@ -33,8 +33,7 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
     const contextNumOfPeople = orderContext?.contextNumOfPeople || 0;
     const [showValidMessageState, setShowValidMessageState] = useState(false);
     const [showingAlertState, setShowingAlertState] = useState(false);
-
-    const [orderDishesState, setOrderDishesState] = useState<IOrderDishesNum>(() => {
+    const [initialOrderDishesState] = useState(() => {
         const initialOrderDishes: IOrderDishesNum = {};
         dataSource.forEach((value) => {
             const key = value.id;
@@ -43,10 +42,15 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
         });
         return initialOrderDishes;
     });
+    const [orderDishesState, setOrderDishesState] = useState<IOrderDishesNum>(initialOrderDishesState);
 
     const orderedDishes = useMemo(() => {
-        return Object.values<OrderedDishItem>(orderDishesState);
+        const dishesArray = Object.values<OrderedDishItem>(orderDishesState);
+        return dishesArray.filter((element) => {
+            return element.orderNum > 0;
+        });
     }, [orderDishesState]);
+    console.log('orderedDishes !!!! : ', orderedDishes);
 
     const onClickUpdateNum = useCallback(
         (e: SyntheticEvent, index: number, isPlus: boolean) => {
@@ -64,6 +68,9 @@ export const OrderStep3 = (props: IOrderStep3Props) => {
 
     const onClickPrevious = useCallback(() => {
         orderContext?.onClickPrevious();
+        setTimeout(() => {
+            setOrderDishesState(initialOrderDishesState);
+        }, 500);
     }, []);
 
     const onClickNext = useCallback(() => {

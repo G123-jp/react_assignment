@@ -2,9 +2,8 @@
   background-image: url(../../assets/background.png);
   background-position: center center;
   background-repeat: repeat;
-  background-size: cover;
+  background-size: 100% auto;
   background-attachment: fixed;
-  height: 100%;
   width: 100%;
   position: absolute;
   z-index: 201;
@@ -85,6 +84,8 @@
 .page3-element-container {
   width: 80%;
   margin-top: 20px;
+  margin-bottom: 50px;
+  overflow: scroll;
 }
 
 .page3-option {
@@ -194,6 +195,7 @@
   width: 20%;
   height: 410px;
   margin-left: 30px;
+  margin-top: 20px;
   position: static;
 }
 
