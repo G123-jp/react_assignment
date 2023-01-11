@@ -5,6 +5,7 @@ import './styles/globals.css'
 import NavBar from './Components/NavBar'
 
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <NavBar/>
