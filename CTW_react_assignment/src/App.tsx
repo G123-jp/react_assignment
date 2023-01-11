@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import photo from "./assets/food3.jpg";
 import AppContext from "./Components/AppContext";
-import ProgressBar from "./Components/ProgressBar";
 import Start from "./Components/Forms/Start";
 import StepOne from "./Components/Forms/StepOne";
 import StepTwo from "./Components/Forms/StepTwo";
@@ -11,6 +10,8 @@ import { Orders } from "./types/global";
 
 function App() {
   const [form, setForm] = useState<string>("start");
+  const [active, setActive] = useState<boolean|null>(null);
+  const [complete, setComplete] = useState<boolean|null>(null);
   const [orders, setOrders] = useState<Orders[]>([]);
   const mealType = useRef<string>("");
   const numberOfPeople = useRef<number>(0);
@@ -47,6 +48,10 @@ function App() {
         value={{
           handleClickEvent: handleClickEvent,
           setOrders: setOrders,
+          setActive: setActive,
+          setComplete: setComplete,
+          active: active,
+          complete: complete,
           orders: orders,
           form: form,
           mealType: mealType,

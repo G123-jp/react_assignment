@@ -2,6 +2,7 @@ import React, {
   type ReactElement,
   type MutableRefObject,
   useContext,
+  useEffect,
 } from "react";
 import AppContext from "./AppContext";
 // import "./../styles/ProgressBar.module.css"
@@ -9,24 +10,22 @@ import TimeLineIndicator from "./FormElements/TimeLineIndicator";
 
 const ProgressBar = (): ReactElement => {
   const value = useContext(AppContext);
-  const { form } = value;
+  const { form, active, complete } = value;
   let activeColor = "pomelo";
   let completedColor = "lightorange";
   let uncompletedColor = "charcoal";
-  let color = "";
-  let active = true;
-  let completed = true;
+  let color = "charcoal";
+
+  useEffect (() =>{
 
 
- const colorHandler = (form: string) => {
-    if (form === "start") {
-        color = activeColor;
-    }
- }
+  },[])
+ 
+
 
   return (
     <div className="max-w-xl mx-auto my-4 pb-10 font-heading uppercase grid grid-flow-cols grid-cols-5 grid-row-1 gap-5">
-      <TimeLineIndicator color={activeColor}>
+      <TimeLineIndicator color={color}>
         <span>start</span>
       </TimeLineIndicator>
       <TimeLineIndicator color="charcoal">
