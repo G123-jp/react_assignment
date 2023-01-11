@@ -1,6 +1,6 @@
 import React, {
   type ReactElement,
-  type MutableRefObject,
+  //   type MutableRefObject,
 } from "react";
 import ContainerForm from "../FormElements/ContainerForm";
 import Button from "../FormElements/Button";
@@ -15,12 +15,12 @@ const Start = (props: props): ReactElement => {
 
   return (
     <ContainerForm>
-      <ProgressBar/>
-      <h1 className="text-2xl text-whiteish self-center font-heading">
+      <ProgressBar />
+      <h1 className="text-2xl text-charcoal self-center font-heading mb-10">
         Are you ready to eat?
       </h1>
       <Button nextForm={nextForm}>
-        <p>Yes, let me get some munchies 🍟</p>
+        <p>Yes 🍟</p>
       </Button>
     </ContainerForm>
   );

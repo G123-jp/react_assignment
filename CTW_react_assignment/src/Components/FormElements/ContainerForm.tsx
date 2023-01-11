@@ -9,12 +9,12 @@ const ContainerForm = (props: props): ReactElement => {
   return (
     <>
       <div className="relative items-center justify-center flex w-screen h-screen">
-        <section className="p-10 bg-charcoal rounded-lg items-center justify-center flex"
-        style={{ width: "500px", maxWidth: "80vw", maxHeight: "50vh"}}>
-        <form action="" method="get">
+        <form className="p-10 bg-whiteish rounded-lg items-center justify-center flex flex-col"
+        style={{ width: "600px", maxWidth: "80vw", maxHeight: "70vh"}}>
+      
         {children}
+    
         </form>
-        </section>
       </div>
     </>
   );

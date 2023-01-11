@@ -25,9 +25,9 @@ function App() {
   const renderForm = (form: string) => {
     switch (form) {
       case "start":
-        return <Start nextForm={"stepOne"} />;
+        return <Start nextForm={"stepOne"}  />;
       case "stepOne":
-        return <StepOne />;
+        return <StepOne/>;
       case "stepTwo":
         return <StepTwo />;
       case "stepThree":
@@ -38,6 +38,8 @@ function App() {
       //   return <Start/>
     }
   };
+
+  console.log(form);
 
   return (
     <>
