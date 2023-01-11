@@ -20,7 +20,7 @@ const Button = (props: props): ReactElement => {
       onClick={() => {
         handleClickEvent(nextForm);
       }}
-      className="bg-mustard font-heading p-2 uppercase rounded-lg shadow-sm mt-5 hover:font-italic"
+      className="bg-mustard font-heading p-2 uppercase rounded-lg shadow-sm mt-5 hover:font-title"
     >
       {children}
     </button>
