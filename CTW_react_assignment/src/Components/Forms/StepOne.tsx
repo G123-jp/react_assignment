@@ -6,7 +6,6 @@ import Button from "../FormElements/Button";
 const StepOne = (): ReactElement => {
   return (
     <ContainerForm>
-        <ProgressBar />
       <div id="selectMeal" className="flex flex-col items-center mb-10">
         <label className="font-body1 mb-2" htmlFor="meal">
           Please select a meal:
@@ -52,15 +51,6 @@ const StepOne = (): ReactElement => {
           aria-roledescription="input"
           aria-label="number of people input"
         />
-      </div>
-
-      <div className="grid grid-cols-2 gap-36 mt-10">
-        <Button nextForm={"start"}>
-          <p>Previous</p>
-        </Button>
-        <Button nextForm={"stepTwo"}>
-          <p>Next</p>
-        </Button>
       </div>
     </ContainerForm>
   );

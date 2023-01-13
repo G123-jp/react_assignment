@@ -1,4 +1,5 @@
 import React, { type ReactElement, type MutableRefObject, Children } from "react";
+import { useNavigateForm } from "../useNavigateForm";
 
 interface props {
   children?: JSX.Element|JSX.Element[];
@@ -6,6 +7,7 @@ interface props {
 
 const ContainerForm = (props: props): ReactElement => {
     const { children } = props;
+
   return (
     <>
       <div className="relative items-center justify-center flex w-screen h-screen">
@@ -14,7 +16,13 @@ const ContainerForm = (props: props): ReactElement => {
       
         {children}
     
+        <div className="grid grid-cols-2 gap-36 mt-10">
+      
+       <button  className="bg-mustard font-heading p-2 uppercase rounded-lg shadow-sm mt-5 hover:font-title"> previous </button>
+       <button className="bg-mustard font-heading p-2 uppercase rounded-lg shadow-sm mt-5 hover:font-title"> next </button>
+      </div>
         </form>
+
       </div>
     </>
   );

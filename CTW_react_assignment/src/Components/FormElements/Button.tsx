@@ -5,13 +5,14 @@ import React, {
 } from "react";
 import AppContext from "../AppContext";
 
+
 interface props {
   children?: JSX.Element | JSX.Element[];
   nextForm: string;
 }
 
 const Button = (props: props): ReactElement => {
-  const { children, nextForm } = props;
+  const { children } = props;
   const value = useContext(AppContext);
   const { handleClickEvent } = value;
 

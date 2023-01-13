@@ -33,14 +33,14 @@ const Review = (): ReactElement => {
         </thead>
         <tbody></tbody>
       </table>
-      <div className="grid grid-cols-2 gap-36">
+      {/* <div className="grid grid-cols-2 gap-36">
         <Button nextForm={"stepThree"}>
-          <p>Previous</p>
+          <p>⬅</p>
         </Button>
         <Button nextForm={"start"}>
           <p>Order</p>
         </Button>
-      </div>
+      </div> */}
     </ContainerForm>
     );
   };

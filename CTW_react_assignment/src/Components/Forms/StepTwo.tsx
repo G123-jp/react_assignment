@@ -7,7 +7,6 @@ const StepTwo = (): ReactElement => {
 
     return (
       <ContainerForm>
-      <ProgressBar />
       <div id="selectMeal" className="flex flex-col items-center mb-10">
         <label className="font-body1 mb-2" htmlFor="meal">
           Please select a restaurant:
@@ -38,14 +37,14 @@ const StepTwo = (): ReactElement => {
            value="dinner">Dinner 🥘</option> */}
         </select>
       </div>
-      <div className="grid grid-cols-2 gap-36">
+      {/* <div className="grid grid-cols-2 gap-36">
         <Button nextForm={"stepOne"}>
           <p className="">Previous</p>
         </Button>
         <Button nextForm={"stepThree"}>
           <p className="">Next</p>
         </Button>
-      </div>
+      </div> */}
     </ContainerForm>
     );
   };

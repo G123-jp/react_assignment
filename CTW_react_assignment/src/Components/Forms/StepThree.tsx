@@ -6,7 +6,6 @@ import Button from "../FormElements/Button";
 const StepThree = (): ReactElement => {
   return (
     <ContainerForm>
-      <ProgressBar />
       <div className="grid grid-cols-4  grid-rows-2 gap-x-5 place-items-center">
         <label className="col-span-2 font-body1 mb-2" htmlFor="meal">
           Select a dish:
@@ -26,7 +25,7 @@ const StepThree = (): ReactElement => {
           aria-label="list of dishes"
           required
         >
-          {/* <option 
+          <option 
       role="option"
       aria-selected="true"
       value="">---</option>
@@ -41,7 +40,7 @@ const StepThree = (): ReactElement => {
       <option 
       role="option"
       aria-selected="false"
-   value="dinner">Dinner 🥘</option> */}
+   value="dinner">Dinner 🥘</option>
         </select>
 
         <input
@@ -60,7 +59,7 @@ const StepThree = (): ReactElement => {
           +{" "}
         </button>
       </div>
-
+{/* 
       <div className="grid grid-cols-2 gap-36 mt-10">
         <Button nextForm={"stepTwo"}>
           <p>Previous</p>
@@ -68,7 +67,7 @@ const StepThree = (): ReactElement => {
         <Button nextForm={"review"}>
           <p>Next</p>
         </Button>
-      </div>
+      </div> */}
     </ContainerForm>
   );
 };
