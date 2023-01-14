@@ -1,9 +1,15 @@
 import React, { type ReactElement, type MutableRefObject } from "react";
-import ContainerForm from "../FormElements/ContainerForm";
-import ProgressBar from "../ProgressBar";
-import Button from "../FormElements/Button";
 
-const StepTwo = (): ReactElement => {
+type data = {
+  restaurant: string;
+};
+type stepTwoProps = data & {
+  updateData: (data: Partial<data>) => void;
+};
+
+const StepTwo = (props: stepTwoProps): ReactElement => {
+  const { restaurant, updateData } = props;
+
   return (
     <>
       <div id="selectMeal" className="flex flex-col items-center mb-10">
@@ -16,7 +22,7 @@ const StepTwo = (): ReactElement => {
           id="meal"
           aria-roledescription="list options"
           aria-label="list of restaurants"
-          //required
+          required
         >
           {/* <option 
            role="option"

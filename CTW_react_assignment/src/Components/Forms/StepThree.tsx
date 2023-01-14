@@ -1,6 +1,16 @@
 import React, { type ReactElement, type MutableRefObject } from "react";
+import { type Orders } from "../../types/global";
 
-const StepThree = (): ReactElement => {
+type data = {
+  orders: Orders[];
+};
+type stepThreeProps = data & {
+  updateData: (data: Partial<data>) => void;
+};
+
+const StepThree = (props: stepThreeProps): ReactElement => {
+  const { orders, updateData } = props;
+
   return (
     <>
       <div className="grid grid-cols-4  grid-rows-2 gap-x-5 place-items-center">

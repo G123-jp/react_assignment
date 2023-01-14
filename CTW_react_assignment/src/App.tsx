@@ -1,4 +1,4 @@
-import { useState, useRef, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import photo from "./assets/food3.jpg";
 import { v4 as uuidv4 } from "uuid";
 // import AppContext from "./Components/AppContext";
@@ -7,26 +7,39 @@ import StepOne from "./Components/Forms/StepOne";
 import StepTwo from "./Components/Forms/StepTwo";
 import StepThree from "./Components/Forms/StepThree";
 import Review from "./Components/Forms/Review";
-import { type Orders, type ReviewObject } from "./types/global";
-import { useNavigateForm } from "./Components/useNavigateForm";
+import { type Orders, type ReviewObject, type MenuItem } from "./types/global";
+import { useNavigateForm } from "./Components/HelperFunctions/useNavigateForm";
 import ContainerForm from "./Components/FormElements/ContainerForm";
 import ProgressBar from "./Components/ProgressBar";
+import axios from 'axios'
 
+const INITIAL_DATA: ReviewObject = {
+orderId: uuidv4(),
+mealType: "",
+numberOfPeople: "",
+restaurant: "",
+orders: [],
+}
 
-// const INITIAL_DATA: ReviewObject = [
-// orderId: ""
-
-// ]
 function App() {
-  const [data, setData] = useState<ReviewObject[]>();
+  const [data, setData] = useState(INITIAL_DATA);
+  const [menuData, setMenuData] = useState<MenuItem[]>([]);
 
+  const getDishes = async () => {
+    await axios
+        .get(
+          `data/dishes.json`
+        )
+        .then((response) => {
+            setMenuData(response.data)
+        });
+};
 
-  const [orders, setOrders] = useState<Orders[]>([]);
-  const mealType = useRef<string>("");
-  const numberOfPeople = useRef<string>("");
-  const restaurant = useRef<string>("");
-  const dish = useRef<string>("");
-  const numberOfServings = useRef<string>("");
+useEffect (()=> {
+  getDishes()
+},[]);
+
+console.log(menuData);
 
   const progressBar = [
     { title: "start" },
@@ -36,15 +49,16 @@ function App() {
     { title: "review" },
   ];
 
+  console.log(data)
   const progress = [
-    <Start />,
-    <StepOne   />,
-    <StepTwo />,
-    <StepThree  />,
+    <Start/>,
+    <StepOne {...data} updateData={updateData}/>,
+    <StepTwo {...data} updateData={updateData} />,
+    <StepThree  {...data} updateData={updateData} />,
     <Review />,
   ];
 
-  const { steps, currentStepIndex, step, back, next, isFirstStep, isLastStep } =
+  const { currentStepIndex, step, back, next, isFirstStep, isLastStep } =
     useNavigateForm(progress);
 
   console.log(currentStepIndex);
@@ -56,31 +70,13 @@ function App() {
     alert ("Sucessfully ordered your meal!")
   }
 
-  // function updateData(data: Partial<ReviewObject>) {
-  //   setData((prevData) => {
-  //     return { ...prevData, ...data };
-  //   });
-  // }
+  function updateData(data: Partial<ReviewObject>) {
+    setData((prevData) => {
+      return { ...prevData, ...data };
+    });
+  }
   return (
     <>
-      {/* <AppContext.Provider
-        value={{
-          handleClickEvent: handleClickEvent,
-          setOrders: setOrders,
-          setPage: setPage,
-          active: active,
-          complete: complete,
-          page: page,
-          orders: orders,
-          form: form,
-          mealType: mealType,
-          numberOfPeople: numberOfPeople,
-          restaurant: restaurant,
-          dish: dish,
-          numberOfServings: numberOfServings,
-        }}
-      > */}
-
       <div className="absolute object-fit:cover">
         <img
           src={photo}
@@ -114,7 +110,6 @@ function App() {
           </button>
         </div>
       </ContainerForm>
-      {/* </AppContext.Provider> */}
     </>
   );
 }

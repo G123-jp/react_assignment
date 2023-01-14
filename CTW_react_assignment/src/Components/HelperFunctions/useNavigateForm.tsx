@@ -1,4 +1,5 @@
 import { ReactElement, useState } from "react";
+import { type MenuItem } from "../../types/global";
 
 export function useNavigateForm(steps: ReactElement[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);

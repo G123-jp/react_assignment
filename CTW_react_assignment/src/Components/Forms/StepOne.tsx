@@ -1,14 +1,17 @@
-import React, { type ReactElement, type MutableRefObject } from "react";
+import React, {
+  type ReactElement,
+} from "react";
 
-type stepOneProps = {
-  mealType:string
-  numberOfPeople:string}
+type data = {
+  mealType: string;
+  numberOfPeople: string;
+};
+type stepOneProps = data & {
+  updateData: (data: Partial<data>) => void;
+};
 
-
-
-
-const StepOne = (props:stepOneProps): ReactElement => {
-  const {mealType, numberOfPeople} = props;
+const StepOne = (props: stepOneProps): ReactElement => {
+  const { mealType, numberOfPeople, updateData } = props;
 
   return (
     <>
@@ -23,7 +26,10 @@ const StepOne = (props:stepOneProps): ReactElement => {
           id="meal"
           aria-roledescription="options"
           aria-label="list of meals"
-          value ={mealType}
+          value={mealType}
+          onChange={(e) => {
+            updateData({ mealType: e.target.value });
+          }}
           required
         >
           <option role="option" aria-selected="true" value="">
@@ -49,7 +55,10 @@ const StepOne = (props:stepOneProps): ReactElement => {
           className="font-body1 text-center p-2 shadow-md"
           name="numberOfPeople"
           type="number"
-          value = {numberOfPeople}
+          value={numberOfPeople}
+          onChange={(e) => {
+            updateData({ numberOfPeople: e.target.value });
+          }}
           min="1"
           max="10"
           aria-roledescription="input"

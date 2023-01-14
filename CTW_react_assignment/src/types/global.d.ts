@@ -6,8 +6,7 @@ export type MenuItem = {
 }
 
 export type ReviewObject = {
-    orderId: srting;
-    timeOrdered: string;
+    orderId: string;
     mealType: string;
     numberOfPeople: string;
     restaurant: string;
