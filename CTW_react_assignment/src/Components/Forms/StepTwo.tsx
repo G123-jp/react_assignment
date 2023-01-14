@@ -6,26 +6,23 @@ type data = {
 };
 type stepTwoProps = data & {
   updateData: (data: Partial<data>) => void;
-  menuData: MenuItem[];
+  filteredMealMenu: MenuItem[];
   setSelectedRestaurant: (restaurant: string) => void;
-  // selectedMeal: string;
 };
 
 const StepTwo = (props: stepTwoProps): ReactElement => {
-  const { restaurant, updateData, menuData, setSelectedRestaurant} = props;
+  const { restaurant, updateData, filteredMealMenu, setSelectedRestaurant } =
+    props;
   const [restaurantList, setRestaurantList] = useState<string[]>([]);
 
   useEffect(() => {
     let restaurantNamesArray: string[] = [];
-    for (const menu of menuData) {
+    for (const menu of filteredMealMenu) {
       restaurantNamesArray.push(menu.restaurant);
     }
     const restaurantArray = Array.from(new Set(restaurantNamesArray));
     setRestaurantList(restaurantArray);
-  }, [menuData]);
-
-  console.log(restaurantList);
-  console.log("🍔", menuData);
+  }, [filteredMealMenu]);
 
   return (
     <>
@@ -46,13 +43,21 @@ const StepTwo = (props: stepTwoProps): ReactElement => {
           aria-label="list of restaurants"
           required
         >
-          {restaurantList!.map((restaurant) => {
+            <option
+                role="option"
+                aria-selected="false"
+                value=""
+                key="0"
+              >
+                ---
+              </option>
+          {restaurantList!.map((restaurant, index) => {
             return (
-              
               <option
                 role="option"
-                aria-selected="true"
+                aria-selected="false"
                 value={restaurant}
+                key={index+100}
               >
                 {restaurant}
               </option>

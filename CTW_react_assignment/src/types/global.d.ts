@@ -15,5 +15,5 @@ export type ReviewObject = {
 
 export type Orders = {
     name: string;
-    numberOfServings: number;
+    numberOfServings: string;
 }
