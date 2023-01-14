@@ -1,13 +1,10 @@
 import React, { type ReactElement, type MutableRefObject } from "react";
 import ContainerForm from "../FormElements/ContainerForm";
-import ProgressBar from "../ProgressBar";
-import Button from "../FormElements/Button";
 
 const Review = (): ReactElement => {
 
     return (
-      <ContainerForm>
-      <ProgressBar />
+     <>
 
       <div className="grid grid-cols-2 grid-rows-3 gap-5">
 
@@ -41,7 +38,7 @@ const Review = (): ReactElement => {
           <p>Order</p>
         </Button>
       </div> */}
-    </ContainerForm>
+    </>
     );
   };
   

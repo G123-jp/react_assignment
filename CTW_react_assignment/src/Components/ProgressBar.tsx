@@ -15,8 +15,7 @@ interface props {
 const ProgressBar = (props: props): ReactElement => {
 
   const { progressBar } = props;
-  // const value = useContext(AppContext);
-  // const { page } = value;
+
 
 
 
@@ -24,8 +23,8 @@ const ProgressBar = (props: props): ReactElement => {
 
   return (
     <div className="max-w-xl mx-auto my-4 pb-10 font-heading uppercase grid grid-flow-cols grid-cols-5 grid-row-1 gap-5">
-      {progressBar.map((step) => {
-        return <ProgressBarIndicator progress="lightorange">{step.title}</ProgressBarIndicator> 
+      {progressBar.map((step, index) => {
+        return <ProgressBarIndicator progress="active" key={index+100}>{step.title}</ProgressBarIndicator> 
       })}
     </div>
   );

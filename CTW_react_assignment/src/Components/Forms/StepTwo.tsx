@@ -4,9 +4,8 @@ import ProgressBar from "../ProgressBar";
 import Button from "../FormElements/Button";
 
 const StepTwo = (): ReactElement => {
-
-    return (
-      <ContainerForm>
+  return (
+    <>
       <div id="selectMeal" className="flex flex-col items-center mb-10">
         <label className="font-body1 mb-2" htmlFor="meal">
           Please select a restaurant:
@@ -45,8 +44,8 @@ const StepTwo = (): ReactElement => {
           <p className="">Next</p>
         </Button>
       </div> */}
-    </ContainerForm>
-    );
-  };
-  
-  export default StepTwo;
+    </>
+  );
+};
+
+export default StepTwo;

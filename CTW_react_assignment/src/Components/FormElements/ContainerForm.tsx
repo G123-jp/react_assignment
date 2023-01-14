@@ -16,11 +16,6 @@ const ContainerForm = (props: props): ReactElement => {
       
         {children}
     
-        <div className="grid grid-cols-2 gap-36 mt-10">
-      
-       <button  className="bg-mustard font-heading p-2 uppercase rounded-lg shadow-sm mt-5 hover:font-title"> previous </button>
-       <button className="bg-mustard font-heading p-2 uppercase rounded-lg shadow-sm mt-5 hover:font-title"> next </button>
-      </div>
         </form>
 
       </div>

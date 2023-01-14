@@ -22,7 +22,7 @@ const ProgressBarIndicator = (props: props): ReactElement => {
         {children}
       </span>;
       case "active":
-        <span
+        return <span
       className="flex bg-pomelo w-16 h-16 rounded-full items-center justify-center shadow-lg text-whiteish"
     >
       {children}
