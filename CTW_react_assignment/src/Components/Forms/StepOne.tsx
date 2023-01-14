@@ -1,6 +1,15 @@
 import React, { type ReactElement, type MutableRefObject } from "react";
 
-const StepOne = (): ReactElement => {
+type stepOneProps = {
+  mealType:string
+  numberOfPeople:string}
+
+
+
+
+const StepOne = (props:stepOneProps): ReactElement => {
+  const {mealType, numberOfPeople} = props;
+
   return (
     <>
       <div id="selectMeal" className="flex flex-col items-center mb-10">
@@ -14,6 +23,7 @@ const StepOne = (): ReactElement => {
           id="meal"
           aria-roledescription="options"
           aria-label="list of meals"
+          value ={mealType}
           required
         >
           <option role="option" aria-selected="true" value="">
@@ -39,11 +49,12 @@ const StepOne = (): ReactElement => {
           className="font-body1 text-center p-2 shadow-md"
           name="numberOfPeople"
           type="number"
-          required
+          value = {numberOfPeople}
           min="1"
           max="10"
           aria-roledescription="input"
           aria-label="number of people input"
+          required
         />
       </div>
     </>

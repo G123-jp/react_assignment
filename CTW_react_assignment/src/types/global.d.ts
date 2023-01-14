@@ -1,12 +1,12 @@
 export type MenuItem = {
-    id: number;
+    id: string;
     name: string;
     restaurant: string;
     availableMeals: string[];
 }
 
 export type ReviewObject = {
-    orderId: number;
+    orderId: srting;
     timeOrdered: string;
     mealType: string;
     numberOfPeople: string;
@@ -15,7 +15,6 @@ export type ReviewObject = {
 }
 
 export type Orders = {
-    menuItemId: number;
     name: string;
     numberOfServings: number;
 }

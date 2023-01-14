@@ -21,9 +21,9 @@ const StepThree = (): ReactElement => {
           id="dish"
           aria-roledescription="list of options"
           aria-label="list of dishes"
-          required
+          //required
         >
-          <option role="option" aria-selected="true" value="">
+          {/* <option role="option" aria-selected="true" value="">
             ---
           </option>
           <option role="option" aria-selected="false" value="breakfast">
@@ -34,14 +34,14 @@ const StepThree = (): ReactElement => {
           </option>
           <option role="option" aria-selected="false" value="dinner">
             Dinner 🥘
-          </option>
+          </option> */}
         </select>
 
         <input
           className="font-body1 text-center p-2 shadow-md w-[70px]"
           name="numberOfServings"
           type="number"
-          required
+          //required
           min="1"
           max="10"
           aria-roledescription="input"

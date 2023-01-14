@@ -1,6 +1,6 @@
 import { ReactElement, useState } from "react";
 
-export function useNavigateForm(steps: {title:string}[]) {
+export function useNavigateForm(steps: ReactElement[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
   const next = () => {

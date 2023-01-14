@@ -16,7 +16,7 @@ const StepTwo = (): ReactElement => {
           id="meal"
           aria-roledescription="list options"
           aria-label="list of restaurants"
-          required
+          //required
         >
           {/* <option 
            role="option"
@@ -36,14 +36,6 @@ const StepTwo = (): ReactElement => {
            value="dinner">Dinner 🥘</option> */}
         </select>
       </div>
-      {/* <div className="grid grid-cols-2 gap-36">
-        <Button nextForm={"stepOne"}>
-          <p className="">Previous</p>
-        </Button>
-        <Button nextForm={"stepThree"}>
-          <p className="">Next</p>
-        </Button>
-      </div> */}
     </>
   );
 };
