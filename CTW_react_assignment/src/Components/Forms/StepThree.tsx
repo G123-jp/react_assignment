@@ -1,15 +1,18 @@
 import React, { type ReactElement, type MutableRefObject } from "react";
-import { type Orders } from "../../types/global";
+import { type Orders, type MenuItem } from "../../types/global";
 
 type data = {
   orders: Orders[];
 };
 type stepThreeProps = data & {
   updateData: (data: Partial<data>) => void;
+  menuData: MenuItem[];
+  selectedRestaurant: string;
+  
 };
 
 const StepThree = (props: stepThreeProps): ReactElement => {
-  const { orders, updateData } = props;
+  const { orders, updateData, menuData, selectedRestaurant } = props;
 
   return (
     <>

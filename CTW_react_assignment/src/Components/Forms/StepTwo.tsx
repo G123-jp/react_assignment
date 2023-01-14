@@ -1,14 +1,31 @@
-import React, { type ReactElement, type MutableRefObject } from "react";
+import React, { type ReactElement, useEffect, useState } from "react";
+import { type MenuItem } from "../../types/global";
 
 type data = {
   restaurant: string;
 };
 type stepTwoProps = data & {
   updateData: (data: Partial<data>) => void;
+  menuData: MenuItem[];
+  setSelectedRestaurant: (restaurant: string) => void;
+  // selectedMeal: string;
 };
 
 const StepTwo = (props: stepTwoProps): ReactElement => {
-  const { restaurant, updateData } = props;
+  const { restaurant, updateData, menuData, setSelectedRestaurant} = props;
+  const [restaurantList, setRestaurantList] = useState<string[]>([]);
+
+  useEffect(() => {
+    let restaurantNamesArray: string[] = [];
+    for (const menu of menuData) {
+      restaurantNamesArray.push(menu.restaurant);
+    }
+    const restaurantArray = Array.from(new Set(restaurantNamesArray));
+    setRestaurantList(restaurantArray);
+  }, [menuData]);
+
+  console.log(restaurantList);
+  console.log("🍔", menuData);
 
   return (
     <>
@@ -20,26 +37,27 @@ const StepTwo = (props: stepTwoProps): ReactElement => {
           className="text-center p-2 shadow-md w-[200px]"
           name="meal"
           id="meal"
+          value={restaurant}
+          onChange={(e) => {
+            updateData({ restaurant: e.target.value });
+            setSelectedRestaurant(e.target.value);
+          }}
           aria-roledescription="list options"
           aria-label="list of restaurants"
           required
         >
-          {/* <option 
-           role="option"
-           aria-selected="true"
-           value="">---</option>
-          <option 
-           role="option"
-           aria-selected="false"
-           value="breakfast">Breakfast 🥞</option>
-          <option 
-           role="option"
-           aria-selected="false"
-           value="lunch">Lunch 🍔</option>
-          <option 
-           role="option"
-           aria-selected="false"
-           value="dinner">Dinner 🥘</option> */}
+          {restaurantList!.map((restaurant) => {
+            return (
+              
+              <option
+                role="option"
+                aria-selected="true"
+                value={restaurant}
+              >
+                {restaurant}
+              </option>
+            );
+          })}
         </select>
       </div>
     </>

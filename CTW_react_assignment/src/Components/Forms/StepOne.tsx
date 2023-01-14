@@ -8,10 +8,11 @@ type data = {
 };
 type stepOneProps = data & {
   updateData: (data: Partial<data>) => void;
+  setSelectedMeal: (meal: string) => void;
 };
 
 const StepOne = (props: stepOneProps): ReactElement => {
-  const { mealType, numberOfPeople, updateData } = props;
+  const { mealType, numberOfPeople, updateData, setSelectedMeal } = props;
 
   return (
     <>
@@ -29,6 +30,7 @@ const StepOne = (props: stepOneProps): ReactElement => {
           value={mealType}
           onChange={(e) => {
             updateData({ mealType: e.target.value });
+            setSelectedMeal(e.target.value);
           }}
           required
         >

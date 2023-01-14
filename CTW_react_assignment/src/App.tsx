@@ -7,7 +7,7 @@ import StepOne from "./Components/Forms/StepOne";
 import StepTwo from "./Components/Forms/StepTwo";
 import StepThree from "./Components/Forms/StepThree";
 import Review from "./Components/Forms/Review";
-import { type Orders, type ReviewObject, type MenuItem } from "./types/global";
+import {type ReviewObject, type MenuItem } from "./types/global";
 import { useNavigateForm } from "./Components/HelperFunctions/useNavigateForm";
 import ContainerForm from "./Components/FormElements/ContainerForm";
 import ProgressBar from "./Components/ProgressBar";
@@ -24,6 +24,8 @@ orders: [],
 function App() {
   const [data, setData] = useState(INITIAL_DATA);
   const [menuData, setMenuData] = useState<MenuItem[]>([]);
+  const [selectedRestaurant, setSelectedRestaurant] = useState<string> ("");
+  const [selectedMeal, setSelectedMeal] = useState<string> ("");
 
   const getDishes = async () => {
     await axios
@@ -31,15 +33,20 @@ function App() {
           `data/dishes.json`
         )
         .then((response) => {
-            setMenuData(response.data)
+          setMenuData(response.data.dishes);
         });
 };
+
+console.log(selectedRestaurant, "✨");
 
 useEffect (()=> {
   getDishes()
 },[]);
 
-console.log(menuData);
+// useEffect (()=> {
+//   let filteredData = menuData.filter((menuItem) => menuItem.availableMeals.each(availableMeals => availableMeals.includes(selectedMeal)))
+//   console.log(filteredData);
+// },[selectedMeal]);
 
   const progressBar = [
     { title: "start" },
@@ -49,20 +56,16 @@ console.log(menuData);
     { title: "review" },
   ];
 
-  console.log(data)
   const progress = [
     <Start/>,
-    <StepOne {...data} updateData={updateData}/>,
-    <StepTwo {...data} updateData={updateData} />,
-    <StepThree  {...data} updateData={updateData} />,
-    <Review />,
+    <StepOne {...data} updateData={updateData} setSelectedMeal={setSelectedMeal}/>,
+    <StepTwo {...data} updateData={updateData} menuData={menuData} setSelectedRestaurant={setSelectedRestaurant}/>,
+    <StepThree  {...data} updateData={updateData} menuData={menuData} selectedRestaurant={selectedRestaurant}/>,
+    <Review {...data}/>,
   ];
 
   const { currentStepIndex, step, back, next, isFirstStep, isLastStep } =
     useNavigateForm(progress);
-
-  console.log(currentStepIndex);
-  console.log(step);
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
