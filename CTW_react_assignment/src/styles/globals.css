@@ -41,3 +41,20 @@
 option {
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.popout {
+    animation: popout 0.5s ease;
+    -webkit-animation: popout 0.5s ease;
+  }
+  @keyframes popout {
+    from{transform:scale(0)}
+    80%{transform:scale(1.1)}
+    to{transform:scale(1)}
+  }
+  @-webkit-keyframes popout {
+    from{-webkit-transform:scale(0)}
+    80%{-webkit-transform:scale(1.1)}
+    to{-webkit-transform:scale(1)}
+  }
+  
+  

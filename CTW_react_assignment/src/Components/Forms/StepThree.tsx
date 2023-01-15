@@ -22,6 +22,7 @@ const StepThree = (props: stepThreeProps): ReactElement => {
 
   return (
     <>
+     <div className="popout">
       <div className="grid grid-cols-4  grid-rows-4 gap-x-5 place-items-center">
         <label className="col-span-2 font-body1 mb-2" htmlFor="meal">
           Select a dish:
@@ -129,6 +130,7 @@ const StepThree = (props: stepThreeProps): ReactElement => {
             </tbody>
           </table>
         )}
+      </div>
       </div>
     </>
   );

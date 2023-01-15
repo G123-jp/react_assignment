@@ -26,39 +26,41 @@ const StepTwo = (props: stepTwoProps): ReactElement => {
 
   return (
     <>
-      <div id="selectMeal" className="flex flex-col items-center mb-10">
-        <label className="font-body1 mb-2" htmlFor="meal">
-          Please select a restaurant:
-        </label>
-        <select
-          className="text-center p-2 shadow-md w-[200px]"
-          name="meal"
-          id="meal"
-          value={restaurant}
-          onChange={(e) => {
-            updateData({ restaurant: e.target.value });
-            setSelectedRestaurant(e.target.value);
-          }}
-          aria-roledescription="list options"
-          aria-label="list of restaurants"
-          required
-        >
-          <option role="option" aria-selected="false" value="" key="0">
-            ---
-          </option>
-          {restaurantList!.map((restaurant, index) => {
-            return (
-              <option
-                role="option"
-                aria-selected="false"
-                value={restaurant}
-                key={index + 100}
-              >
-                {restaurant}
-              </option>
-            );
-          })}
-        </select>
+      <div className="popout">
+        <div id="selectMeal" className="flex flex-col items-center">
+          <label className="font-body1 mb-2" htmlFor="meal">
+            Please select a restaurant:
+          </label>
+          <select
+            className="text-center p-2 shadow-md w-[200px]"
+            name="meal"
+            id="meal"
+            value={restaurant}
+            onChange={(e) => {
+              updateData({ restaurant: e.target.value });
+              setSelectedRestaurant(e.target.value);
+            }}
+            aria-roledescription="list options"
+            aria-label="list of restaurants"
+            required
+          >
+            <option role="option" aria-selected="false" value="" key="0">
+              ---
+            </option>
+            {restaurantList!.map((restaurant, index) => {
+              return (
+                <option
+                  role="option"
+                  aria-selected="false"
+                  value={restaurant}
+                  key={index + 100}
+                >
+                  {restaurant}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
     </>
   );
