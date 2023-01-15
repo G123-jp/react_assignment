@@ -22,7 +22,6 @@ const INITIAL_DATA: ReviewObject = {
   orders: [],
 };
 
-
 function App() {
   const [data, setData] = useState(INITIAL_DATA);
   const [menuData, setMenuData] = useState<MenuItem[]>([]);
@@ -48,7 +47,6 @@ function App() {
     />,
     <StepThree
       {...data}
-      updateData={updateData}
       filteredRestaurantMenu={filteredRestaurantMenu}
     />,
     <Review {...data} />,
@@ -101,10 +99,10 @@ function App() {
   }
   return (
     <AppContext.Provider
-      value= {{
+      value={{
         currentStepIndex: currentStepIndex,
-
-      }}>
+      }}
+    >
       <>
         <div className="absolute object-fit:cover">
           <img
@@ -114,8 +112,7 @@ function App() {
           />
         </div>
         <ContainerForm onSubmit={onSubmit}>
-          <ProgressBar/>
-          {/* <ProgressBar progressBar={progressBar} /> */}
+          <ProgressBar />
 
           {step}
 

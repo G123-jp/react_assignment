@@ -1,9 +1,7 @@
-import React, {
+import {
   type ReactElement,
   useState,
   useEffect,
-  useRef,
-  type MutableRefObject,
 } from "react";
 import { type Orders, type MenuItem } from "../../types/global";
 
@@ -11,7 +9,6 @@ type data = {
   orders: Orders[];
 };
 type stepThreeProps = data & {
-  updateData: (data: Partial<data>) => void;
   filteredRestaurantMenu: MenuItem[];
 };
 
