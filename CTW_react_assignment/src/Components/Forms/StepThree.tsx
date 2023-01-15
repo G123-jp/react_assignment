@@ -1,8 +1,4 @@
-import {
-  type ReactElement,
-  useState,
-  useEffect,
-} from "react";
+import { type ReactElement, useState, useEffect } from "react";
 import { type Orders, type MenuItem } from "../../types/global";
 
 type data = {
@@ -34,8 +30,6 @@ const StepThree = (props: stepThreeProps): ReactElement => {
         <label htmlFor="numberOfServings" className="font-body1 mb-2">
           Serving:
         </label>
-
-        <div></div>
 
         <select
           autoFocus
@@ -95,44 +89,46 @@ const StepThree = (props: stepThreeProps): ReactElement => {
           <p>+</p>
         </button>
 
-        {(orders.length>1) && <table className="col-span-4 row-span-2">
-          <thead>
-            <tr>
-              <th
-                scope="col"
-                className="uppercase font-heading text-md px-6  text-center"
-              >
-                Dish
-              </th>
-              <th
-                scope="col"
-                className="uppercase font-heading px-6 text-center"
-              >
-                Serving
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order, index) => {
-              return (
-                <tr key={index + 100}>
-                  <th
-                    scope="col"
-                    className="capitalize font-body1 text-md px-6  text-center"
-                  >
-                    {order.name}
-                  </th>
-                  <th
-                    scope="col"
-                    className="capitalize font-body1 px-6 text-center"
-                  >
-                    {order.numberOfServings}
-                  </th>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>}
+        {orders.length > 1 && (
+          <table className="col-span-4 row-span-2">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  className="uppercase font-heading text-md px-6  text-center"
+                >
+                  Dish
+                </th>
+                <th
+                  scope="col"
+                  className="uppercase font-heading px-6 text-center"
+                >
+                  Serving
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order, index) => {
+                return (
+                  <tr key={index + 100}>
+                    <th
+                      scope="col"
+                      className="capitalize font-body1 text-md px-6  text-center"
+                    >
+                      {order.name}
+                    </th>
+                    <th
+                      scope="col"
+                      className="capitalize font-body1 px-6 text-center"
+                    >
+                      {order.numberOfServings}
+                    </th>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   );

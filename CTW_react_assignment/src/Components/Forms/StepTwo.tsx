@@ -1,4 +1,4 @@
-import React, { type ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useEffect, useState } from "react";
 import { type MenuItem } from "../../types/global";
 
 type data = {
@@ -43,21 +43,16 @@ const StepTwo = (props: stepTwoProps): ReactElement => {
           aria-label="list of restaurants"
           required
         >
-            <option
-                role="option"
-                aria-selected="false"
-                value=""
-                key="0"
-              >
-                ---
-              </option>
+          <option role="option" aria-selected="false" value="" key="0">
+            ---
+          </option>
           {restaurantList!.map((restaurant, index) => {
             return (
               <option
                 role="option"
                 aria-selected="false"
                 value={restaurant}
-                key={index+100}
+                key={index + 100}
               >
                 {restaurant}
               </option>

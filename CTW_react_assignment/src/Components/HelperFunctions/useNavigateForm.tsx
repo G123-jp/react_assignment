@@ -1,5 +1,4 @@
 import { ReactElement, useState } from "react";
-import { type MenuItem } from "../../types/global";
 
 export function useNavigateForm(steps: ReactElement[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
@@ -13,9 +12,9 @@ export function useNavigateForm(steps: ReactElement[]) {
 
   const back = () => {
     setCurrentStepIndex((i) => {
-        if (i <= 0) return i;
-        return i - 1;
-      });
+      if (i <= 0) return i;
+      return i - 1;
+    });
   };
 
   const goTo = (index: number) => {
@@ -26,7 +25,7 @@ export function useNavigateForm(steps: ReactElement[]) {
     currentStepIndex,
     step: steps[currentStepIndex],
     isFirstStep: currentStepIndex === 0,
-    isLastStep: currentStepIndex === steps.length-1,
+    isLastStep: currentStepIndex === steps.length - 1,
     steps,
     next,
     back,

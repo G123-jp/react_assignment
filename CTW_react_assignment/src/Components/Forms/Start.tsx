@@ -1,7 +1,4 @@
-import React, {
-  type ReactElement,
-  //   type MutableRefObject,
-} from "react";
+import { type ReactElement } from "react";
 
 const Start = (): ReactElement => {
   return (

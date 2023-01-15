@@ -1,4 +1,4 @@
-import React, { type ReactElement, type MutableRefObject } from "react";
+import { type ReactElement } from "react";
 import { type Orders } from "../../types/global";
 
 type reviewProps = {
@@ -10,12 +10,11 @@ type reviewProps = {
 };
 
 const Review = (props: reviewProps): ReactElement => {
-  const { orderId, mealType, numberOfPeople, restaurant, orders } = props;
+  const { mealType, numberOfPeople, restaurant, orders } = props;
 
   return (
     <>
       <div className="grid grid-cols-2 grid-rows-3 gap-5">
-   
         <p className="font-heading uppercase">Meal</p>
         <p className="font-body1 capitalize">{mealType}</p>
         <p className="font-heading uppercase">Number of People</p>
@@ -39,9 +38,9 @@ const Review = (props: reviewProps): ReactElement => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order,index) => {
+          {orders.map((order, index) => {
             return (
-              <tr key={index+100}>
+              <tr key={index + 100}>
                 <th
                   scope="col"
                   className="capitalize font-body1 text-md px-6  text-center"

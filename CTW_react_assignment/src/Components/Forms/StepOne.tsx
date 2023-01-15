@@ -1,6 +1,4 @@
-import React, {
-  type ReactElement,
-} from "react";
+import { type ReactElement } from "react";
 
 type data = {
   mealType: string;
