@@ -13,25 +13,25 @@ const ProgressBarIndicator = (props: props): ReactElement => {
     switch (progress) {
       case "complete":
         return <span
-        className="flex bg-lightorange w-16 h-16 rounded-full items-center justify-center shadow-lg text-whiteish"
+        className="flex bg-lightorange w-12 h-12 text-xs sm:w-16 sm:h-16 sm:text-sm rounded-full items-center justify-center shadow-lg text-whiteish"
       >
         {children}
       </span>;
       case "active":
         return <span
-      className="flex bg-pomelo w-16 h-16 rounded-full items-center justify-center shadow-lg text-whiteish"
+      className="flex bg-pomelo w-12 h-12 text-xs sm:w-16 sm:h-16 sm:text-sm rounded-full items-center justify-center shadow-lg text-whiteish"
     >
       {children}
     </span>
       case "uncomplete":
         return <span
-        className="flex bg-charcoal w-16 h-16 rounded-full items-center justify-center shadow-lg text-whiteish"
+        className="flex bg-charcoal w-12 h-12 text-xs sm:w-16 sm:h-16 sm:text-sm rounded-full items-center justify-center shadow-lg text-whiteish"
       >
         {children}
       </span>;
       default:
         return <span
-        className="flex bg-charcoal w-16 h-16 rounded-full items-center justify-center shadow-lg text-whiteish"
+        className="flex bg-charcoal w-12 h-12 text-xs sm:w-16 sm:h-16 sm:text-sm rounded-full items-center justify-center shadow-lg text-whiteish"
       >
         {children}
       </span>

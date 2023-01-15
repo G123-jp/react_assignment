@@ -10,11 +10,11 @@ const ContainerForm = (props: props): ReactElement => {
 
   return (
     <>
-      <div className="relative items-center justify-center flex w-screen h-screen ">
+      <div className="relative items-center justify-center flex w-screen h-screen shadow-lg">
         <form
           onSubmit={onSubmit}
-          className="p-10 bg-whiteish rounded-lg items-center overflow-scroll justify-center flex flex-col"
-          style={{ width: "600px", maxWidth: "90vw", maxHeight: "75vh" }}
+          className="p-10 bg-whiteish rounded-lg items-center overflow-scroll flex flex-col"
+          style={{ maxWidth: "90vw", maxHeight: "75vh", minHeight: "30vh" }}
         >
           {children}
         </form>

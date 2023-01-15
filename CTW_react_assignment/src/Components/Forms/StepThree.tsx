@@ -39,7 +39,7 @@ const StepThree = (props: stepThreeProps): ReactElement => {
 
         <select
           autoFocus
-          className="col-span-2 text-center p-2 shadow-md w-[150px]"
+          className="col-span-2 text-center p-2 shadow-md w-[100px] sm:w-[150px]"
           name="dish"
           onChange={(e) => {
             setName(e.target.value);
@@ -67,7 +67,7 @@ const StepThree = (props: stepThreeProps): ReactElement => {
         </select>
 
         <input
-          className="font-body1 text-center p-2 shadow-md w-[60px]"
+          className="font-body1 text-center p-2 shadow-md  sm:w-[70px]"
           name="numberOfServings"
           type="number"
           min="1"
@@ -95,20 +95,20 @@ const StepThree = (props: stepThreeProps): ReactElement => {
           <p>+</p>
         </button>
 
-        <table className="col-span-4 row-span-2">
+        {(orders.length>1) && <table className="col-span-4 row-span-2">
           <thead>
             <tr>
               <th
                 scope="col"
                 className="uppercase font-heading text-md px-6  text-center"
               >
-                Dish name
+                Dish
               </th>
               <th
                 scope="col"
                 className="uppercase font-heading px-6 text-center"
               >
-                Servings
+                Serving
               </th>
             </tr>
           </thead>
@@ -132,7 +132,7 @@ const StepThree = (props: stepThreeProps): ReactElement => {
               );
             })}
           </tbody>
-        </table>
+        </table>}
       </div>
     </>
   );

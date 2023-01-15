@@ -38,7 +38,7 @@ const ProgressBar = (): ReactElement => {
     }
   });
   return (
-    <div className="max-w-xl mx-auto mt-5 pb-10 font-heading uppercase grid grid-flow-cols grid-cols-5 grid-row-1 gap-5">
+    <div className="mt-5 pb-10 font-heading uppercase flex flex-row w-100 gap-x-2">
       {steps}
     </div>
   );
