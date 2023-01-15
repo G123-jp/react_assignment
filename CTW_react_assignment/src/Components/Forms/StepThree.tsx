@@ -16,18 +16,16 @@ type stepThreeProps = data & {
 };
 
 const StepThree = (props: stepThreeProps): ReactElement => {
-  const { orders, updateData, filteredRestaurantMenu } = props;
+  const { orders, filteredRestaurantMenu } = props;
   const [orderItem, setOrderItem] = useState<Orders | null>(null);
   const [name, setName] = useState<string>("");
   const [numberOfServings, setNumberOfServings] = useState<string>("");
-
 
   useEffect(() => {
     if (name && numberOfServings) {
       setOrderItem({ name: name, numberOfServings: numberOfServings });
     }
   }, [name, numberOfServings, orders]);
-
 
   return (
     <>
@@ -37,14 +35,14 @@ const StepThree = (props: stepThreeProps): ReactElement => {
         </label>
 
         <label htmlFor="numberOfServings" className="font-body1 mb-2">
-          Servings:
+          Serving:
         </label>
 
         <div></div>
 
         <select
           autoFocus
-          className="col-span-2 text-center p-2 shadow-md w-[200px]"
+          className="col-span-2 text-center p-2 shadow-md w-[150px]"
           name="dish"
           onChange={(e) => {
             setName(e.target.value);
@@ -72,10 +70,11 @@ const StepThree = (props: stepThreeProps): ReactElement => {
         </select>
 
         <input
-          className="font-body1 text-center p-2 shadow-md w-[70px]"
+          className="font-body1 text-center p-2 shadow-md w-[60px]"
           name="numberOfServings"
           type="number"
           min="1"
+          max="10"
           onChange={(e) => {
             setNumberOfServings(e.target.value);
           }}
@@ -87,49 +86,56 @@ const StepThree = (props: stepThreeProps): ReactElement => {
         <button
           type="button"
           onClick={() => {
-            orders.push(orderItem!);
-
+            let findIndex = orders.findIndex((obj) => obj.name == name);
+            if (findIndex === -1) {
+              orders.push(orderItem!);
+            } else {
+              orders[findIndex].numberOfServings = numberOfServings;
+            }
           }}
           className="row-span-1 shadow-sm bg-mustard p-2 uppercase rounded-full h-[50px] w-[50px]  font-heading hover:font-title hover:shadow-lg"
         >
           <p>+</p>
         </button>
 
-        <table  className="col-span-4 row-span-2">
-        <thead>
-          <tr>
-            <th
-              scope="col"
-              className="uppercase font-heading text-md px-6  text-center"
-            >
-              Dish name
-            </th>
-            <th scope="col" className="uppercase font-heading px-6 text-center">
-              Servings
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order,index) => {
-            return (
-              <tr key={index+100}>
-                <th
-                  scope="col"
-                  className="capitalize font-body1 text-md px-6  text-center"
-                >
-                  {order.name}
-                </th>
-                <th
-                  scope="col"
-                  className="capitalize font-body1 px-6 text-center"
-                >
-                  {order.numberOfServings}
-                </th>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+        <table className="col-span-4 row-span-2">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                className="uppercase font-heading text-md px-6  text-center"
+              >
+                Dish name
+              </th>
+              <th
+                scope="col"
+                className="uppercase font-heading px-6 text-center"
+              >
+                Servings
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => {
+              return (
+                <tr key={index + 100}>
+                  <th
+                    scope="col"
+                    className="capitalize font-body1 text-md px-6  text-center"
+                  >
+                    {order.name}
+                  </th>
+                  <th
+                    scope="col"
+                    className="capitalize font-body1 px-6 text-center"
+                  >
+                    {order.numberOfServings}
+                  </th>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </>
   );
