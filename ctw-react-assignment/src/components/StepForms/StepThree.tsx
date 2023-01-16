@@ -18,27 +18,33 @@ const StepThree = (): JSX.Element => {
     })
   }
 
-  // const validateDishItems = (formValues: Order): boolean => {
-  //   const { dishes } = formValues
-  //   if (!dishes.length) return false
-  //   const items = dishes.map(d => d.item)
-  //   const itemTotalCount = dishes.reduce((acc, cur) => acc + Number(cur.count), 0)
-  //   if (items.length !== [...new Set(items)].length) return false
-  //   if (itemTotalCount < getValues().peopleCount) return false
-  //   return true
-  // }
+  const validateDishItems = (formValues: Order): boolean => {
+    const { dishes } = formValues
+    if (!dishes.length) return false
+    const items = dishes.map(d => d.item)
+    if (items.length !== [...new Set(items)].length) return false
+    return true
+  }
 
-  // const renderErrorMsg = (index: number) => {
-  //   const hasError = !!Object.keys(errors).length
-  //   if (!hasError) return null
-  //   if (errors.dishes[index]?.type) {
-  //     return 'This field is required'
-  //   } else if (errors.dishes[index]?.item) {
-  //     return 'duplicate dish'
-  //   } else if (errors.dishes[index]?.count) {
-  //     return `no less than peopleCount ${getValues().peopleCount}`
-  //   }
-  // }
+  const validateCount = (formValues: Order): boolean => {
+    const { dishes } = formValues
+    const itemTotalCount = dishes.reduce((acc, cur) => acc + Number(cur.count), 0)
+    if (itemTotalCount < getValues().peopleCount) return false
+    return true
+  }
+
+  const renderErrorMsg = (index: number) => {
+    const hasError = !!Object.keys(errors).length
+    if (!hasError) return null
+    console.log({ errors })
+    if (errors.dishes[index]?.type) {
+      return 'This field is required'
+    } else if (errors.dishes[index]?.item) {
+      return 'duplicate dish'
+    } else if (errors.dishes[index]?.count) {
+      return `no less than peopleCount ${getValues().peopleCount}`
+    }
+  }
 
   return (
     <div>
@@ -52,10 +58,10 @@ const StepThree = (): JSX.Element => {
                   name='dish'
                   id='dish'
                   {...register(`dishes.${index}.item`, {
-                    required: true
-                    // validate: (value: string, formValues: Order) => {
-                    //   return validateDishItems(formValues)
-                    // }
+                    required: true,
+                    validate: (value: string, formValues: Order) => {
+                      return validateDishItems(formValues)
+                    }
                   })}
                 >
                   {dishOptions.map(d => (
@@ -65,7 +71,7 @@ const StepThree = (): JSX.Element => {
                   ))}
                 </select>
                 <div>
-                  {/* {errors.dishes && <span style={{ color: 'red' }}>{renderErrorMsg(index)}</span>} */}
+                  {errors.dishes && <span style={{ color: 'red' }}>{renderErrorMsg(index)}</span>}
                 </div>
               </div>
 
@@ -76,10 +82,10 @@ const StepThree = (): JSX.Element => {
                   min={1}
                   max={10}
                   {...register(`dishes.${index}.count`, {
-                    required: true
-                    // validate: (value: string, formValues: Order) => {
-                    //   return validateDishItems(formValues)
-                    // }
+                    required: true,
+                    validate: (value: string, formValues: Order) => {
+                      return validateCount(formValues)
+                    }
                   })}
                 />
               </div>
