@@ -13,17 +13,23 @@ const StepThree = (props: stepThreeProps): ReactElement => {
   const [orderItem, setOrderItem] = useState<Orders | null>(null);
   const [name, setName] = useState<string>("");
   const [numberOfServings, setNumberOfServings] = useState<string>("");
+  const [newOrder, setNewOrder] = useState<boolean>(false);
 
   useEffect(() => {
     if (name && numberOfServings) {
       setOrderItem({ name: name, numberOfServings: numberOfServings });
+      setNewOrder(false);
     }
   }, [name, numberOfServings, orders]);
+
+
+
+  console.log(orders.length);
 
   return (
     <>
      <div className="popout">
-      <div className="grid grid-cols-4  grid-rows-4 gap-x-5 place-items-center">
+      <div className="grid grid-cols-4  grid-rows-4 gap-x-2 place-items-center">
         <label className="col-span-2 font-body1 mb-2" htmlFor="meal">
           Select a dish:
         </label>
@@ -84,14 +90,15 @@ const StepThree = (props: stepThreeProps): ReactElement => {
             } else {
               orders[findIndex].numberOfServings = numberOfServings;
             }
+            setNewOrder(true);
           }}
           className="row-span-1 shadow-sm bg-mustard p-2 uppercase rounded-full h-[50px] w-[50px]  font-heading hover:font-title hover:shadow-lg"
         >
           <p>+</p>
         </button>
 
-        {orders.length > 1 && (
-          <table className="col-span-4 row-span-2">
+        {orderItem && (
+          <table className="mt-5 col-span-4 row-span-2">
             <thead>
               <tr>
                 <th

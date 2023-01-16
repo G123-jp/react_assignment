@@ -14,7 +14,7 @@ const Review = (props: reviewProps): ReactElement => {
 
   return (
     <>
-      <div className="popout">
+      <div className="popout flex flex-col items-center justify-center">
         <div className="grid grid-cols-2 grid-rows-3 gap-5">
           <p className="font-heading uppercase">Meal</p>
           <p className="font-body1 capitalize">{mealType}</p>
