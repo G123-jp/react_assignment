@@ -31,6 +31,7 @@ function App() {
   const [filteredRestaurantMenu, setFilteredRestaurantMenu] = useState<
     MenuItem[]
   >([]);
+  const [servingsCount, setServingsCount] = useState(0);
 
   const progress = [
     <Start />,
@@ -51,10 +52,11 @@ function App() {
     />,
     <Review {...data} />,
   ];
+  
   //use a hook to navigate through the multiple pages
   const { currentStepIndex, step, back, next, isFirstStep, isLastStep } =
-    useNavigateForm(progress);
-
+  useNavigateForm(progress);
+  
   //async function to dataSet
   const getDishes = async () => {
     await axios.get(`data/dishes.json`).then((response) => {
@@ -85,8 +87,10 @@ function App() {
     setFilteredRestaurantMenu(filteredRestaurantData);
   }, [selectedRestaurant]);
 
+  //next and previous
   function onSubmit(e: FormEvent) {
     e.preventDefault();
+    if (currentStepIndex===3 && (servingsCount < parseInt(data.numberOfPeople))) {return alert(`You need to add ${parseInt(data.numberOfPeople)-servingsCount} more orders to continue.`)};
     if (!isLastStep) return next();
     alert("Sucessfully ordered your meal!");
     console.log(data);
@@ -101,6 +105,9 @@ function App() {
     <AppContext.Provider
       value={{
         currentStepIndex: currentStepIndex,
+        data: data,
+        servingsCount: servingsCount,
+        setServingsCount: setServingsCount,
       }}
     >
       <>
