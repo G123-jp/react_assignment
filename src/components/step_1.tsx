@@ -1,18 +1,18 @@
-import { SingleDish, orderInfoType } from "../globals";
+import { SingleDish, orderInfoType, SingleMeal } from "../globals";
 
 type Props = {
     dishesData: SingleDish[],
     setDishesData: any
     orderInfo: orderInfoType
     setOrderInfo: any
-    // onClick: (event: React.MouseEvent<HTMLInputElement>) => void
-    // onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    orderHolder: SingleMeal[]
+    setOrderHolder: any
 }
 
-const Step_1: React.FC<Props>= ({ dishesData,setDishesData, orderInfo, setOrderInfo }) => {
+const Step_1: React.FC<Props>= ({ dishesData,setDishesData, orderInfo, setOrderInfo, orderHolder, setOrderHolder }) => {
 
     let updateCategory = (e:any) => {
-        //setOrderHolder([])
+        setOrderHolder([])
         setOrderInfo({
           category:e.target.value,
           numOfPeople: orderInfo.numOfPeople,
@@ -31,12 +31,11 @@ const Step_1: React.FC<Props>= ({ dishesData,setDishesData, orderInfo, setOrderI
       };
 
     return (
+        <div className="flex justify-center">
         <div>
-        <div>
-          <div>
             <label>
               <h3>Please Select a meal</h3>
-              <select value={orderInfo.category} onChange={updateCategory}>
+              <select value={orderInfo.category} onChange={updateCategory} className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                 <option value=''>---</option>
                 <option value="breakfast">Breakfast</option>
                 <option value="lunch">Lunch</option>
@@ -45,10 +44,9 @@ const Step_1: React.FC<Props>= ({ dishesData,setDishesData, orderInfo, setOrderI
             </label>
             <div>
               <h3>Please enter number of people</h3>
-              <input type="number" min="1" max="10" value={orderInfo.numOfPeople} onChange={updatePeopleNum}>
+              <input type="number" min="1" max="10" value={orderInfo.numOfPeople} onChange={updatePeopleNum} className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </input>
             </div>
-          </div>
         </div>
       </div>
     )
