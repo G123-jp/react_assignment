@@ -1,6 +1,6 @@
 const Step_4: React.FC = () => {
     return (
-        <div></div>
+        <div>step 4</div>
     )
 };
 
