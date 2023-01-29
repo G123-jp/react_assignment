@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Step_1 from "./step_1";
 import Step_2 from "./step_2";
 import Step_3 from "./step_3";
@@ -5,8 +6,13 @@ import Step_4 from "./step_4";
 import Step_5 from "./step_5";
 
 const MainFormPage: React.FC = () => {
+    const [step, setStep] = useState<number>(0);
+
     return(
         <div>
+            <h1 className="text-3xl font-bold underline">
+                Hello world!
+            </h1>
             <div>lets Start Desu</div>
         </div>
     )
