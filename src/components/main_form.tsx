@@ -21,10 +21,17 @@ const MainFormPage: React.FC = () => {
         meals:[],
     });
     const [orderHolder, setOrderHolder] = useState<SingleMeal[] | []>([]);
+    const [mealAmount, setMealAmount] = useState<number>(0)
 
     useEffect(() => {
         setDishesData(dishes.dishes)
     },[]);
+
+    let orderHoldAmount = () => {
+        let arrayTotal = orderHolder.map((item)=>{return Number(item.amount)});
+        let sumOfitems = arrayTotal.reduce((a,b)=> a + b, 0)
+        return sumOfitems
+    }
 
     const nextButtonHandler = () => {
         if(step === 0){
@@ -33,12 +40,14 @@ const MainFormPage: React.FC = () => {
             if(orderInfo.category !== ""){
                 setStep(step + 1);
             }else{
+                alert("select a meal")
                 setStep(1)
             };
         }else if(step === 2){
             if(orderInfo.restaurant !== ""){
                 setStep(step + 1);
             }else{
+                alert("Select a restaurant")
                 setStep(2)
             }
         }else if(step === 3){
@@ -48,9 +57,9 @@ const MainFormPage: React.FC = () => {
                 alert("Please add items to your order")
                 setStep(3)
             }else if(sumOfitems < orderInfo.numOfPeople){
-                //console.log(orderHolder.length)
-                //console.log(orderInfo.numOfPeople)
                 alert("Please add at least one item per person to your order")
+            }else if(orderHoldAmount() + mealAmount >= 10){
+                alert("The limit on items is 10 Please remove items")
             }else{
                 setStep(step + 1);
             };
@@ -74,7 +83,7 @@ const MainFormPage: React.FC = () => {
         }else if(step ===2){
             return <Step_2 dishesData={dishesData} setDishesData={setDishesData} orderInfo={orderInfo} setOrderInfo={setOrderInfo} orderHolder={orderHolder} setOrderHolder={setOrderHolder}/>
         }else if(step ===3){
-            return <Step_3 dishesData={dishesData} setDishesData={setDishesData} orderInfo={orderInfo} setOrderInfo={setOrderInfo} orderHolder={orderHolder} setOrderHolder={setOrderHolder}/>
+            return <Step_3 dishesData={dishesData} setDishesData={setDishesData} orderInfo={orderInfo} setOrderInfo={setOrderInfo} orderHolder={orderHolder} setOrderHolder={setOrderHolder} setMealAmount={setMealAmount}/>
         }else if(step === 4){
             return <Step_4 dishesData={dishesData} setDishesData={setDishesData} orderInfo={orderInfo} setOrderInfo={setOrderInfo} orderHolder={orderHolder} setOrderHolder={setOrderHolder}/>
         }else if(step === 5 ){

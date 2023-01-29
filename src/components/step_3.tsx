@@ -8,9 +8,10 @@ type Props = {
     setOrderInfo: any
     orderHolder: SingleMeal[]
     setOrderHolder: any
+    setMealAmount: any
 }
 
-const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrderInfo, orderHolder, setOrderHolder }) => {
+const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrderInfo, orderHolder, setOrderHolder, setMealAmount }) => {
 
     const [dish,setDish] = useState<string[]|[]>([])
     const [amount,setAmount] = useState<number>(1);
@@ -44,24 +45,27 @@ const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrder
         setDisplayMealChoices([...filteredMeals]);
       }
     
-      let itemCountNotOverTen = () =>{
+      let itemCountNotOverTen = ()=>{
         let arrayTotal = orderHolder.map((item)=>{return Number(item.amount)});
         let sumOfitems = arrayTotal.reduce((a,b)=> a + b, 0)
-        let remain = remainder - sumOfitems
+        let remain = sumOfitems - remainder
         setRemainder(remain)
+        //console.log(sumOfitems)
         return sumOfitems
       }
 
     let addButtonHandler = (e:any) => {
         if(!dish[0]){
-            console.log("add")
+            console.log(itemCountNotOverTen()+Number(amount))
             return
         }
-        if(itemCountNotOverTen() < 10){
+        if(itemCountNotOverTen() + Number(amount) <= 10){
+          setMealAmount(Number(amount))  
           let dishObj = {dish:dish, amount:amount};
           setOrderHolder([...orderHolder,dishObj]);
           dishPop(e);
           setDish([])
+          setAmount(1)
         }else{
           alert("too many items in order, please select only 10 items")
         }
@@ -71,7 +75,7 @@ const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrder
         return (<div id="item-row" className="flex">
                   <div className="w-3/4 justify-center">{item.dish}</div>
                   <div className="inline pr-16">
-                    <input max={remainder} type="number" id={item.dish} value={item.amount} onChange={amountAdjuster} onClick={itemCountNotOverTen} className="justify-center bg-white border border-gray-400 hover:border-gray-500  w-1/4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" ></input>
+                    <input max={9} type="number" id={item.dish} value={item.amount} onChange={amountAdjuster} className="justify-center bg-white border border-gray-400 hover:border-gray-500  w-1/4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" ></input>
                   </div>
                 </div>)
         });
@@ -96,16 +100,11 @@ const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrder
           let x = mappedMealChoices.filter((itemTag)=>{
             for(let held of orderHolder){
               if(itemTag.props.value !== held.dish)
-              //console.log(itemTag.props.value)
-              //console.log(held.dish)
               return itemTag
             }
           });
           //x is not filtering as it should. Need to retool but should be good otherwise
-          //console.log(x)
           setDisplayMealChoices([...x])
-                //console.log(itemTag.props.value)
-                //console.log(orderHolder)
         };
       },[])
 
@@ -123,7 +122,7 @@ const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrder
             </div>
             <div id="amount" className="">
                 <h3 className="py-3">Please enter amount</h3>
-                <input type="number" min="1" max={remainder} value={amount} onChange={amountUpdate} className="appearance-none w-[35] inline bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"></input>
+                <input type="number" min={1} max={10} value={amount} onChange={amountUpdate} className="appearance-none w-[35] inline bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"></input>
             </div>
             <div id="addFood-button" className="">
                 <h3 className="py-2 mt-1 px-10">Click to add</h3>
