@@ -54,8 +54,9 @@ const Step_3: React.FC<Props> = ({ dishesData,setDishesData, orderInfo, setOrder
 
     let addButtonHandler = (e:any) => {
         if(!dish[0]){
+            console.log("add")
             return
-        };
+        }
         if(itemCountNotOverTen() < 10){
           let dishObj = {dish:dish, amount:amount};
           setOrderHolder([...orderHolder,dishObj]);

@@ -105,10 +105,11 @@ const MainFormPage: React.FC = () => {
     return(
         <div>
             <div className="flex-inline">
-                <div id="future-header" className="py-4">
+                <div id="progress" className="py-4">
                     <ProgressBar step={step}/>
                 </div>
                 <div id='FullFormDiv' className="pt-6 flex-col inline-flex justify-center sm:w-2/4 m:w-3/4 max-w-md md:h-[500px] lg:h-[500px] sm:h-[300px] border-4">
+                    {step === 0? <h1 className="justify-center mt-10 text-2xl">Welcome to Digi Menu</h1> : <></>}
                     <div className="content-center">
                         {conditionalButtonStepper(step)}
                     </div>

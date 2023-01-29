@@ -128,7 +128,7 @@
     },
     {
       "id": 22,
-      "name": "Pepperoni Pizza",
+      "name": "Olive Pizza",
       "restaurant": "Pizzeria",
       "availableMeals": ["lunch", "dinner"]
     },
