@@ -8,4 +8,11 @@ export interface SingleDish {
     "name": string,
     "restaurant": string,
     "availableMeals": string[]
-  };
+  }
+
+  export interface orderInfoType {
+    category: string,
+    numOfPeople: number,
+    restaurant: string,
+    meals: SingleMeal[] | []
+  }
