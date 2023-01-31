@@ -1,5 +1,6 @@
 import path from 'path';
 import { promises as fs } from 'fs';
+import { Dish } from './types';
 
 export const readDishesFromFile = async () => {
     const dataDirectory = path.join(process.cwd(),`data`);
