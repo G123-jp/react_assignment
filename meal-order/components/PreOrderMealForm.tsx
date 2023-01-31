@@ -78,26 +78,24 @@ const NavigationButtons = ({
   );
 };
 
-const getCurrentForm = (currentStep: number) => {
-  switch (currentStep) {
-    case 0:
-      return Step1Form;
-    case 1:
-      return Step2Form;
-    case 2:
-      return Step3Form;
-    case 3:
-      return OrderSummary;
-    default:
-      return Step1Form;
-  }
-};
-
 const NUMBER_OF_STEPS = 4;
 
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const CurrentForm = getCurrentForm(currentStep);
+  const CurrentForm = () => {
+    switch (currentStep) {
+      case 0:
+        return <Step1Form />;
+      case 1:
+        return <Step2Form />;
+      case 2:
+        return <Step3Form />;
+      case 3:
+        return <OrderSummary />;
+      default:
+        return <Step1Form />;
+    }
+  };
 
   const goToNextStep = () => {
     if (currentStep < NUMBER_OF_STEPS - 1) {

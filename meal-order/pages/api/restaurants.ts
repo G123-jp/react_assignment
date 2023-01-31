@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import path from 'path';
 import { promises as fs } from 'fs';
 
-type Data = {
+export type RestaurantList = {
   restaurants: string[],
 };
 
@@ -16,16 +16,16 @@ type Dish = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<RestaurantList>
 ) {
-    const {meal = null} = req.query;
+    const {mealType = ""} = req.query;
 
     const dataDirectory = path.join(process.cwd(),`data`);
     const dishesJson = await fs.readFile(`${dataDirectory}/dishes.json`, 'utf8');
     const dishes: Dish[] = JSON.parse(dishesJson)["dishes"];
     const restaurantsSet = new Set<string>();
     dishes.forEach(({restaurant, availableMeals}) => {
-        if (meal === null || availableMeals.find((x) => x === meal) !== undefined) {
+        if (!mealType || availableMeals.find((x) => x === mealType) !== undefined) {
             restaurantsSet.add(restaurant);
         }
     });
