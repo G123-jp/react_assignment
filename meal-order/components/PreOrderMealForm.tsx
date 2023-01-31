@@ -70,7 +70,7 @@ const NavigationButtons = ({
   nextText?: string;
 }) => {
   return (
-    <div className="flex flex-row justify-between mt-4">
+    <div className="flex flex-row justify-between mt-auto">
       <button
         onClick={onPrev}
         className={`bg-blue-400 text-white p-2 rounded-xl font-bold ${
