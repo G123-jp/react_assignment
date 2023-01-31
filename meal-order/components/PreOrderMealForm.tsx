@@ -1,6 +1,6 @@
 import { DishList } from "@/pages/api/dishes";
 import { RestaurantList } from "@/pages/api/restaurants";
-import { MealType } from "@/shared/types";
+import { Dish, MealType, SelectedDishes } from "@/shared/types";
 import { ReactNode, useEffect, useReducer, useState } from "react";
 import OrderSummary from "./steps/OrderSummary";
 import Step1Form from "./steps/Step1Form";
@@ -90,20 +90,24 @@ interface StateType {
   selectedMealType: MealType;
   numOfPeople: number;
   selectedRestaurant: string;
-  selectedDishes: Map<number, number>; // dish id mapping to number of servings
+  selectedDishes: SelectedDishes; // dish id mapping to Dish Serving
 }
 
 const initialState: StateType = {
   selectedMealType: "breakfast",
   numOfPeople: 1,
   selectedRestaurant: "",
-  selectedDishes: new Map<number, number>(),
+  selectedDishes: {},
 };
 
 type ActionType =
   | { type: "select_meal_type"; payload: { mealType: MealType } }
   | { type: "select_num_people"; payload: { numOfPeople: number } }
-  | { type: "select_restaurant"; payload: { restaurant: string } };
+  | { type: "select_restaurant"; payload: { restaurant: string } }
+  | {
+      type: "update_dish_order";
+      payload: { dish: Dish; numberOfServing: number };
+    };
 
 const reducer = (state: StateType, action: ActionType): StateType => {
   if (action.type === "select_meal_type") {
@@ -111,6 +115,7 @@ const reducer = (state: StateType, action: ActionType): StateType => {
       ...state,
       selectedMealType: action.payload.mealType,
       selectedRestaurant: "", // reset restaurant selection
+      selectedDishes: {}, // reset dish selection
     };
   } else if (action.type === "select_num_people") {
     return {
@@ -121,6 +126,25 @@ const reducer = (state: StateType, action: ActionType): StateType => {
     return {
       ...state,
       selectedRestaurant: action.payload.restaurant,
+      selectedDishes: {}, // reset dish selection
+    };
+  } else if (action.type === "update_dish_order") {
+    const {
+      payload: { dish, numberOfServing },
+    } = action;
+
+    const newSelectedDishes = { ...state.selectedDishes };
+    if (numberOfServing <= 0) {
+      delete newSelectedDishes[`${action.payload.dish.id}`];
+    } else {
+      newSelectedDishes[`${action.payload.dish.id}`] = {
+        dish,
+        numberOfServing,
+      };
+    }
+    return {
+      ...state,
+      selectedDishes: newSelectedDishes,
     };
   }
   throw Error("unknown action");
@@ -169,7 +193,8 @@ const useDishes = (mealType: MealType, restaurant: string) => {
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { selectedMealType, numOfPeople, selectedRestaurant } = state;
+  const { selectedMealType, numOfPeople, selectedRestaurant, selectedDishes } =
+    state;
   const { restaurants } = useRestaurants(selectedMealType);
   const { dishes } = useDishes(selectedMealType, selectedRestaurant);
 
@@ -199,7 +224,18 @@ export default function PreOrderMealForm() {
           />
         );
       case 2:
-        return <Step3Form availableDishes={dishes} />;
+        return (
+          <Step3Form
+            availableDishes={dishes}
+            selectedDishes={selectedDishes}
+            onUpdateDish={(dish, numberOfServing) => {
+              dispatch({
+                type: "update_dish_order",
+                payload: { dish, numberOfServing },
+              });
+            }}
+          />
+        );
       case 3:
       default:
         return <OrderSummary />;

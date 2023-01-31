@@ -6,3 +6,6 @@ export type Dish = {
     restaurant: string, 
     availableMeals: [],
 };
+
+type DishServing = { dish: Dish; numberOfServing: number };
+export type SelectedDishes = { [id: string]: DishServing };

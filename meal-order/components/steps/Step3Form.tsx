@@ -1,9 +1,13 @@
-import { Dish } from "@/shared/types";
+import { Dish, SelectedDishes } from "@/shared/types";
 
 export default function Step3Form({
   availableDishes,
+  selectedDishes,
+  onUpdateDish,
 }: {
   availableDishes: Dish[];
+  selectedDishes: SelectedDishes;
+  onUpdateDish: (dish: Dish, numberOfServing: number) => void;
 }) {
   return (
     <ul className="flex flex-col justify-center mt-4">
@@ -16,7 +20,18 @@ export default function Step3Form({
               type="number"
               min="0"
               max="10"
-              placeholder="0"
+              value={
+                selectedDishes[`${dish.id}`]
+                  ? selectedDishes[`${dish.id}`].numberOfServing
+                  : 0
+              }
+              onChange={({ target: { value } }) => {
+                let numberOfServing = Number.parseInt(value);
+                if (numberOfServing === Number.NaN) {
+                  numberOfServing = 0;
+                }
+                onUpdateDish(dish, numberOfServing);
+              }}
             />
           </li>
         );
