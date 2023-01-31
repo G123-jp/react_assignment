@@ -1,5 +1,6 @@
+import { RestaurantList } from "@/pages/api/restaurants";
 import { MealType } from "@/shared/types";
-import { ReactNode, useReducer, useState } from "react";
+import { ReactNode, useEffect, useReducer, useState } from "react";
 import OrderSummary from "./steps/OrderSummary";
 import Step1Form from "./steps/Step1Form";
 import Step2Form from "./steps/Step2Form";
@@ -87,7 +88,7 @@ const NUMBER_OF_STEPS = 4;
 interface StateType {
   selectedMealType: MealType;
   numOfPeople: number;
-  selectedRestaurant: "";
+  selectedRestaurant: string;
   selectedDishes: Map<number, number>; // dish id mapping to number of servings
 }
 
@@ -100,27 +101,55 @@ const initialState: StateType = {
 
 type ActionType =
   | { type: "select_meal_type"; payload: { mealType: MealType } }
-  | { type: "select_num_people"; payload: { numOfPeople: number } };
+  | { type: "select_num_people"; payload: { numOfPeople: number } }
+  | { type: "select_restaurant"; payload: { restaurant: string } };
 
 const reducer = (state: StateType, action: ActionType): StateType => {
   if (action.type === "select_meal_type") {
     return {
       ...state,
       selectedMealType: action.payload.mealType,
+      selectedRestaurant: "", // reset restaurant selection
     };
   } else if (action.type === "select_num_people") {
     return {
       ...state,
       numOfPeople: action.payload.numOfPeople,
     };
+  } else if (action.type === "select_restaurant") {
+    return {
+      ...state,
+      selectedRestaurant: action.payload.restaurant,
+    };
   }
   throw Error("unknown action");
+};
+
+const useRestaurants = (mealType: MealType) => {
+  const [data, setData] = useState<RestaurantList | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/restaurants?mealType=${mealType}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }, [mealType]);
+
+  return {
+    restaurants: data ? data.restaurants : [],
+    isLoading,
+  };
 };
 
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { selectedMealType, numOfPeople } = state;
+  const { selectedMealType, numOfPeople, selectedRestaurant } = state;
+  const { restaurants } = useRestaurants(selectedMealType);
 
   const CurrentForm = () => {
     switch (currentStep) {
@@ -138,7 +167,15 @@ export default function PreOrderMealForm() {
           />
         );
       case 1:
-        return <Step2Form selectedMealType={selectedMealType} />;
+        return (
+          <Step2Form
+            onRestaurantSelected={(restaurant) => {
+              dispatch({ type: "select_restaurant", payload: { restaurant } });
+            }}
+            selectedRestaurant={selectedRestaurant}
+            restaurants={restaurants}
+          />
+        );
       case 2:
         return <Step3Form />;
       case 3:

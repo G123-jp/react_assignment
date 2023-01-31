@@ -1,33 +1,26 @@
-import { RestaurantList } from "@/pages/api/restaurants";
 import { MealType } from "@/shared/types";
-import { useEffect, useState } from "react";
 
 export default function Step2Form({
-  selectedMealType = "breakfast",
+  selectedRestaurant,
+  onRestaurantSelected,
+  restaurants,
 }: {
-  selectedMealType?: MealType;
+  selectedRestaurant: string;
+  onRestaurantSelected: (restaurant: string) => void;
+  restaurants: string[];
 }) {
-  const [data, setData] = useState<RestaurantList | null>(null);
-  const [isLoading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setLoading(true);
-    fetch(`/api/restaurants?mealType=${selectedMealType}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
-
   return (
     <div className="flex flex-row justify-center mt-4">
-      <select className="border border-solid border-blue-400 p-2">
-        <option value="">
-          {isLoading ? "Loading restaurant list.." : "Pick a restaurant"}
-        </option>
-        {data &&
-          data.restaurants.map((restaurant, idx) => (
+      <select
+        className="border border-solid border-blue-400 p-2"
+        onChange={({ target: { value } }) => {
+          onRestaurantSelected(value);
+        }}
+        value={selectedRestaurant}
+      >
+        <option value="">{"Pick a restaurant"}</option>
+        {restaurants &&
+          restaurants.map((restaurant, idx) => (
             <option key={idx} value={restaurant}>
               {restaurant}
             </option>
