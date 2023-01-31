@@ -54,10 +54,14 @@ const MealTypeGroupButton = ({
 
 export default function Step1Form({
   onMealTypeSelected,
-  selectedMealType = "breakfast",
+  selectedMealType,
+  onNumOfPeopleChanged,
+  numOfPeople,
 }: {
   onMealTypeSelected: (mealType: MealType) => void;
-  selectedMealType?: MealType;
+  selectedMealType: MealType;
+  onNumOfPeopleChanged: (numOfPeople: number) => void;
+  numOfPeople: number;
 }) {
   return (
     <>
@@ -75,7 +79,10 @@ export default function Step1Form({
           type="number"
           min="1"
           max="10"
-          placeholder="1"
+          value={numOfPeople}
+          onChange={({ target: { value } }) => {
+            onNumOfPeopleChanged(Number.parseInt(value));
+          }}
         />
       </div>
     </>

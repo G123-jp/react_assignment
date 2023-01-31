@@ -98,13 +98,20 @@ const initialState: StateType = {
   selectedDishes: new Map<number, number>(),
 };
 
-type ActionType = { type: "select_meal_type"; payload: { mealType: MealType } };
+type ActionType =
+  | { type: "select_meal_type"; payload: { mealType: MealType } }
+  | { type: "select_num_people"; payload: { numOfPeople: number } };
 
 const reducer = (state: StateType, action: ActionType): StateType => {
   if (action.type === "select_meal_type") {
     return {
       ...state,
       selectedMealType: action.payload.mealType,
+    };
+  } else if (action.type === "select_num_people") {
+    return {
+      ...state,
+      numOfPeople: action.payload.numOfPeople,
     };
   }
   throw Error("unknown action");
@@ -113,7 +120,7 @@ const reducer = (state: StateType, action: ActionType): StateType => {
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { selectedMealType } = state;
+  const { selectedMealType, numOfPeople } = state;
 
   const CurrentForm = () => {
     switch (currentStep) {
@@ -124,6 +131,10 @@ export default function PreOrderMealForm() {
             onMealTypeSelected={(mealType) =>
               dispatch({ type: "select_meal_type", payload: { mealType } })
             }
+            numOfPeople={numOfPeople}
+            onNumOfPeopleChanged={(numOfPeople) => {
+              dispatch({ type: "select_num_people", payload: { numOfPeople } });
+            }}
           />
         );
       case 1:
