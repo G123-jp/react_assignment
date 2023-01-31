@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="bg-slate-100 flex flex-col items-center justify-center min-h-screen">
-        <main className="text-center drop-shadow-xl rounded-xl bg-white min-w-[50%] h-fit p-4 pb-8 mt-auto">
+        <main className="text-center drop-shadow-xl rounded-xl bg-white min-w-[50%] h-fit p-4 pb-8 mt-auto min-h-[75%]">
           <PreOrderMealForm />
         </main>
         <footer className="attribution mt-auto p-4 text-xs text-center">
