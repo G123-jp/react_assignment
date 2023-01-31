@@ -1,3 +1,4 @@
+import { DishList } from "@/pages/api/dishes";
 import { RestaurantList } from "@/pages/api/restaurants";
 import { MealType } from "@/shared/types";
 import { ReactNode, useEffect, useReducer, useState } from "react";
@@ -145,11 +146,32 @@ const useRestaurants = (mealType: MealType) => {
   };
 };
 
+const useDishes = (mealType: MealType, restaurant: string) => {
+  const [data, setData] = useState<DishList | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/dishes?mealType=${mealType}&restaurant=${restaurant}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }, [mealType, restaurant]);
+
+  return {
+    dishes: data ? data.dishes : [],
+    isLoading,
+  };
+};
+
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { selectedMealType, numOfPeople, selectedRestaurant } = state;
   const { restaurants } = useRestaurants(selectedMealType);
+  const { dishes } = useDishes(selectedMealType, selectedRestaurant);
 
   const CurrentForm = () => {
     switch (currentStep) {
@@ -177,7 +199,7 @@ export default function PreOrderMealForm() {
           />
         );
       case 2:
-        return <Step3Form />;
+        return <Step3Form availableDishes={dishes} />;
       case 3:
       default:
         return <OrderSummary />;
