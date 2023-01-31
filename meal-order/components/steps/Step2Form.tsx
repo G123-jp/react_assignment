@@ -1,5 +1,3 @@
-import { MealType } from "@/shared/types";
-
 export default function Step2Form({
   selectedRestaurant,
   onRestaurantSelected,

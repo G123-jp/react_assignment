@@ -1,4 +1,4 @@
-import { MealType } from "@/shared/types";
+import { MealType } from "@/components/shared/types";
 import { ReactNode } from "react";
 
 const MealTypeButton = ({

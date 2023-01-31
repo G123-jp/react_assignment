@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { readDishesFromFile } from '@/shared/utils';
-import { Dish } from '@/shared/types';
+import { readDishesFromFile } from '@/components/shared/utils';
+import { Dish } from '@/components/shared/types';
 
 export type DishList = {
   dishes: Dish[],

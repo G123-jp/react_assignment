@@ -1,6 +1,11 @@
 import { DishList } from "@/pages/api/dishes";
 import { RestaurantList } from "@/pages/api/restaurants";
-import { Dish, MealType, SelectedDishes } from "@/shared/types";
+import {
+  Dish,
+  MealType,
+  SelectedDishes,
+  StateType,
+} from "@/components/shared/types";
 import { ReactNode, useEffect, useReducer, useState } from "react";
 import OrderSummary from "./steps/OrderSummary";
 import Step1Form from "./steps/Step1Form";
@@ -85,13 +90,6 @@ const NavigationButtons = ({
 };
 
 const NUMBER_OF_STEPS = 4;
-
-interface StateType {
-  selectedMealType: MealType;
-  numOfPeople: number;
-  selectedRestaurant: string;
-  selectedDishes: SelectedDishes; // dish id mapping to Dish Serving
-}
 
 const initialState: StateType = {
   selectedMealType: "breakfast",
@@ -238,7 +236,7 @@ export default function PreOrderMealForm() {
         );
       case 3:
       default:
-        return <OrderSummary />;
+        return <OrderSummary {...state} />;
     }
   };
 

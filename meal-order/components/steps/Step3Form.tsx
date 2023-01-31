@@ -1,4 +1,4 @@
-import { Dish, SelectedDishes } from "@/shared/types";
+import { Dish, SelectedDishes } from "@/components/shared/types";
 
 export default function Step3Form({
   availableDishes,
