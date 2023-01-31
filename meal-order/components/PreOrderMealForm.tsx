@@ -1,4 +1,5 @@
-import { ReactNode, useState } from "react";
+import { MealType } from "@/shared/types";
+import { ReactNode, useReducer, useState } from "react";
 import OrderSummary from "./steps/OrderSummary";
 import Step1Form from "./steps/Step1Form";
 import Step2Form from "./steps/Step2Form";
@@ -80,20 +81,55 @@ const NavigationButtons = ({
 
 const NUMBER_OF_STEPS = 4;
 
+interface StateType {
+  selectedMealType: MealType;
+  numOfPeople: number;
+  selectedRestaurant: "";
+  selectedDishes: Map<number, number>; // dish id mapping to number of servings
+}
+
+const initialState: StateType = {
+  selectedMealType: "breakfast",
+  numOfPeople: 1,
+  selectedRestaurant: "",
+  selectedDishes: new Map<number, number>(),
+};
+
+type ActionType = { type: "select_meal_type"; payload: { mealType: MealType } };
+
+const reducer = (state: StateType, action: ActionType): StateType => {
+  if (action.type === "select_meal_type") {
+    return {
+      ...state,
+      selectedMealType: action.payload.mealType,
+    };
+  }
+  throw Error("unknown action");
+};
+
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { selectedMealType } = state;
+
   const CurrentForm = () => {
     switch (currentStep) {
       case 0:
-        return <Step1Form />;
+        return (
+          <Step1Form
+            selectedMealType={selectedMealType}
+            onMealTypeSelected={(mealType) =>
+              dispatch({ type: "select_meal_type", payload: { mealType } })
+            }
+          />
+        );
       case 1:
-        return <Step2Form />;
+        return <Step2Form selectedMealType={selectedMealType} />;
       case 2:
         return <Step3Form />;
       case 3:
-        return <OrderSummary />;
       default:
-        return <Step1Form />;
+        return <OrderSummary />;
     }
   };
 
