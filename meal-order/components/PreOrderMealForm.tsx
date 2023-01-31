@@ -1,4 +1,8 @@
 import { ReactNode, useState } from "react";
+import OrderSummary from "./steps/OrderSummary";
+import Step1Form from "./steps/Step1Form";
+import Step2Form from "./steps/Step2Form";
+import Step3Form from "./steps/Step3Form";
 
 const FormProgressItem = ({
   isHighlighted,
@@ -71,95 +75,6 @@ const NavigationButtons = ({
         {nextText}
       </button>
     </div>
-  );
-};
-
-const Step1Form = () => {
-  return (
-    <>
-      <h2 className="text-lg mt-4">Select a meal:</h2>
-      <div className="flex flex-row justify-center">
-        <button className="bg-blue-400 text-white mx-1 p-2 text-lg font-bold rounded-xl">
-          Breakfast
-        </button>
-        <button className="mx-1 p-2 text-lg font-bold">Lunch</button>
-        <button className="mx-1 p-2 text-lg font-bold">Dinner</button>
-      </div>
-      <h2 className="text-lg mt-4">Number of people:</h2>
-      <div>
-        <input
-          className="border border-solid border-blue-400 rounded text-center  "
-          type="number"
-          min="1"
-          max="10"
-          placeholder="1"
-        />
-      </div>
-    </>
-  );
-};
-
-const Step2Form = () => {
-  return (
-    <div className="flex flex-row justify-center mt-4">
-      <select>
-        <option value="">Pick a restaurant</option>
-      </select>
-    </div>
-  );
-};
-
-const Step3Form = () => {
-  return (
-    <ul className="flex flex-col justify-center mt-4">
-      <li className="flex flex-row justify-between">
-        <span>Menu 1</span>
-        <input
-          className="border border-solid border-blue-400 rounded text-center  "
-          type="number"
-          min="0"
-          max="10"
-          placeholder="0"
-        />
-      </li>
-      <li className="flex flex-row justify-between">
-        <span>Menu 2</span>
-        <input
-          className="border border-solid border-blue-400 rounded text-center  "
-          type="number"
-          min="0"
-          max="10"
-          placeholder="0"
-        />
-      </li>
-    </ul>
-  );
-};
-
-const OrderSummary = () => {
-  return (
-    <ul className="flex flex-col justify-center mt-4">
-      <li className="flex flex-row justify-between">
-        <span>Meal</span>
-        <span>Breakfast</span>
-      </li>
-      <li className="flex flex-row justify-between">
-        <span>Number of people</span>
-        <span>3</span>
-      </li>
-      <li className="flex flex-row justify-between">
-        <span>Restaurant</span>
-        <span>McDonalds</span>
-      </li>
-      <li className="flex flex-row justify-between">
-        <span>Dishes</span>
-        <ul className="border border-solid border-blue-400 p-2 flex flex-col text-left">
-          <li>Dish A - 1</li>
-          <li>Dish B - 3</li>
-          <li>Dish C - 2</li>
-        </ul>
-      </li>
-    </ul>
   );
 };
 
