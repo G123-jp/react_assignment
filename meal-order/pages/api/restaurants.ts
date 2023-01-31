@@ -1,17 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import path from 'path';
-import { promises as fs } from 'fs';
+import { Dish } from '@/shared/types';
+import { readDishesFromFile } from '@/shared/utils';
 
 export type RestaurantList = {
   restaurants: string[],
-};
-
-type Dish = {
-    id: number,
-    name: string,
-    restaurant: string, 
-    availableMeals: [],
 };
 
 export default async function handler(
@@ -19,10 +12,7 @@ export default async function handler(
   res: NextApiResponse<RestaurantList>
 ) {
     const {mealType = ""} = req.query;
-
-    const dataDirectory = path.join(process.cwd(),`data`);
-    const dishesJson = await fs.readFile(`${dataDirectory}/dishes.json`, 'utf8');
-    const dishes: Dish[] = JSON.parse(dishesJson)["dishes"];
+    const dishes: Dish[] = await readDishesFromFile();
     const restaurantsSet = new Set<string>();
     dishes.forEach(({restaurant, availableMeals}) => {
         if (!mealType || availableMeals.find((x) => x === mealType) !== undefined) {
