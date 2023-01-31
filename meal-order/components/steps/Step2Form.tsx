@@ -8,7 +8,8 @@ export default function Step2Form({
   restaurants: string[];
 }) {
   return (
-    <div className="flex flex-row justify-center mt-4">
+    <div>
+      <h2 className="text-lg mt-4">Select a restaurant:</h2>
       <select
         className="border border-solid border-blue-400 p-2"
         onChange={({ target: { value } }) => {
