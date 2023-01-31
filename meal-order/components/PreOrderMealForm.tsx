@@ -31,12 +31,15 @@ const FormProgress = ({ currentStep }: { currentStep: number }) => {
       <FormProgressItem isHighlighted={currentStep === 0}>
         Step 1
       </FormProgressItem>
+      <span className="py-2 px-1">{">"}</span>
       <FormProgressItem isHighlighted={currentStep === 1}>
         Step 2
       </FormProgressItem>
+      <span className="py-2 px-1">{">"}</span>
       <FormProgressItem isHighlighted={currentStep === 2}>
         Step 3
       </FormProgressItem>
+      <span className="py-2 px-1">{">"}</span>
       <FormProgressItem isHighlighted={currentStep === 3}>
         Review
       </FormProgressItem>

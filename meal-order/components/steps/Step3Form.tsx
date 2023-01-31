@@ -4,7 +4,7 @@ export default function Step3Form() {
       <li className="flex flex-row justify-between">
         <span>Menu 1</span>
         <input
-          className="border border-solid border-blue-400 rounded text-center  "
+          className="border border-solid border-blue-400 rounded text-center p-2"
           type="number"
           min="0"
           max="10"
@@ -14,7 +14,7 @@ export default function Step3Form() {
       <li className="flex flex-row justify-between">
         <span>Menu 2</span>
         <input
-          className="border border-solid border-blue-400 rounded text-center  "
+          className="border border-solid border-blue-400 rounded text-center p-2"
           type="number"
           min="0"
           max="10"

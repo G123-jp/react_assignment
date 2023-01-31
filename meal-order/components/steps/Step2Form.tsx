@@ -1,7 +1,6 @@
 import { RestaurantList } from "@/pages/api/restaurants";
+import { MealType } from "@/shared/types";
 import { useEffect, useState } from "react";
-
-type MealType = "breakfast" | "lunch" | "dinner";
 
 export default function Step2Form({
   selectedMealType = "breakfast",
@@ -23,7 +22,7 @@ export default function Step2Form({
 
   return (
     <div className="flex flex-row justify-center mt-4">
-      <select>
+      <select className="border border-solid border-blue-400 p-2">
         <option value="">
           {isLoading ? "Loading restaurant list.." : "Pick a restaurant"}
         </option>

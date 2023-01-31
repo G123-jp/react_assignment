@@ -71,7 +71,7 @@ export default function Step1Form({
       <h2 className="text-lg mt-4">Number of people:</h2>
       <div>
         <input
-          className="border border-solid border-blue-400 rounded text-center"
+          className="border border-solid border-blue-400 rounded text-center p-2"
           type="number"
           min="1"
           max="10"
