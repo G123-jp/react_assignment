@@ -69,15 +69,18 @@ export default function Step1Form({
 }) {
   return (
     <>
+      <h2 className="text-xl mt-2 font-bold">
+        Step 1: Select Meal Type & Number of People
+      </h2>
       <Error errorMessage={errorMessage} />
-      <h2 className="text-lg mt-2">Select a meal:</h2>
+      <h3 className="text-lg mt-2">Select a meal:</h3>
       <div className="flex flex-row justify-center">
         <MealTypeGroupButton
           selectedMealType={selectedMealType}
           onMealTypeSelected={onMealTypeSelected}
         />
       </div>
-      <h2 className="text-lg mt-4">Number of people:</h2>
+      <h3 className="text-lg mt-4">Number of people:</h3>
       <div>
         <input
           className="border border-solid border-blue-400 rounded text-center p-2"

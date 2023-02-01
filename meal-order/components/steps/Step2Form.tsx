@@ -13,10 +13,10 @@ export default function Step2Form({
 }) {
   return (
     <>
+      <h2 className="text-xl mt-2 font-bold">Step 2: Select a Restaurant</h2>
       <Error errorMessage={errorMessage} />
-      <h2 className="text-lg mt-2">Select a restaurant:</h2>
       <select
-        className="border border-solid border-blue-400 p-2"
+        className="border border-solid border-blue-400 p-2 mt-2"
         onChange={({ target: { value } }) => {
           onRestaurantSelected(value);
         }}

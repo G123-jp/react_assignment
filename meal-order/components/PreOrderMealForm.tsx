@@ -344,7 +344,6 @@ export default function PreOrderMealForm() {
 
   return (
     <>
-      <h1 className="text-2xl">Pre-order Your Meal</h1>
       {!isSubmitted && <FormProgress currentStep={currentStep} />}
       <CurrentForm />
       {!isSubmitted && (
