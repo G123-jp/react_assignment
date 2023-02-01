@@ -12,6 +12,7 @@ import Step1Form from "./steps/Step1Form";
 import Step2Form from "./steps/Step2Form";
 import Step3Form from "./steps/Step3Form";
 import SubmitOrder from "./steps/SubmitOrder";
+import { countTotalNumberOfServings } from "./shared/utils";
 
 const FormProgressItem = ({
   isHighlighted,
@@ -207,7 +208,8 @@ type Validity = {
 };
 
 const checkValidity = (state: StateType, currentStep: STEPS): Validity => {
-  const { selectedMealType, numOfPeople, selectedRestaurant } = state;
+  const { selectedMealType, numOfPeople, selectedRestaurant, selectedDishes } =
+    state;
   if (currentStep === STEPS.Step1) {
     if (!selectedMealType) {
       return {
@@ -226,6 +228,16 @@ const checkValidity = (state: StateType, currentStep: STEPS): Validity => {
       return {
         isFormValid: false,
         errorMessage: "You have to select a restaurant",
+      };
+    }
+  } else if (currentStep === STEPS.Step3) {
+    if (countTotalNumberOfServings(selectedDishes) < numOfPeople) {
+      return {
+        isFormValid: false,
+        errorMessage:
+          numOfPeople === 1
+            ? "You need to order at least 1 serving"
+            : `You need to order at least ${numOfPeople} of servings for ${numOfPeople} people.`,
       };
     }
   }
@@ -280,6 +292,7 @@ export default function PreOrderMealForm() {
                 payload: { dish, numberOfServing },
               });
             }}
+            errorMessage={errorMessage}
           />
         );
       case STEPS.Review:
