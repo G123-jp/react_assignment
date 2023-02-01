@@ -1,4 +1,5 @@
 import { Dish, SelectedDishes } from "@/components/shared/types";
+import { parseIntWithFallback } from "../shared/utils";
 
 export default function Step3Form({
   availableDishes,
@@ -33,11 +34,7 @@ export default function Step3Form({
                   : 0
               }
               onChange={({ target: { value } }) => {
-                let numberOfServing = Number.parseInt(value);
-                if (numberOfServing === Number.NaN) {
-                  numberOfServing = 0;
-                }
-                onUpdateDish(dish, numberOfServing);
+                onUpdateDish(dish, parseIntWithFallback(value, 10, 0));
               }}
             />
           </li>

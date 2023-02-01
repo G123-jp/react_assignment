@@ -62,6 +62,7 @@ const NavigationButtons = ({
   showSubmit = false,
   prevText = "Previous",
   nextText = "Next",
+  nextEnabled = false,
 }: {
   onNext: () => void;
   onPrev: () => void;
@@ -69,6 +70,7 @@ const NavigationButtons = ({
   showSubmit?: boolean;
   prevText?: string;
   nextText?: string;
+  nextEnabled?: boolean;
 }) => {
   return (
     <div className="flex flex-row justify-between mt-auto">
@@ -83,7 +85,10 @@ const NavigationButtons = ({
       <button
         onClick={onNext}
         type={showSubmit ? "submit" : "button"}
-        className={"bg-blue-400 text-white p-2 rounded-xl font-bold"}
+        disabled={!nextEnabled}
+        className={`${
+          nextEnabled ? "bg-blue-400 text-white" : "bg-slate-400 text-gray-800"
+        } p-2 rounded-xl font-bold`}
       >
         {showSubmit ? "Submit" : nextText}
       </button>
@@ -196,6 +201,32 @@ enum STEPS {
   SubmitOrder,
 }
 
+type Validity = {
+  isFormValid: boolean;
+  errorMessage?: string;
+};
+
+const checkValidity = (state: StateType, currentStep: STEPS): Validity => {
+  const { selectedMealType, numOfPeople } = state;
+  if (currentStep === STEPS.Step1) {
+    if (!selectedMealType) {
+      return {
+        isFormValid: false,
+        errorMessage: "A meal type has to be selected",
+      };
+    }
+    if (numOfPeople < 1 || numOfPeople > 10) {
+      return {
+        isFormValid: false,
+        errorMessage: "Number of people has to be between 1 to 10",
+      };
+    }
+    return { isFormValid: true };
+  }
+
+  return { isFormValid: true };
+};
+
 export default function PreOrderMealForm() {
   const [currentStep, setCurrentStep] = useState<STEPS>(0);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -203,6 +234,7 @@ export default function PreOrderMealForm() {
     state;
   const { restaurants } = useRestaurants(selectedMealType);
   const { dishes } = useDishes(selectedMealType, selectedRestaurant);
+  const { isFormValid, errorMessage } = checkValidity(state, currentStep);
 
   const CurrentForm = () => {
     switch (currentStep) {
@@ -217,6 +249,7 @@ export default function PreOrderMealForm() {
             onNumOfPeopleChanged={(numOfPeople) => {
               dispatch({ type: "select_num_people", payload: { numOfPeople } });
             }}
+            errorMessage={errorMessage}
           />
         );
       case STEPS.Step2:
@@ -276,6 +309,7 @@ export default function PreOrderMealForm() {
           onPrev={goToPrevStep}
           hidePrev={currentStep === 0}
           nextText={currentStep === STEPS.Review ? "Submit" : undefined}
+          nextEnabled={isFormValid}
         />
       )}
     </>
