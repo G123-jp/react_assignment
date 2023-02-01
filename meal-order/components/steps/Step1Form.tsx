@@ -27,7 +27,7 @@ const MealTypeGroupButton = ({
   selectedMealType,
   onMealTypeSelected,
 }: {
-  selectedMealType: MealType;
+  selectedMealType: MealType | null;
   onMealTypeSelected: (mealType: MealType) => void;
 }) => {
   return (
@@ -62,7 +62,7 @@ export default function Step1Form({
   errorMessage = "",
 }: {
   onMealTypeSelected: (mealType: MealType) => void;
-  selectedMealType: MealType;
+  selectedMealType: MealType | null;
   onNumOfPeopleChanged: (numOfPeople: number) => void;
   numOfPeople: number;
   errorMessage?: string;

@@ -9,10 +9,3 @@ export type Dish = {
 
 type DishServing = { dish: Dish; numberOfServing: number };
 export type SelectedDishes = { [id: string]: DishServing };
-
-export interface StateType {
-    selectedMealType: MealType;
-    numOfPeople: number;
-    selectedRestaurant: string;
-    selectedDishes: SelectedDishes; // dish id mapping to Dish Serving
-};

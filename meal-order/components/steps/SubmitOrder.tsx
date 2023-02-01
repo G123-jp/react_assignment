@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StateType } from "../shared/types";
+import { StateType } from "../PreOrderMealForm";
 
 const LoadingSpinner = () => {
   return (

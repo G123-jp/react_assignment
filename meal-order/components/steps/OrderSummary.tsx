@@ -1,4 +1,4 @@
-import { StateType } from "../shared/types";
+import { StateType } from "../PreOrderMealForm";
 
 const capitalize = (str: string) => {
   if (str.length === 0) return str;
@@ -15,7 +15,7 @@ export default function OrderSummary({
     <ul className="flex flex-col justify-center mt-4">
       <li className="flex flex-row justify-between mt-4">
         <span>Meal</span>
-        <span>{capitalize(selectedMealType)}</span>
+        <span>{capitalize(selectedMealType || "")}</span>
       </li>
       <li className="flex flex-row justify-between mt-4">
         <span>Number of people</span>
