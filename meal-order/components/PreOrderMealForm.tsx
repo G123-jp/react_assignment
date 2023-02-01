@@ -207,7 +207,7 @@ type Validity = {
 };
 
 const checkValidity = (state: StateType, currentStep: STEPS): Validity => {
-  const { selectedMealType, numOfPeople } = state;
+  const { selectedMealType, numOfPeople, selectedRestaurant } = state;
   if (currentStep === STEPS.Step1) {
     if (!selectedMealType) {
       return {
@@ -221,7 +221,13 @@ const checkValidity = (state: StateType, currentStep: STEPS): Validity => {
         errorMessage: "Number of people has to be between 1 to 10",
       };
     }
-    return { isFormValid: true };
+  } else if (currentStep === STEPS.Step2) {
+    if (!selectedRestaurant) {
+      return {
+        isFormValid: false,
+        errorMessage: "You have to select a restaurant",
+      };
+    }
   }
 
   return { isFormValid: true };
@@ -260,6 +266,7 @@ export default function PreOrderMealForm() {
             }}
             selectedRestaurant={selectedRestaurant}
             restaurants={restaurants}
+            errorMessage={errorMessage}
           />
         );
       case STEPS.Step3:

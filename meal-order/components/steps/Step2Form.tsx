@@ -1,15 +1,20 @@
+import Error from "../shared/Error";
+
 export default function Step2Form({
   selectedRestaurant,
   onRestaurantSelected,
   restaurants,
+  errorMessage = "",
 }: {
   selectedRestaurant: string;
   onRestaurantSelected: (restaurant: string) => void;
   restaurants: string[];
+  errorMessage?: string;
 }) {
   return (
-    <div>
-      <h2 className="text-lg mt-4">Select a restaurant:</h2>
+    <>
+      <Error errorMessage={errorMessage} />
+      <h2 className="text-lg mt-2">Select a restaurant:</h2>
       <select
         className="border border-solid border-blue-400 p-2"
         onChange={({ target: { value } }) => {
@@ -25,6 +30,6 @@ export default function Step2Form({
             </option>
           ))}
       </select>
-    </div>
+    </>
   );
 }
