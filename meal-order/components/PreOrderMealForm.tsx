@@ -11,6 +11,7 @@ import OrderSummary from "./steps/OrderSummary";
 import Step1Form from "./steps/Step1Form";
 import Step2Form from "./steps/Step2Form";
 import Step3Form from "./steps/Step3Form";
+import SubmitOrder from "./steps/SubmitOrder";
 
 const FormProgressItem = ({
   isHighlighted,
@@ -81,15 +82,14 @@ const NavigationButtons = ({
       </button>
       <button
         onClick={onNext}
+        type={showSubmit ? "submit" : "button"}
         className={"bg-blue-400 text-white p-2 rounded-xl font-bold"}
       >
-        {nextText}
+        {showSubmit ? "Submit" : nextText}
       </button>
     </div>
   );
 };
-
-const NUMBER_OF_STEPS = 4;
 
 const initialState: StateType = {
   selectedMealType: "breakfast",
@@ -188,8 +188,16 @@ const useDishes = (mealType: MealType, restaurant: string) => {
   };
 };
 
+enum STEPS {
+  Step1,
+  Step2,
+  Step3,
+  Review,
+  SubmitOrder,
+}
+
 export default function PreOrderMealForm() {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<STEPS>(0);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { selectedMealType, numOfPeople, selectedRestaurant, selectedDishes } =
     state;
@@ -198,7 +206,7 @@ export default function PreOrderMealForm() {
 
   const CurrentForm = () => {
     switch (currentStep) {
-      case 0:
+      case STEPS.Step1:
         return (
           <Step1Form
             selectedMealType={selectedMealType}
@@ -211,7 +219,7 @@ export default function PreOrderMealForm() {
             }}
           />
         );
-      case 1:
+      case STEPS.Step2:
         return (
           <Step2Form
             onRestaurantSelected={(restaurant) => {
@@ -221,7 +229,7 @@ export default function PreOrderMealForm() {
             restaurants={restaurants}
           />
         );
-      case 2:
+      case STEPS.Step3:
         return (
           <Step3Form
             availableDishes={dishes}
@@ -234,35 +242,42 @@ export default function PreOrderMealForm() {
             }}
           />
         );
-      case 3:
+      case STEPS.Review:
+        return <OrderSummary {...state} />;
+      case STEPS.SubmitOrder:
+        return <SubmitOrder {...state} />;
       default:
         return <OrderSummary {...state} />;
     }
   };
 
   const goToNextStep = () => {
-    if (currentStep < NUMBER_OF_STEPS - 1) {
+    if (currentStep < STEPS.SubmitOrder) {
       setCurrentStep(currentStep + 1);
     }
   };
 
   const goToPrevStep = () => {
-    if (currentStep > 0) {
+    if (currentStep > STEPS.Step1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
+  const isSubmitted = currentStep === STEPS.SubmitOrder;
+
   return (
     <>
       <h1 className="text-2xl">Pre-order Your Meal</h1>
-      <FormProgress currentStep={currentStep} />
+      {!isSubmitted && <FormProgress currentStep={currentStep} />}
       <CurrentForm />
-      <NavigationButtons
-        onNext={goToNextStep}
-        onPrev={goToPrevStep}
-        hidePrev={currentStep === 0}
-        nextText={currentStep === NUMBER_OF_STEPS - 1 ? "Submit" : undefined}
-      />
+      {!isSubmitted && (
+        <NavigationButtons
+          onNext={goToNextStep}
+          onPrev={goToPrevStep}
+          hidePrev={currentStep === 0}
+          nextText={currentStep === STEPS.Review ? "Submit" : undefined}
+        />
+      )}
     </>
   );
 }
