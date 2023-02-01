@@ -192,7 +192,7 @@ const reducer = (state: StateType, action: ActionType): StateType => {
       newState.currentStep = state.currentStep - 1;
     }
   } else if (action.type === "go_to_next_step") {
-    if (state.currentStep <= STEPS.Step3) {
+    if (state.currentStep <= STEPS.Review) {
       newState.currentStep = state.currentStep + 1;
     }
   } else if (action.type === "select_meal_type") {
