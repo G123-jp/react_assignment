@@ -8,6 +8,7 @@ import { useRestaurants } from "./hooks/useRestaurants";
 import { useDishes } from "./hooks/useDishes";
 import { NavigationButtons } from "./common/NavigationButtons";
 import { initialState, reducer, STEPS } from "./utils";
+import { LoadingSpinner } from "./common/LoadingSpinner";
 
 const FormProgressItem = ({
   isHighlighted,
@@ -51,6 +52,17 @@ const FormProgress = ({ currentStep }: { currentStep: STEPS }) => {
   );
 };
 
+const LoadingScreen = () => {
+  return (
+    <div
+      role="status"
+      className="w-full flex flex-col items-center justify-center grow"
+    >
+      <LoadingSpinner />
+    </div>
+  );
+};
+
 export default function PreOrderMealForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
@@ -61,8 +73,12 @@ export default function PreOrderMealForm() {
     selectedDishes,
     formValidity: { isFormValid, errorMessage },
   } = state;
-  const { restaurants } = useRestaurants(selectedMealType);
-  const { dishes } = useDishes(selectedMealType, selectedRestaurant);
+  const { restaurants, isLoading: isRestaurantsLoading } =
+    useRestaurants(selectedMealType);
+  const { dishes, isLoading: isDishesLoading } = useDishes(
+    selectedMealType,
+    selectedRestaurant
+  );
 
   const CurrentForm = () => {
     switch (currentStep) {
@@ -81,7 +97,9 @@ export default function PreOrderMealForm() {
           />
         );
       case STEPS.Step2:
-        return (
+        return isRestaurantsLoading ? (
+          <LoadingScreen />
+        ) : (
           <Step2Form
             onRestaurantSelected={(restaurant) => {
               dispatch({ type: "select_restaurant", payload: { restaurant } });
@@ -92,7 +110,9 @@ export default function PreOrderMealForm() {
           />
         );
       case STEPS.Step3:
-        return (
+        return isDishesLoading ? (
+          <LoadingScreen />
+        ) : (
           <Step3Form
             availableDishes={dishes}
             selectedDishes={selectedDishes}

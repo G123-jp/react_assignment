@@ -13,12 +13,14 @@ export default async function handler(
     const {mealType = ""} = req.query;
     const dishes: Dish[] = await readDishesFromFile();
     const restaurantsSet = new Set<string>();
-    dishes.forEach(({restaurant, availableMeals}) => {
-        if (!mealType || availableMeals.find((x) => x === mealType) !== undefined) {
-            restaurantsSet.add(restaurant);
-        }
-    });
-    const restaurants = Array.from(restaurantsSet);
+    setTimeout(() => {
+      dishes.forEach(({restaurant, availableMeals}) => {
+          if (!mealType || availableMeals.find((x) => x === mealType) !== undefined) {
+              restaurantsSet.add(restaurant);
+          }
+      });
+      const restaurants = Array.from(restaurantsSet);
 
-    res.status(200).json({restaurants});
+      res.status(200).json({restaurants});
+    }, 2000); // simulate backend delay
 }

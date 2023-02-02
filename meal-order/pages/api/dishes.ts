@@ -13,12 +13,14 @@ export default async function handler(
     const {mealType = "", restaurant = ""} = req.query;
 
     const unfilteredDishes: Dish[] = await readDishesFromFile();
-    const dishes = unfilteredDishes.filter((dish) => {
-        const mealTypeMatched =  !mealType || dish.availableMeals.find((x) => x === mealType) !== undefined;
-        const restaurantMatched = !restaurant || dish.restaurant === restaurant;
+    setTimeout(() =>{
+      const dishes = unfilteredDishes.filter((dish) => {
+          const mealTypeMatched =  !mealType || dish.availableMeals.find((x) => x === mealType) !== undefined;
+          const restaurantMatched = !restaurant || dish.restaurant === restaurant;
 
-        return mealTypeMatched && restaurantMatched;
-    });
-
-    res.status(200).json({dishes});
+          return mealTypeMatched && restaurantMatched;
+      });
+      res.status(200).json({dishes});
+    }, 2000); // simulate backend delay
+    
 }
