@@ -67,7 +67,7 @@ export default function Step1Form({
         Select Meal Type & Number of People
       </h2>
       <Error errorMessage={errorMessage} />
-      <label className="text-lg mt-2">Select a meal:</label>
+      <label className="text-lg my-2">Select a meal:</label>
       <MealTypeGroupButton
         selectedMealType={selectedMealType}
         onMealTypeSelected={onMealTypeSelected}
