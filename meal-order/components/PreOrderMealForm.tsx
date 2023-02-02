@@ -19,34 +19,33 @@ const FormProgressItem = ({
 }) => {
   if (isHighlighted) {
     return (
-      <span className="mx-1 bg-slate-500 text-white font-bold p-2">
+      <span className="flex items-center justify-center text-white rounded-full h-12 w-12 bg-black text-lg font-bold">
         {children}
       </span>
     );
   } else {
     return (
-      <span className="mx-1 bg-slate-200 text-slate-500 p-2">{children}</span>
+      <span className="flex items-center justify-center text-black  rounded-full h-12 w-12 bg-white text-lg font-bold">
+        {children}
+      </span>
     );
   }
 };
 
 const FormProgress = ({ currentStep }: { currentStep: STEPS }) => {
   return (
-    <div className="flex flex-row justify-center mt-4">
+    <div className="flex items-start mb-6 space-x-4 justify-center">
       <FormProgressItem isHighlighted={currentStep === STEPS.Step1}>
-        Step 1
+        1
       </FormProgressItem>
-      <span className="py-2 px-1">{">"}</span>
       <FormProgressItem isHighlighted={currentStep === STEPS.Step2}>
-        Step 2
+        2
       </FormProgressItem>
-      <span className="py-2 px-1">{">"}</span>
       <FormProgressItem isHighlighted={currentStep === STEPS.Step3}>
-        Step 3
+        3
       </FormProgressItem>
-      <span className="py-2 px-1">{">"}</span>
       <FormProgressItem isHighlighted={currentStep === STEPS.Review}>
-        Review
+        4
       </FormProgressItem>
     </div>
   );
@@ -160,16 +159,18 @@ export default function PreOrderMealForm() {
   return (
     <>
       {!isSubmitted && <FormProgress currentStep={currentStep} />}
-      <CurrentForm />
-      {!isSubmitted && (
-        <NavigationButtons
-          onNext={goToNextStep}
-          onPrev={goToPrevStep}
-          hidePrev={currentStep === 0}
-          nextText={currentStep === STEPS.Review ? "Submit" : undefined}
-          nextEnabled={isFormValid}
-        />
-      )}
+      <div className="flex flex-col drop-shadow-xl rounded-xl bg-white min-h-[500px] p-4 pb-8 mt-4 w-full">
+        <CurrentForm />
+        {!isSubmitted && (
+          <NavigationButtons
+            onNext={goToNextStep}
+            onPrev={goToPrevStep}
+            hidePrev={currentStep === 0}
+            nextText={currentStep === STEPS.Review ? "Submit" : undefined}
+            nextEnabled={isFormValid}
+          />
+        )}
+      </div>
     </>
   );
 }

@@ -20,7 +20,7 @@ export default function Step3Form({
 
   return (
     <>
-      <h2 className="text-xl mt-2 font-bold">Step 3: Select Dishes</h2>
+      <h2 className="text-xl mt-2 font-bold">Select Dishes</h2>
       <Error errorMessage={errorMessage} />
       <ul className="flex flex-col justify-center">
         {availableDishes.map((dish) => {
