@@ -10,7 +10,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-slate-100 flex flex-col items-center justify-center min-h-screen px-8">
+      <div className="bg-slate-100 flex flex-col items-center justify-center min-h-screen p-8 w-full">
         <main className="w-full max-w-md mt-auto mx-auto">
           <PreOrderMealForm />
         </main>
