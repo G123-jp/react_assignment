@@ -1,9 +1,6 @@
 import { Dish, SelectedDishes } from "@/common/types";
 import Error from "../common/Error";
-import {
-  countTotalNumberOfServings,
-  parseIntWithFallback,
-} from "../../common/utils";
+import { countTotalNumberOfServings } from "../../common/utils";
 import { NumberInput } from "../common/NumberInput";
 
 export default function Step3Form({

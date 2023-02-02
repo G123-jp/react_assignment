@@ -15,21 +15,28 @@ export default function Step2Form({
     <>
       <h2 className="text-xl mt-2 font-bold">Select a Restaurant</h2>
       <Error errorMessage={errorMessage} />
-      <select
-        className="border border-solid border-blue-400 p-2 mt-2"
-        onChange={({ target: { value } }) => {
-          onRestaurantSelected(value);
-        }}
-        value={selectedRestaurant}
-      >
-        <option value="">{"Pick a restaurant"}</option>
+      <div className="flex flex-col space-y-4 mb-4">
         {restaurants &&
-          restaurants.map((restaurant, idx) => (
-            <option key={idx} value={restaurant}>
-              {restaurant}
-            </option>
-          ))}
-      </select>
+          restaurants.map((restaurant, idx) => {
+            const isSelected = restaurant === selectedRestaurant;
+            let className =
+              "font-semibold py-2 border border-solid border-blue-600 hover:bg-blue-600 hover:text-white";
+            if (isSelected) {
+              className = `${className} bg-blue-600 text-white`;
+            } else {
+              className = `${className} bg-white text-black`;
+            }
+            return (
+              <button
+                onClick={() => onRestaurantSelected(restaurant)}
+                className={className}
+                key={idx}
+              >
+                {restaurant}
+              </button>
+            );
+          })}
+      </div>
     </>
   );
 }
