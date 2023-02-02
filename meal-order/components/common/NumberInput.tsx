@@ -43,7 +43,7 @@ export const NumberInput = ({
       <button
         data-action="decrement"
         onClick={onDecrement}
-        className={`bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none ${
+        className={`bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer ${
           currentValue === 0 ? "invisible" : ""
         }`}
       >
@@ -53,7 +53,7 @@ export const NumberInput = ({
         type="number"
         className={`${
           currentValue === 0 ? "invisible" : ""
-        } outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black flex items-center text-gray-700`}
+        } outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black flex items-center text-gray-700`}
         name={name}
         min={min}
         max={max}
