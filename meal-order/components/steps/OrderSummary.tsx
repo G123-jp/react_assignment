@@ -1,9 +1,5 @@
 import { MealType, SelectedDishes } from "@/common/types";
-
-const capitalize = (str: string) => {
-  if (str.length === 0) return str;
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+import { capitalize } from "@/common/utils";
 
 type OrderSummaryPropType = {
   selectedMealType: MealType | null;

@@ -1,7 +1,7 @@
-import { MealType } from "@/common/types";
+import { MealType, mealTypes } from "@/common/types";
 import { ReactNode } from "react";
 import Error from "../common/Error";
-import { parseIntWithFallback } from "../../common/utils";
+import { capitalize, parseIntWithFallback } from "../../common/utils";
 
 const MealTypeButton = ({
   isSelected = false,
@@ -32,24 +32,17 @@ const MealTypeGroupButton = ({
 }) => {
   return (
     <>
-      <MealTypeButton
-        onClick={() => onMealTypeSelected("breakfast")}
-        isSelected={selectedMealType === "breakfast"}
-      >
-        Breakfast
-      </MealTypeButton>
-      <MealTypeButton
-        onClick={() => onMealTypeSelected("lunch")}
-        isSelected={selectedMealType === "lunch"}
-      >
-        Lunch
-      </MealTypeButton>
-      <MealTypeButton
-        onClick={() => onMealTypeSelected("dinner")}
-        isSelected={selectedMealType === "dinner"}
-      >
-        Dinner
-      </MealTypeButton>
+      {mealTypes.map((mealType) => {
+        return (
+          <MealTypeButton
+            onClick={() => onMealTypeSelected(mealType)}
+            isSelected={selectedMealType === mealType}
+            key={mealType}
+          >
+            {capitalize(mealType)}
+          </MealTypeButton>
+        );
+      })}
     </>
   );
 };
