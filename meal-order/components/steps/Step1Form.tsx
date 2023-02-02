@@ -12,9 +12,9 @@ const MealTypeButton = ({
   children: ReactNode;
   onClick?: () => void;
 }) => {
-  let className = "mx-1 p-2 text-lg font-bold";
+  let className = `border-light hover:bg-primary hover:border-primary inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-black transition-all hover:text-white sm:py-3 sm:px-6 sm:text-base`;
   if (isSelected) {
-    className = "bg-blue-400 text-white mx-1 p-2 text-lg font-bold rounded-xl";
+    className = `border-primary bg-primary hover:bg-primary hover:border-primary inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-white transition-all hover:text-white sm:py-3 sm:px-6`;
   }
   return (
     <button onClick={onClick} className={className}>
@@ -31,7 +31,7 @@ const MealTypeGroupButton = ({
   onMealTypeSelected: (mealType: MealType) => void;
 }) => {
   return (
-    <>
+    <div className="inline-flex">
       {mealTypes.map((mealType) => {
         return (
           <MealTypeButton
@@ -43,7 +43,7 @@ const MealTypeGroupButton = ({
           </MealTypeButton>
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -67,12 +67,10 @@ export default function Step1Form({
       </h2>
       <Error errorMessage={errorMessage} />
       <h3 className="text-lg mt-2">Select a meal:</h3>
-      <div className="flex flex-row justify-center">
-        <MealTypeGroupButton
-          selectedMealType={selectedMealType}
-          onMealTypeSelected={onMealTypeSelected}
-        />
-      </div>
+      <MealTypeGroupButton
+        selectedMealType={selectedMealType}
+        onMealTypeSelected={onMealTypeSelected}
+      />
       <h3 className="text-lg mt-4">Number of people:</h3>
       <div>
         <input
