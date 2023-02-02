@@ -9,7 +9,7 @@ export const useDishes = (mealType: MealType | null, restaurant: string) => {
     useEffect(() => {
         setLoading(true);
         fetch(`/api/dishes?mealType=${mealType || ""}&restaurant=${restaurant}`)
-        .then((res) => res.json())
+        .then((res) => res.json()) 
         .then((data) => {
             setData(data);
             setLoading(false);

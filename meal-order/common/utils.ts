@@ -1,20 +1,11 @@
-import { SelectedDishes } from "./types";
+import path from 'path';
+import { promises as fs } from 'fs';
+import { Dish } from '@/common/types';
 
-export const parseIntWithFallback = (str: string, radix: number, fallback: number) => {
-    const value = Number.parseInt(str, radix);
-    return Number.isNaN(value) ? fallback : value;
-};
+export const readDishesFromFile = async () => {
+  const dataDirectory = path.join(process.cwd(), `data`);
+  const dishesJson = await fs.readFile(`${dataDirectory}/dishes.json`, 'utf8');
+  const dishes: Dish[] = JSON.parse(dishesJson)['dishes'];
 
-export const countTotalNumberOfServings = (selectedDishes: SelectedDishes) => {
-    return Object.values(selectedDishes).reduce(
-        (prevValue, { numberOfServing }) => {
-          return prevValue + numberOfServing;
-        },
-        0
-      );;
-}
-
-export const capitalize = (str: string) => {
-  if (str.length === 0) return str;
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return dishes;
 };

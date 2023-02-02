@@ -1,5 +1,5 @@
-import { MealType, SelectedDishes } from "@/common/types";
-import { capitalize } from "@/common/utils";
+import { MealType, SelectedDishes } from '@/common/types';
+import { capitalize } from '@/components/common/utils';
 
 type OrderSummaryPropType = {
   selectedMealType: MealType | null;
@@ -21,7 +21,7 @@ export default function OrderSummary({
         <li className="flex flex-row justify-between mt-4">
           <span className="text-gray-600">Meal</span>
           <span className="font-semibold">
-            {capitalize(selectedMealType || "")}
+            {capitalize(selectedMealType || '')}
           </span>
         </li>
         <li className="flex flex-row justify-between mt-4">

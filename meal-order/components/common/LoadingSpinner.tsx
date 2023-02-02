@@ -1,5 +1,5 @@
 export const LoadingSpinner = ({
-  loadingText = "Loading...",
+  loadingText = 'Loading...',
 }: {
   loadingText?: string;
 }) => {

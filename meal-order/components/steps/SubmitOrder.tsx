@@ -1,6 +1,6 @@
-import { MealType, SelectedDishes } from "@/common/types";
-import { useEffect, useState } from "react";
-import { LoadingSpinner } from "../common/LoadingSpinner";
+import { MealType, SelectedDishes } from '@/common/types';
+import { useEffect, useState } from 'react';
+import { LoadingSpinner } from '../common/LoadingSpinner';
 
 const Checkmark = () => {
   // From https://heroicons.com/
@@ -40,7 +40,7 @@ export default function SubmitOrder(props: SubmitOrderPropType) {
       setLoading(false);
       console.log(props);
     }, 3000);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

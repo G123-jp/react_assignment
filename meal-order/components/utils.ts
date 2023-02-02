@@ -1,5 +1,5 @@
 import { Dish, MealType, SelectedDishes } from "@/common/types";
-import { countTotalNumberOfServings } from "@/common/utils";
+import { countTotalNumberOfServings } from "@/components/common/utils";
 
 export enum STEPS {
     Step1,
@@ -47,7 +47,7 @@ type ActionType =
 
 const getValidityState = (
     state: StateType,
-    withErrorMessage: boolean = true // when we want to show/hide error message for UX purpose (e.g. when changing step, we should hide the error message)
+    withErrorMessage = true // when we want to show/hide error message for UX purpose (e.g. when changing step, we should hide the error message)
 ): FormValidity => {
     const {
         selectedMealType,

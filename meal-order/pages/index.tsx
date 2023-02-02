@@ -1,5 +1,5 @@
-import PreOrderMealForm from "@/components/PreOrderMealForm";
-import Head from "next/head";
+import PreOrderMealForm from '@/components/PreOrderMealForm';
+import Head from 'next/head';
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
         </main>
         <footer className="attribution mt-auto p-4 text-xs text-center">
           <p>
-            Coded by{" "}
+            Coded by{' '}
             <a className="text-violet-600" href="https://github.com/enreina">
               Enreina
             </a>

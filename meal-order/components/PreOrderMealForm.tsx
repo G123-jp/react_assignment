@@ -1,14 +1,14 @@
-import { ReactNode, useReducer } from "react";
-import OrderSummary from "./steps/OrderSummary";
-import Step1Form from "./steps/Step1Form";
-import Step2Form from "./steps/Step2Form";
-import Step3Form from "./steps/Step3Form";
-import SubmitOrder from "./steps/SubmitOrder";
-import { useRestaurants } from "./hooks/useRestaurants";
-import { useDishes } from "./hooks/useDishes";
-import { NavigationButtons } from "./common/NavigationButtons";
-import { initialState, reducer, STEPS } from "./utils";
-import { LoadingSpinner } from "./common/LoadingSpinner";
+import { ReactNode, useReducer } from 'react';
+import OrderSummary from './steps/OrderSummary';
+import Step1Form from './steps/Step1Form';
+import Step2Form from './steps/Step2Form';
+import Step3Form from './steps/Step3Form';
+import SubmitOrder from './steps/SubmitOrder';
+import { useRestaurants } from './hooks/useRestaurants';
+import { useDishes } from './hooks/useDishes';
+import { NavigationButtons } from './common/NavigationButtons';
+import { initialState, reducer, STEPS } from './utils';
+import { LoadingSpinner } from './common/LoadingSpinner';
 
 const FormProgressItem = ({
   isHighlighted,
@@ -86,11 +86,11 @@ export default function PreOrderMealForm() {
           <Step1Form
             selectedMealType={selectedMealType}
             onMealTypeSelected={(mealType) =>
-              dispatch({ type: "select_meal_type", payload: { mealType } })
+              dispatch({ type: 'select_meal_type', payload: { mealType } })
             }
             numOfPeople={numOfPeople}
             onNumOfPeopleChanged={(numOfPeople) => {
-              dispatch({ type: "select_num_people", payload: { numOfPeople } });
+              dispatch({ type: 'select_num_people', payload: { numOfPeople } });
             }}
             errorMessage={errorMessage}
           />
@@ -101,7 +101,7 @@ export default function PreOrderMealForm() {
         ) : (
           <Step2Form
             onRestaurantSelected={(restaurant) => {
-              dispatch({ type: "select_restaurant", payload: { restaurant } });
+              dispatch({ type: 'select_restaurant', payload: { restaurant } });
             }}
             selectedRestaurant={selectedRestaurant}
             restaurants={restaurants}
@@ -117,7 +117,7 @@ export default function PreOrderMealForm() {
             selectedDishes={selectedDishes}
             onUpdateDish={(dish, numberOfServing) => {
               dispatch({
-                type: "update_dish_order",
+                type: 'update_dish_order',
                 payload: { dish, numberOfServing },
               });
             }}
@@ -147,11 +147,11 @@ export default function PreOrderMealForm() {
   };
 
   const goToNextStep = () => {
-    dispatch({ type: "go_to_next_step" });
+    dispatch({ type: 'go_to_next_step' });
   };
 
   const goToPrevStep = () => {
-    dispatch({ type: "go_to_prev_step" });
+    dispatch({ type: 'go_to_prev_step' });
   };
 
   const isSubmitted = currentStep === STEPS.SubmitOrder;
@@ -166,7 +166,7 @@ export default function PreOrderMealForm() {
             onNext={goToNextStep}
             onPrev={goToPrevStep}
             hidePrev={currentStep === 0}
-            nextText={currentStep === STEPS.Review ? "Submit" : undefined}
+            nextText={currentStep === STEPS.Review ? 'Submit' : undefined}
             nextEnabled={isFormValid}
           />
         )}

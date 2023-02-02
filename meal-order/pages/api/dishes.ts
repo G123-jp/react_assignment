@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Dish } from '@/common/types';
-import { readDishesFromFile } from '@/common/api-utils';
+import { readDishesFromFile } from '@/common/utils';
 import { setTimeout } from "timers/promises";
 
 export type DishList = {

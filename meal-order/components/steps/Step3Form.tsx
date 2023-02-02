@@ -1,13 +1,13 @@
-import { Dish, SelectedDishes } from "@/common/types";
-import Error from "../common/Error";
-import { countTotalNumberOfServings } from "../../common/utils";
-import { NumberInput } from "../common/NumberInput";
+import { Dish, SelectedDishes } from '@/common/types';
+import Error from '../common/Error';
+import { countTotalNumberOfServings } from '../common/utils';
+import { NumberInput } from '../common/NumberInput';
 
 export default function Step3Form({
   availableDishes,
   selectedDishes,
   onUpdateDish,
-  errorMessage = "",
+  errorMessage = '',
 }: {
   availableDishes: Dish[];
   selectedDishes: SelectedDishes;

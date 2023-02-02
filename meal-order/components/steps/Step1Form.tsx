@@ -1,8 +1,8 @@
-import { MealType, mealTypes } from "@/common/types";
-import { ReactNode } from "react";
-import Error from "../common/Error";
-import { capitalize, parseIntWithFallback } from "../../common/utils";
-import { NumberInput } from "../common/NumberInput";
+import { MealType, mealTypes } from '@/common/types';
+import { ReactNode } from 'react';
+import Error from '../common/Error';
+import { capitalize } from '../common/utils';
+import { NumberInput } from '../common/NumberInput';
 
 const MealTypeButton = ({
   isSelected = false,
@@ -53,7 +53,7 @@ export default function Step1Form({
   selectedMealType,
   onNumOfPeopleChanged,
   numOfPeople,
-  errorMessage = "",
+  errorMessage = '',
 }: {
   onMealTypeSelected: (mealType: MealType) => void;
   selectedMealType: MealType | null;

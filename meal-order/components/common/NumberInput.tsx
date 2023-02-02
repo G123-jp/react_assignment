@@ -1,15 +1,15 @@
-import { ChangeEventHandler, useState } from "react";
-import { parseIntWithFallback } from "@/common/utils";
+import { ChangeEventHandler, useState } from 'react';
+import { parseIntWithFallback } from '@/components/common/utils';
 
 export const NumberInput = ({
   name,
-  onChange = () => {},
+  onChange,
   min = Number.NEGATIVE_INFINITY,
   max = Number.POSITIVE_INFINITY,
   value,
 }: {
   name?: string;
-  onChange?: (value: number) => void;
+  onChange: (value: number) => void;
   min?: number;
   max?: number;
   value?: number;
@@ -44,7 +44,7 @@ export const NumberInput = ({
         data-action="decrement"
         onClick={onDecrement}
         className={`bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer ${
-          currentValue === 0 ? "invisible" : ""
+          currentValue === 0 ? 'invisible' : ''
         }`}
       >
         <span className="m-auto text-2xl font-thin">−</span>
@@ -52,7 +52,7 @@ export const NumberInput = ({
       <input
         type="number"
         className={`${
-          currentValue === 0 ? "invisible" : ""
+          currentValue === 0 ? 'invisible' : ''
         } outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black flex items-center text-gray-700`}
         name={name}
         min={min}

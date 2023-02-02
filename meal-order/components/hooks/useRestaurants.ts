@@ -6,7 +6,7 @@ export const useRestaurants = (mealType: MealType | null) => {
     const [data, setData] = useState<RestaurantList | null>(null);
     const [isLoading, setLoading] = useState<boolean>(false);
 
-    useEffect(() => {
+    useEffect(() => { 
         setLoading(true);
         fetch(`/api/restaurants?mealType=${mealType || ""}`)
         .then((res) => res.json())
