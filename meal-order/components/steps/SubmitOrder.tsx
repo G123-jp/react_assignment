@@ -1,5 +1,5 @@
+import { MealType, SelectedDishes } from "@/common/types";
 import { useEffect, useState } from "react";
-import { StateType } from "../PreOrderMealForm";
 
 const LoadingSpinner = () => {
   return (
@@ -49,7 +49,14 @@ const Checkmark = () => {
   );
 };
 
-export default function SubmitOrder(props: StateType) {
+type SubmitOrderPropType = {
+  selectedMealType: MealType | null;
+  numOfPeople: number;
+  selectedRestaurant: string;
+  selectedDishes: SelectedDishes; // dish id mapping to Dish Serving
+};
+
+export default function SubmitOrder(props: SubmitOrderPropType) {
   const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

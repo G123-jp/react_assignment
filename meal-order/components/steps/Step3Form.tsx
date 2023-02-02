@@ -1,9 +1,9 @@
-import { Dish, SelectedDishes } from "@/components/shared/types";
-import Error from "../shared/Error";
+import { Dish, SelectedDishes } from "@/common/types";
+import Error from "../common/Error";
 import {
   countTotalNumberOfServings,
   parseIntWithFallback,
-} from "../shared/utils";
+} from "../../common/utils";
 
 export default function Step3Form({
   availableDishes,

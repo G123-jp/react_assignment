@@ -1,4 +1,4 @@
-import Error from "../shared/Error";
+import Error from "../common/Error";
 
 export default function Step2Form({
   selectedRestaurant,

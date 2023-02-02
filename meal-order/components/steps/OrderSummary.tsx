@@ -1,8 +1,15 @@
-import { StateType } from "../PreOrderMealForm";
+import { MealType, SelectedDishes } from "@/common/types";
 
 const capitalize = (str: string) => {
   if (str.length === 0) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+type OrderSummaryPropType = {
+  selectedMealType: MealType | null;
+  numOfPeople: number;
+  selectedRestaurant: string;
+  selectedDishes: SelectedDishes; // dish id mapping to Dish Serving
 };
 
 export default function OrderSummary({
@@ -10,7 +17,7 @@ export default function OrderSummary({
   numOfPeople,
   selectedRestaurant,
   selectedDishes,
-}: StateType) {
+}: OrderSummaryPropType) {
   return (
     <>
       <h2 className="text-xl mt-2 font-bold">Review Your Order</h2>

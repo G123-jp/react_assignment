@@ -1,7 +1,7 @@
-import { MealType } from "@/components/shared/types";
+import { MealType } from "@/common/types";
 import { ReactNode } from "react";
-import Error from "../shared/Error";
-import { parseIntWithFallback } from "../shared/utils";
+import Error from "../common/Error";
+import { parseIntWithFallback } from "../../common/utils";
 
 const MealTypeButton = ({
   isSelected = false,
