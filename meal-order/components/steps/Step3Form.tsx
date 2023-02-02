@@ -4,6 +4,7 @@ import {
   countTotalNumberOfServings,
   parseIntWithFallback,
 } from "../../common/utils";
+import { NumberInput } from "../common/NumberInput";
 
 export default function Step3Form({
   availableDishes,
@@ -24,23 +25,22 @@ export default function Step3Form({
       <Error errorMessage={errorMessage} />
       <ul className="flex flex-col justify-center">
         {availableDishes.map((dish) => {
+          const numOfServing = selectedDishes[`${dish.id}`]
+            ? selectedDishes[`${dish.id}`].numberOfServing
+            : 0;
+
           return (
             <li key={dish.id} className="flex flex-row justify-between mt-4">
-              <span className="p-2">{dish.name}</span>
-              <input
-                className="border border-solid border-blue-400 rounded-xl text-center p-2"
-                type="number"
-                min="0"
-                max="10"
-                value={
-                  selectedDishes[`${dish.id}`]
-                    ? selectedDishes[`${dish.id}`].numberOfServing
-                    : 0
-                }
-                onChange={({ target: { value } }) => {
-                  onUpdateDish(dish, parseIntWithFallback(value, 10, 0));
-                }}
-              />
+              <span className="py-2">{dish.name}</span>
+              <div className="flex-1 grow-0">
+                <NumberInput
+                  min={0}
+                  value={numOfServing}
+                  onChange={(newNumOfServing) => {
+                    onUpdateDish(dish, newNumOfServing);
+                  }}
+                />
+              </div>
             </li>
           );
         })}

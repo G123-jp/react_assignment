@@ -2,6 +2,7 @@ import { MealType, mealTypes } from "@/common/types";
 import { ReactNode } from "react";
 import Error from "../common/Error";
 import { capitalize, parseIntWithFallback } from "../../common/utils";
+import { NumberInput } from "../common/NumberInput";
 
 const MealTypeButton = ({
   isSelected = false,
@@ -66,23 +67,26 @@ export default function Step1Form({
         Select Meal Type & Number of People
       </h2>
       <Error errorMessage={errorMessage} />
-      <h3 className="text-lg mt-2">Select a meal:</h3>
+      <label className="text-lg mt-2">Select a meal:</label>
       <MealTypeGroupButton
         selectedMealType={selectedMealType}
         onMealTypeSelected={onMealTypeSelected}
       />
-      <h3 className="text-lg mt-4">Number of people:</h3>
-      <div>
-        <input
-          className="border border-solid border-blue-400 rounded text-center p-2"
-          type="number"
-          min="1"
-          max="10"
-          value={numOfPeople}
-          onChange={({ target: { value } }) => {
-            onNumOfPeopleChanged(parseIntWithFallback(value, 10, 1)); // fallback to 1 person if input is invalid
-          }}
-        />
+      <div className="flex flex-row justify-between mt-4">
+        <label className="text-lg py-2 grow align-middle">
+          Number of people:
+        </label>
+        <div className="flex-1">
+          <NumberInput
+            name="num-of-people"
+            min={1}
+            max={10}
+            value={numOfPeople}
+            onChange={(value) => {
+              onNumOfPeopleChanged(value);
+            }}
+          />
+        </div>
       </div>
     </>
   );
