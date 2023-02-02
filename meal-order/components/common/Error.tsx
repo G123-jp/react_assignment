@@ -3,7 +3,7 @@ export default function Error({ errorMessage }: { errorMessage: string }) {
     <span
       className={`${
         errorMessage ? "" : "invisible"
-      } bg-red-100 p-2 text--black text-base h-10`}
+      } text-red-600 text-base h-6`}
     >
       {errorMessage}
     </span>
