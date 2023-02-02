@@ -18,4 +18,21 @@ namespace Types {
     dish: string
     number: number
   }
+
+  interface OrderForm {
+    meal: Meal
+    number: number
+    restaurant: string
+    dishes: DishForm[]
+  }
+
+  interface StepComponentProps {
+    orderForm: OrderForm
+    setOrderForm: React.Dispatch<React.SetStateAction<OrderForm>>
+  }
+
+  interface SelectOption {
+    value: string
+    label: string
+  }
 }

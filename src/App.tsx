@@ -1,212 +1,75 @@
-import { useState, useEffect } from 'react'
-import { ConfigProvider, Steps, Button, Space, Form, Radio, Select, Input, InputNumber, Tooltip, Descriptions, Divider, Dropdown } from 'antd'
-import type { MenuProps } from 'antd'
-import { PlusCircleOutlined, MinusCircleOutlined, TranslationOutlined } from '@ant-design/icons'
+import { useState, useEffect, useRef } from 'react'
+import { ConfigProvider, Steps, Button, Space, Divider, Dropdown, Tour, Modal, message, FloatButton } from 'antd'
+import type { MenuProps, TourProps } from 'antd'
+import { TranslationOutlined, GithubOutlined, CustomerServiceOutlined } from '@ant-design/icons'
+import { SelectMeal, SelectRestaurant, OrderDetails, ConfirmOrder } from './components/StepComponent'
+import { LanguageOptions, GitHubRepoAddress } from './utils/constant'
 import zhCN from 'antd/locale/zh_CN'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 // import jaJP from 'antd/locale/ja_JP'
 import './App.less'
-import { dishes } from '../data/dishes.json'
-import SelectMealImg from './assets/select-meal-img.jpg'
-import SelectResImg from './assets/home-bg-mobile.png'
 
 // antd default language is English, set it to Chinese
 dayjs.locale('zh-cn')
 
-function SelectMeal() {
-  const [form] = Form.useForm()
-  return (
-    <>
-      <div className="select-meal">
-        <img src={SelectMealImg} alt="select meal img" />
-        <Form
-          form={form}
-          initialValues={{ meal: 'lunch', numbers: 1 }}
-          labelCol={{ span: 24 }}
-          wrapperCol={{ span: 24 }}
-          className="select-meal-form"
-          layout="vertical"
-          name="selectMealForm"
-        >
-          <Form.Item name="meal" label="Please Select A Meal" required>
-            <Radio.Group>
-              <Radio.Button value="breakfast">Breakfast</Radio.Button>
-              <Radio.Button value="lunch">Lunch</Radio.Button>
-              <Radio.Button value="dinner">Dinner</Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item name="numbers" label="Please Select Number of People" tooltip="Up to 10 people" required>
-            <Radio.Group>
-              {Array.from({ length: 10 }, (v, k) => k + 1).map(item => (
-                <Radio.Button key={item} value={item}>
-                  {item}
-                </Radio.Button>
-              ))}
-            </Radio.Group>
-          </Form.Item>
-        </Form>
-      </div>
-    </>
-  )
-}
-
-function SelectRestaurant() {
-  const [form] = Form.useForm()
-
-  const restaurantOption = [
-    {
-      value: 'restaurant1',
-      label: 'Restaurant 1',
-    },
-    {
-      value: 'restaurant2',
-      label: 'Restaurant 2',
-    },
-    {
-      value: 'restaurant3',
-      label: 'Restaurant 3',
-    },
-  ]
-
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`)
-  }
-
-  return (
-    <>
-      <div className="select-res">
-        <Form form={form} labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} className="select-res-form" layout="vertical" name="selectResForm">
-          <Form.Item name="restaurant" label="Please Select A Restaurant" required>
-            <Select showSearch placeholder="Select A Restaurant" style={{ width: 320 }} onChange={handleChange} options={restaurantOption}></Select>
-          </Form.Item>
-        </Form>
-        <img src={SelectResImg} alt="select restaurant img" />
-      </div>
-    </>
-  )
-}
-
-function OrderDetails() {
-  const [form] = Form.useForm()
-
-  const dishOption = [
-    {
-      value: 'dish1',
-      label: 'dish 1',
-    },
-    {
-      value: 'dish2',
-      label: 'dish 2',
-    },
-    {
-      value: 'dish3',
-      label: 'dish 3',
-    },
-  ]
-
-  const [dishFormArr, setDishForm] = useState<Types.DishForm[]>([
-    {
-      dish: '',
-      number: 1,
-    },
-  ])
-
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`)
-  }
-
-  const handleAddDish = () => {
-    setDishForm([
-      ...dishFormArr,
-      {
-        dish: '',
-        number: 1,
-      },
-    ])
-  }
-
-  const handleRemoveDish = (index: number) => {
-    if (dishFormArr.length === 1) return
-    const newDishFormArr = [...dishFormArr]
-    newDishFormArr.splice(index, 1)
-    setDishForm(newDishFormArr)
-  }
-
-  return (
-    <>
-      <div className="select-dish">
-        <Form form={form} layout="inline" name="selectDishForm">
-          {dishFormArr.map((item, index) => {
-            return (
-              <Form.Item name={item.dish + index} key={index} label="Please Select A Dish And No. of Servings" required>
-                <Input.Group compact>
-                  <Select showSearch placeholder="Select A Dish" style={{ width: 270 }} onChange={handleChange} options={dishOption}></Select>
-                  <Tooltip title="No. of Servings">
-                    <InputNumber defaultValue={1} min={1} max={10} placeholder="No. of servings" style={{ width: 70 }} />
-                  </Tooltip>
-                  <Tooltip title="Remove This Dish">
-                    <Button icon={<MinusCircleOutlined />} disabled={dishFormArr.length === 1} onClick={() => handleRemoveDish(index)} />
-                  </Tooltip>
-                </Input.Group>
-              </Form.Item>
-            )
-          })}
-          <Button icon={<PlusCircleOutlined />} disabled={dishFormArr.length >= dishOption.length} onClick={handleAddDish}>
-            Add
-          </Button>
-        </Form>
-      </div>
-    </>
-  )
-}
-
-function ConfirmOrder() {
-  return (
-    <>
-      <div className="confirm-order">
-        <Descriptions column={1} size="middle" bordered title="Preview Order Info" style={{ width: '800px' }}>
-          <Descriptions.Item label="Meal">Lunch</Descriptions.Item>
-          <Descriptions.Item label="Number of People">2</Descriptions.Item>
-          <Descriptions.Item label="Restaurant">Restaurant 1</Descriptions.Item>
-          <Descriptions.Item label="Dishes">
-            <div>
-              <span>Dish 1</span>
-              <span> - </span>
-              <span>2</span>
-            </div>
-            <div>
-              <span>Dish 2</span>
-              <span> - </span>
-              <span>1</span>
-            </div>
-          </Descriptions.Item>
-        </Descriptions>
-      </div>
-    </>
-  )
-}
-
 function App() {
   const [currentProgress, setCurrentProgress] = useState<number>(0)
   const [currentLanguage, setCurrentLanguage] = useState<string>('en')
+  const [openTour, setOpenTour] = useState<boolean>(false)
+  const [openTourModal, setOpenTourModal] = useState<boolean>(false)
+  const [orderForm, setOrderForm] = useState<Types.OrderForm>({
+    meal: 'lunch',
+    number: 1,
+    restaurant: '',
+    dishes: [],
+  })
+
+  // tour component ref
+  const tourRef1 = useRef(null)
+  const tourRef2 = useRef(null)
+  const tourRef3 = useRef(null)
+  const tourRef4 = useRef(null)
+
+  const steps: TourProps['steps'] = [
+    {
+      title: 'Order Steps',
+      description: 'Please follow the 4 steps to place an order',
+      target: () => tourRef1.current,
+    },
+    {
+      title: 'Fill Info',
+      description: 'You can fill order info in the area',
+      target: () => tourRef2.current,
+    },
+    {
+      title: 'Next, Previous',
+      description: 'You can click next or previous button to navigate between steps',
+      target: () => tourRef3.current,
+    },
+    {
+      title: 'Language',
+      description: 'You can change language in the dropdown menu',
+      target: () => tourRef4.current,
+    },
+  ]
 
   const progressItems: Types.ProgressItem[] = [
     {
       title: 'Select Meal',
-      component: <SelectMeal />,
+      component: <SelectMeal orderForm={orderForm} setOrderForm={setOrderForm} />,
     },
     {
       title: 'Select Restaurant',
-      component: <SelectRestaurant />,
+      component: <SelectRestaurant orderForm={orderForm} setOrderForm={setOrderForm} />,
     },
     {
       title: 'Order Details',
-      component: <OrderDetails />,
+      component: <OrderDetails orderForm={orderForm} setOrderForm={setOrderForm} />,
     },
     {
       title: 'Confirm Order',
-      component: <ConfirmOrder />,
+      component: <ConfirmOrder orderForm={orderForm} setOrderForm={setOrderForm} />,
     },
   ]
 
@@ -215,58 +78,156 @@ function App() {
   }
 
   const handleNextClick = () => {
+    localStorage.setItem('orderForm', JSON.stringify(orderForm))
+    localStorage.setItem('currentProgress', currentProgress + 1 + '')
+
+    if (currentProgress === 1) {
+      if (!orderForm.restaurant) {
+        message.warning({
+          content: 'Please select a restaurant before proceeding to the next step.',
+        })
+        return
+      }
+    } else if (currentProgress === 2) {
+      let totalDishes = 0
+      for (const item of orderForm.dishes) {
+        if (item.dish && item.number) {
+          totalDishes += item.number
+        }
+      }
+      if (totalDishes === 0) {
+        message.warning({
+          content: 'Please select any dishes before proceeding to the next step.',
+        })
+        return
+      } else if (totalDishes < orderForm.number) {
+        Modal.warning({
+          title: `Not enough dishes for ${orderForm.number} people`,
+          content: 'Please select more dishes.',
+          okText: 'OK',
+        })
+        return
+      } else if (totalDishes > 10) {
+        Modal.warning({
+          title: 'Too many dishes',
+          content: 'Please select less than 10 dishes.',
+          okText: 'OK',
+        })
+        return
+      }
+    } else if (currentProgress === progressItems.length - 1) {
+      Modal.success({
+        title: 'Order Submitted',
+        content: 'Your order has been submitted successfully, please wait for serving.',
+        okText: 'OK',
+      })
+      const finalOrderInfo = {
+        ...orderForm,
+        dishes: orderForm.dishes.filter(item => item.dish && item.number),
+      }
+      // console log finalOrderInfo object in table format
+      console.log('%c--------------------------- Order Info Here ---------------------------', 'color: #1677ff')
+      console.table(finalOrderInfo, ['meal', 'number', 'restaurant', 'dishes'])
+      console.table(finalOrderInfo.dishes, ['dish', 'number'])
+      console.log(JSON.stringify(finalOrderInfo, null, 2))
+
+      localStorage.removeItem('orderForm')
+      localStorage.removeItem('currentProgress')
+    }
+
     currentProgress < progressItems.length - 1 && setCurrentProgress(currentProgress + 1)
   }
 
-  useEffect(() => {
-    console.log(dishes)
-  }, [])
-
-  const items: MenuProps['items'] = [
-    {
-      key: 'en',
-      label: 'English',
-    },
-    {
-      key: 'zh',
-      label: '中文',
-    },
-    {
-      key: 'jp',
-      label: '日本語',
-    },
-  ]
-
-  const onClick: MenuProps['onClick'] = ({ key }) => {
+  const handleChangeLanguage: MenuProps['onClick'] = ({ key }) => {
     currentLanguage !== key && setCurrentLanguage(key)
+    localStorage.setItem('lang', key)
   }
+
+  const handleTourModalOk = () => {
+    // diff device is pc or mobile
+    const deviceType = window.innerWidth > 768 ? 'pc' : 'mobile'
+    setOpenTourModal(false)
+    setOpenTour(deviceType === 'pc')
+  }
+
+  useEffect(() => {
+    // get order form data
+    const orderForm = localStorage.getItem('orderForm')
+    orderForm && setOrderForm(JSON.parse(orderForm))
+
+    // get current progress
+    const currentProgress = localStorage.getItem('currentProgress')
+    currentProgress && setCurrentProgress(parseInt(currentProgress))
+
+    // check is viewed page
+    const viewedPage = !!localStorage.getItem('viewedPage')
+    console.log('viewedPage', viewedPage)
+    // set open tour modal
+    setOpenTourModal(!viewedPage)
+    // set viewed page
+    localStorage.setItem('viewedPage', 'true')
+
+    // const lang = localStorage.getItem('lang')
+  }, [])
 
   return (
     <ConfigProvider locale={zhCN}>
       <main className="main-area">
         <section className="top-area">
           <div className="home-bg"></div>
-          {/* <Divider className="title">The Best Restaurant Food Order System</Divider> */}
           <h1 className="title">The Best Restaurant Food Order System</h1>
           <Divider className="mobile-divider" />
         </section>
         <section className="content">
-          <Steps current={currentProgress} items={progressItems} className="step-progress"></Steps>
-          <div className="step-component">{progressItems[currentProgress].component}</div>
+          <div ref={tourRef1}>
+            <Steps current={currentProgress} items={progressItems} className="step-progress"></Steps>
+          </div>
+          <div ref={tourRef2} className="step-component">
+            {progressItems[currentProgress].component}
+          </div>
           <div className="progress-btn">
-            <Space size="middle">
-              {currentProgress === 0 ? '' : <Button onClick={handlePreviousClick}>Previous</Button>}
-              <Button type="primary" onClick={handleNextClick}>
-                {currentProgress === progressItems.length - 1 ? 'Done' : 'Next'}
-              </Button>
-            </Space>
+            <span ref={tourRef3}>
+              <Space size="middle">
+                {currentProgress === 0 || <Button onClick={handlePreviousClick}>Previous</Button>}
+                <Button type="primary" onClick={handleNextClick}>
+                  {currentProgress === progressItems.length - 1 ? 'Done' : 'Next'}
+                </Button>
+              </Space>
+            </span>
           </div>
         </section>
-        <Dropdown menu={{ items, onClick }}>
-          <Button icon={<TranslationOutlined />} className="lang-btn">
+        <Tour open={openTour} onClose={() => setOpenTour(false)} steps={steps} />
+        <Modal
+          closable={false}
+          centered={true}
+          title="Food Order System"
+          open={openTourModal}
+          footer={[
+            <Button type="primary" size="middle" onClick={handleTourModalOk}>
+              Get It
+            </Button>,
+          ]}
+        >
+          <p>
+            This is a food ordering system for restaurants. You can choose the number of people, the restaurant, and the dishes you want to order. After you
+            finish the order, you can submit it and wait for the restaurant to serve you.
+          </p>
+        </Modal>
+        <Dropdown menu={{ items: LanguageOptions as MenuProps['items'], onClick: handleChangeLanguage }}>
+          <Button ref={tourRef4} icon={<TranslationOutlined />} size="small" className="lang-btn">
             {currentLanguage === 'en' ? 'English' : currentLanguage === 'zh' ? '中文' : '日本語'}
           </Button>
         </Dropdown>
+        <GithubOutlined className="github-icon" onClick={() => window.open(GitHubRepoAddress, '_target')} />
+        <FloatButton
+          shape="circle"
+          type="primary"
+          icon={<CustomerServiceOutlined />}
+          className="custom-float-btn"
+          onClick={() => {
+            console.log('You click the customer service icon')
+          }}
+        />
       </main>
     </ConfigProvider>
   )

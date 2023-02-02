@@ -4,16 +4,27 @@
  * @param meal meal type
  * @returns dishes data filtered by meal type
  */
-export function getRestaurantsByMeal(data: Types.DishesData[], meal: Types.Meal): Types.DishesData[] {
-  return data.filter(dish => dish.availableMeals.includes(meal))
+export function getRestaurantsByMeal(data: Types.DishesData[], meal: Types.Meal): string[] {
+  return Array.from(new Set(data.filter(dish => dish.availableMeals.includes(meal)).map(item => item.restaurant)))
 }
 
 /**
- * get available meal by restaurant
+ * get available dish by restaurant
  * @param data dishes data in same meal type
  * @param restaurant restaurant name
  * @returns food names available in the restaurant
  */
-export function getAvailableMealByRestaurant(data: Types.DishesData[], restaurant: string): string[] {
-  return data.filter(dish => dish.restaurant === restaurant).map(dish => dish.name)
+export function getAvailableDishByRestaurant(data: Types.DishesData[], meal: Types.Meal, restaurant: string): string[] {
+  return data
+    .filter(dish => dish.availableMeals.includes(meal))
+    .filter(dish => dish.restaurant === restaurant)
+    .map(dish => dish.name)
+}
+
+/**
+ * generate random 8 characters string
+ * @returns random 8 characters string
+ */
+export function generateRandomID(): string {
+  return Math.random().toString(36).slice(-8)
 }

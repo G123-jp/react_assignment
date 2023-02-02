@@ -122,13 +122,13 @@
     },
     {
       "id": 21,
-      "name": "Pepperoni Pizza",
+      "name": "Pepperoni Pizza 1",
       "restaurant": "Pizzeria",
       "availableMeals": ["lunch", "dinner"]
     },
     {
       "id": 22,
-      "name": "Pepperoni Pizza",
+      "name": "Pepperoni Pizza 2",
       "restaurant": "Pizzeria",
       "availableMeals": ["lunch", "dinner"]
     },

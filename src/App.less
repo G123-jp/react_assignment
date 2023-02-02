@@ -12,7 +12,17 @@ body {
 .lang-btn {
   position: absolute;
   top: 1rem;
+  right: 3rem;
+}
+.github-icon {
+  position: absolute;
+  top: 1.2rem;
   right: 1rem;
+  font-size: 18px;
+}
+.number-tag {
+  display: flex;
+  justify-content: flex-end;
 }
 .top-area {
   display: flex;
@@ -38,8 +48,8 @@ body {
 .content {
   padding: 2rem 2rem 3rem;
   .progress-btn {
-    margin-top: 1rem;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
   }
   .step-component {
     padding: 2rem 0 0;
@@ -61,7 +71,7 @@ body {
     margin: 1rem 0;
   }
   .select-dish {
-    margin: 2rem 0;
+    margin: 1rem 0 2rem;
     #selectDishForm {
       display: flex;
       flex-flow: column;
@@ -88,7 +98,7 @@ body {
 
 @media screen and (max-width: 532px) {
   .top-area .home-bg {
-    background-image: url(./assets/home-bg-mobile.png);
+    background-image: url(./assets/image/home-bg-mobile.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -99,11 +109,19 @@ body {
   .mobile-divider {
     display: block;
   }
+  .progress-btn {
+    margin: 3rem 0 1rem;
+  }
+  .custom-float-btn {
+    left: 15px;
+    bottom: 15px;
+    font-size: 24px;
+  }
 }
 
 @media screen and (min-width: 532px) {
   .top-area .home-bg {
-    background-image: url(./assets/home-bg-pc.jpeg);
+    background-image: url(./assets/image/home-bg-pc.jpeg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -117,5 +135,9 @@ body {
   }
   .mobile-divider {
     display: none;
+  }
+  .custom-float-btn {
+    right: 60px;
+    bottom: 50px;
   }
 }

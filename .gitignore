@@ -107,3 +107,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Build Folder
+build
+dist
