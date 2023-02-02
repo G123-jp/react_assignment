@@ -44,7 +44,7 @@ export default function Step3Form({
             </li>
           );
         })}
-        <li className="flex flex-row justify-between border border-solid border-black mt-4 rounded-lg">
+        <li className="flex flex-row justify-between border border-solid border-black mt-4 rounded-lg mb-4">
           <span className="p-2 font-bold">Total servings:</span>
           <span className="p-2 font-bold">{totalNumServings}</span>
         </li>

@@ -12,9 +12,9 @@ const MealTypeButton = ({
   children: ReactNode;
   onClick?: () => void;
 }) => {
-  let className = `border-gray-200 hover:bg-blue-600 hover:border-blue-600 inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-black transition-all hover:text-white sm:py-3 sm:px-6 sm:text-base`;
+  let className = `grow border-gray-200 hover:bg-blue-600 hover:border-blue-600 inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-black transition-all hover:text-white sm:py-3 sm:px-6 sm:text-base`;
   if (isSelected) {
-    className = `border-blue-600 bg-blue-600 hover:bg-blue-600 hover:border-blue-600 inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-white transition-all hover:text-white sm:py-3 sm:px-6`;
+    className = `grow border-blue-600 bg-blue-600 hover:bg-blue-600 hover:border-blue-600 inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-white transition-all hover:text-white sm:py-3 sm:px-6`;
   }
   return (
     <button onClick={onClick} className={className}>
@@ -31,7 +31,7 @@ const MealTypeGroupButton = ({
   onMealTypeSelected: (mealType: MealType) => void;
 }) => {
   return (
-    <div className="inline-flex">
+    <div className="inline-flex justify-center">
       {mealTypes.map((mealType) => {
         return (
           <MealTypeButton
@@ -63,7 +63,7 @@ export default function Step1Form({
   return (
     <>
       <h2 className="text-xl mt-2 font-bold">
-        Step 1: Select Meal Type & Number of People
+        Select Meal Type & Number of People
       </h2>
       <Error errorMessage={errorMessage} />
       <h3 className="text-lg mt-2">Select a meal:</h3>
