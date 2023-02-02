@@ -159,7 +159,7 @@ export default function PreOrderMealForm() {
   return (
     <>
       {!isSubmitted && <FormProgress currentStep={currentStep} />}
-      <div className="flex flex-col drop-shadow-xl rounded-xl bg-white min-h-[525px] p-6 pb-8 mt-4 w-full">
+      <div className="flex flex-col drop-shadow-xl rounded-xl bg-white min-h-[575px] p-6 pb-8 mt-4 w-full">
         <CurrentForm />
         {!isSubmitted && (
           <NavigationButtons
