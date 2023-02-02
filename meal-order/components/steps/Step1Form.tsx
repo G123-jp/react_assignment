@@ -12,9 +12,9 @@ const MealTypeButton = ({
   children: ReactNode;
   onClick?: () => void;
 }) => {
-  let className = `border-light hover:bg-primary hover:border-primary inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-black transition-all hover:text-white sm:py-3 sm:px-6 sm:text-base`;
+  let className = `border-gray-200 hover:bg-blue-600 hover:border-blue-600 inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-black transition-all hover:text-white sm:py-3 sm:px-6 sm:text-base`;
   if (isSelected) {
-    className = `border-primary bg-primary hover:bg-primary hover:border-primary inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-white transition-all hover:text-white sm:py-3 sm:px-6`;
+    className = `border-blue-600 bg-blue-600 hover:bg-blue-600 hover:border-blue-600 inline-flex items-center justify-center border py-[10px] px-[12px] text-center text-base font-semibold text-white transition-all hover:text-white sm:py-3 sm:px-6`;
   }
   return (
     <button onClick={onClick} className={className}>
