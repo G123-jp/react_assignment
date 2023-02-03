@@ -1,21 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
-import { ConfigProvider, Steps, Button, Space, Divider, Dropdown, Tour, Modal, message, FloatButton } from 'antd'
-import type { MenuProps, TourProps } from 'antd'
-import { TranslationOutlined, GithubOutlined, CustomerServiceOutlined } from '@ant-design/icons'
+import { ConfigProvider, Steps, Button, Space, Divider, Tour, Modal, message } from 'antd'
+import type { TourProps } from 'antd'
+import { GithubOutlined } from '@ant-design/icons'
 import { SelectMeal, SelectRestaurant, OrderDetails, ConfirmOrder } from './components/StepComponent'
-import { LanguageOptions, GitHubRepoAddress } from './utils/constant'
-import zhCN from 'antd/locale/zh_CN'
-import dayjs from 'dayjs'
-import 'dayjs/locale/zh-cn'
-// import jaJP from 'antd/locale/ja_JP'
-import './App.less'
-
-// antd default language is English, set it to Chinese
-dayjs.locale('zh-cn')
+import { GitHubRepoAddress } from './utils/constant'
+import enUS from 'antd/locale/en_US'
+import './assets/App.less'
 
 function App() {
   const [currentProgress, setCurrentProgress] = useState<number>(0)
-  const [currentLanguage, setCurrentLanguage] = useState<string>('en')
   const [openTour, setOpenTour] = useState<boolean>(false)
   const [openTourModal, setOpenTourModal] = useState<boolean>(false)
   const [orderForm, setOrderForm] = useState<Types.OrderForm>({
@@ -48,8 +41,8 @@ function App() {
       target: () => tourRef3.current,
     },
     {
-      title: 'Language',
-      description: 'You can change language in the dropdown menu',
+      title: 'Source Code',
+      description: 'You can click the button to view source code on GitHub',
       target: () => tourRef4.current,
     },
   ]
@@ -138,11 +131,6 @@ function App() {
     currentProgress < progressItems.length - 1 && setCurrentProgress(currentProgress + 1)
   }
 
-  const handleChangeLanguage: MenuProps['onClick'] = ({ key }) => {
-    currentLanguage !== key && setCurrentLanguage(key)
-    localStorage.setItem('lang', key)
-  }
-
   const handleTourModalOk = () => {
     // diff device is pc or mobile
     const deviceType = window.innerWidth > 768 ? 'pc' : 'mobile'
@@ -161,17 +149,15 @@ function App() {
 
     // check is viewed page
     const viewedPage = !!localStorage.getItem('viewedPage')
-    console.log('viewedPage', viewedPage)
+    console.log('[ viewedPage ]', viewedPage)
     // set open tour modal
     setOpenTourModal(!viewedPage)
     // set viewed page
     localStorage.setItem('viewedPage', 'true')
-
-    // const lang = localStorage.getItem('lang')
   }, [])
 
   return (
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={enUS}>
       <main className="main-area">
         <section className="top-area">
           <div className="home-bg"></div>
@@ -203,7 +189,7 @@ function App() {
           title="Food Order System"
           open={openTourModal}
           footer={[
-            <Button type="primary" size="middle" onClick={handleTourModalOk}>
+            <Button type="primary" size="middle" key="ok" onClick={handleTourModalOk}>
               Get It
             </Button>,
           ]}
@@ -213,21 +199,7 @@ function App() {
             finish the order, you can submit it and wait for the restaurant to serve you.
           </p>
         </Modal>
-        <Dropdown menu={{ items: LanguageOptions as MenuProps['items'], onClick: handleChangeLanguage }}>
-          <Button ref={tourRef4} icon={<TranslationOutlined />} size="small" className="lang-btn">
-            {currentLanguage === 'en' ? 'English' : currentLanguage === 'zh' ? '中文' : '日本語'}
-          </Button>
-        </Dropdown>
-        <GithubOutlined className="github-icon" onClick={() => window.open(GitHubRepoAddress, '_target')} />
-        <FloatButton
-          shape="circle"
-          type="primary"
-          icon={<CustomerServiceOutlined />}
-          className="custom-float-btn"
-          onClick={() => {
-            console.log('You click the customer service icon')
-          }}
-        />
+        <GithubOutlined ref={tourRef4} className="github-icon" onClick={() => window.open(GitHubRepoAddress, '_target')} />
       </main>
     </ConfigProvider>
   )
