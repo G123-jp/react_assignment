@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
-import { ConfigProvider, Steps, Button, Space, Divider, Tour, Modal, message } from 'antd'
-import type { TourProps } from 'antd'
+import { ConfigProvider, Button, Space, Divider, Modal, message } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
-import { SelectMeal, SelectRestaurant, OrderDetails, ConfirmOrder } from './components/StepComponent'
-import { GitHubRepoAddress } from './utils/constant'
+import { OrderSteps } from './components/StepComponent'
+import { WelcomeModal, WelcomeTour } from './components/HomePageComponent'
+import { GITHUB_REPO_ADDRESS, STEP_LENGTH, MAX_NUMBER_OF_DISHES } from './utils/constant'
 import enUS from 'antd/locale/en_US'
 import './assets/App.less'
 
@@ -24,48 +24,6 @@ function App() {
   const tourRef3 = useRef(null)
   const tourRef4 = useRef(null)
 
-  const steps: TourProps['steps'] = [
-    {
-      title: 'Order Steps',
-      description: 'Please follow the 4 steps to place an order',
-      target: () => tourRef1.current,
-    },
-    {
-      title: 'Fill Info',
-      description: 'You can fill order info in the area',
-      target: () => tourRef2.current,
-    },
-    {
-      title: 'Next, Previous',
-      description: 'You can click next or previous button to navigate between steps',
-      target: () => tourRef3.current,
-    },
-    {
-      title: 'Source Code',
-      description: 'You can click the button to view source code on GitHub',
-      target: () => tourRef4.current,
-    },
-  ]
-
-  const progressItems: Types.ProgressItem[] = [
-    {
-      title: 'Select Meal',
-      component: <SelectMeal orderForm={orderForm} setOrderForm={setOrderForm} />,
-    },
-    {
-      title: 'Select Restaurant',
-      component: <SelectRestaurant orderForm={orderForm} setOrderForm={setOrderForm} />,
-    },
-    {
-      title: 'Order Details',
-      component: <OrderDetails orderForm={orderForm} setOrderForm={setOrderForm} />,
-    },
-    {
-      title: 'Confirm Order',
-      component: <ConfirmOrder orderForm={orderForm} setOrderForm={setOrderForm} />,
-    },
-  ]
-
   const handlePreviousClick = () => {
     currentProgress > 0 && setCurrentProgress(currentProgress - 1)
   }
@@ -74,6 +32,7 @@ function App() {
     localStorage.setItem('orderForm', JSON.stringify(orderForm))
     localStorage.setItem('currentProgress', currentProgress + 1 + '')
 
+    // optimize: use specific words to replace 1, 2 progress
     if (currentProgress === 1) {
       if (!orderForm.restaurant) {
         message.warning({
@@ -100,7 +59,7 @@ function App() {
           okText: 'OK',
         })
         return
-      } else if (totalDishes > 10) {
+      } else if (totalDishes > MAX_NUMBER_OF_DISHES) {
         Modal.warning({
           title: 'Too many dishes',
           content: 'Please select less than 10 dishes.',
@@ -108,7 +67,7 @@ function App() {
         })
         return
       }
-    } else if (currentProgress === progressItems.length - 1) {
+    } else if (currentProgress === STEP_LENGTH) {
       Modal.success({
         title: 'Order Submitted',
         content: 'Your order has been submitted successfully, please wait for serving.',
@@ -128,7 +87,7 @@ function App() {
       localStorage.removeItem('currentProgress')
     }
 
-    currentProgress < progressItems.length - 1 && setCurrentProgress(currentProgress + 1)
+    currentProgress < STEP_LENGTH && setCurrentProgress(currentProgress + 1)
   }
 
   const handleTourModalOk = () => {
@@ -165,41 +124,21 @@ function App() {
           <Divider className="mobile-divider" />
         </section>
         <section className="content">
-          <div ref={tourRef1}>
-            <Steps current={currentProgress} items={progressItems} className="step-progress"></Steps>
-          </div>
-          <div ref={tourRef2} className="step-component">
-            {progressItems[currentProgress].component}
-          </div>
+          <OrderSteps currentProgress={currentProgress} orderForm={orderForm} setOrderForm={setOrderForm} tourRef1={tourRef1} tourRef2={tourRef2} />
           <div className="progress-btn">
             <span ref={tourRef3}>
               <Space size="middle">
                 {currentProgress === 0 || <Button onClick={handlePreviousClick}>Previous</Button>}
                 <Button type="primary" onClick={handleNextClick}>
-                  {currentProgress === progressItems.length - 1 ? 'Done' : 'Next'}
+                  {currentProgress === STEP_LENGTH ? 'Done' : 'Next'}
                 </Button>
               </Space>
             </span>
           </div>
         </section>
-        <Tour open={openTour} onClose={() => setOpenTour(false)} steps={steps} />
-        <Modal
-          closable={false}
-          centered={true}
-          title="Food Order System"
-          open={openTourModal}
-          footer={[
-            <Button type="primary" size="middle" key="ok" onClick={handleTourModalOk}>
-              Get It
-            </Button>,
-          ]}
-        >
-          <p>
-            This is a food ordering system for restaurants. You can choose the number of people, the restaurant, and the dishes you want to order. After you
-            finish the order, you can submit it and wait for the restaurant to serve you.
-          </p>
-        </Modal>
-        <GithubOutlined ref={tourRef4} className="github-icon" onClick={() => window.open(GitHubRepoAddress, '_target')} />
+        <WelcomeModal openTourModal={openTourModal} handleTourModalOk={handleTourModalOk} />
+        <WelcomeTour openTour={openTour} setOpenTour={setOpenTour} tourRef1={tourRef1} tourRef2={tourRef2} tourRef3={tourRef3} tourRef4={tourRef4} />
+        <GithubOutlined ref={tourRef4} className="github-icon" onClick={() => window.open(GITHUB_REPO_ADDRESS, '_target')} />
       </main>
     </ConfigProvider>
   )

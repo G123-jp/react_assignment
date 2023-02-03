@@ -1,11 +1,59 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Radio, Select, Input, InputNumber, Tooltip, Descriptions, Tag } from 'antd'
+import { Button, Form, Radio, Select, Input, InputNumber, Tooltip, Descriptions, Tag, Steps } from 'antd'
 import { PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import { getRestaurantsByMeal, getAvailableDishByRestaurant, generateRandomID } from '../utils'
 import { dishes } from '../../data/dishes.json'
 import SelectMealImg from '../assets/image/select-meal-img.jpg'
 import SelectResImg from '../assets/image/home-bg-mobile.png'
 
+/**
+ * order step component
+ * @param props order step component props
+ */
+export function OrderSteps(props: {
+  currentProgress: number
+  orderForm: Types.OrderForm
+  setOrderForm: React.Dispatch<React.SetStateAction<Types.OrderForm>>
+  tourRef1: React.MutableRefObject<null>
+  tourRef2: React.MutableRefObject<null>
+}) {
+  const { currentProgress, orderForm, setOrderForm, tourRef1, tourRef2 } = props
+
+  const progressItems: Types.ProgressItem[] = [
+    {
+      title: 'Select Meal',
+      component: <SelectMeal orderForm={orderForm} setOrderForm={setOrderForm} />,
+    },
+    {
+      title: 'Select Restaurant',
+      component: <SelectRestaurant orderForm={orderForm} setOrderForm={setOrderForm} />,
+    },
+    {
+      title: 'Order Details',
+      component: <OrderDetails orderForm={orderForm} setOrderForm={setOrderForm} />,
+    },
+    {
+      title: 'Confirm Order',
+      component: <ConfirmOrder orderForm={orderForm} setOrderForm={setOrderForm} />,
+    },
+  ]
+
+  return (
+    <>
+      <div ref={tourRef1}>
+        <Steps current={currentProgress} items={progressItems} className="step-progress"></Steps>
+      </div>
+      <div ref={tourRef2} className="step-component">
+        {progressItems[currentProgress].component}
+      </div>
+    </>
+  )
+}
+
+/**
+ * Step 1: Select Meal
+ * @param props step component props
+ */
 export function SelectMeal(props: Types.StepComponentProps) {
   const { orderForm, setOrderForm } = props
   const [form] = Form.useForm()
@@ -70,6 +118,10 @@ export function SelectMeal(props: Types.StepComponentProps) {
   )
 }
 
+/**
+ * Step 2: Select Restaurant
+ * @param props step component props
+ */
 export function SelectRestaurant(props: Types.StepComponentProps) {
   const { orderForm, setOrderForm } = props
   const [form] = Form.useForm()
@@ -121,6 +173,10 @@ export function SelectRestaurant(props: Types.StepComponentProps) {
   )
 }
 
+/**
+ * Step 3: Order Details
+ * @param props step component props
+ */
 export function OrderDetails(props: Types.StepComponentProps) {
   const { orderForm, setOrderForm } = props
   const [dishesOption, setDishesOption] = useState<Types.SelectOption[]>([])
@@ -280,6 +336,10 @@ export function OrderDetails(props: Types.StepComponentProps) {
   )
 }
 
+/**
+ * Step 4: Confirm Order
+ * @param props step component props
+ */
 export function ConfirmOrder(props: Types.StepComponentProps) {
   const { orderForm } = props
 
