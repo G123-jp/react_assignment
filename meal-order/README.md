@@ -26,3 +26,11 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
+
+## Run Jest Tests
+
+To run test, run the following command in this subdirectory (`meal-order` directory):
+
+```
+npm test
+```

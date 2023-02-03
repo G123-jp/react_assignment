@@ -5,7 +5,7 @@ export type Dish = {
   id: number;
   name: string;
   restaurant: string;
-  availableMeals: [];
+  availableMeals: MealType[];
 };
 
 type DishServing = { dish: Dish; numberOfServing: number };
