@@ -25,6 +25,6 @@ export function getAvailableDishByRestaurant(data: Types.DishesData[], meal: Typ
  * generate random 8 characters string
  * @returns random 8 characters string
  */
-export function generateRandomID(): string {
-  return Math.random().toString(36).slice(-8)
+export function generateRandomID(length = -8): string {
+  return Math.random().toString(36).slice(length)
 }
