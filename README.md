@@ -27,6 +27,7 @@
 ### Optional
 
 * If needed use a CSS framework, preferred `tailwindcss`
+* It would be GREAT if you can provide a live demo (via tools like Vercel, Netlify, Heroku, Gatsby or whatever you're familiar with)
 * Write Integration/Unit Tests
 
 ## Setup
